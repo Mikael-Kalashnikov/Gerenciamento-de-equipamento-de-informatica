@@ -32,7 +32,23 @@ public class ResponsavelDao extends BaseDaoImp<Responsavel> {
 		return null;
 	}
 	
-	public void deletar(Responsavel resp){}
+	public void deletar(Responsavel resp){
+        Connection con = BaseDaoImp.getConnection();
+        String rua = resp.getId();
+        String sql = "DELETE FROM responsavel WHERE id_responsavel = ?";
+        try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setLong(1, id_responsavel);
+			ps.execute();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+            BaseDaoImp.closeConnection();
+		}
+    }
+
 	public void alterar(Responsavel resp){}
 	public Cliente buscar(Responsavel resp){
 		return null;

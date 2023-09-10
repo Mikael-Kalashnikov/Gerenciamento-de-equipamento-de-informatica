@@ -26,7 +26,23 @@ public class VendasDao extends BaseDaoImp<Vendas> {
 		return null;
 	}
 	
-	public void deletar(Vendas vend){}
+	public void deletar(Vendas vend){
+        Connection con = BaseDaoImp.getConnection();
+        String rua = vend.getId();
+        String sql = "DELETE FROM vendas WHERE id_vendas = ?";
+        try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setLong(1, id_vendas);
+			ps.execute();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+            BaseDaoImp.closeConnection();
+		}
+    }
+
 	public void alterar(Vendas vend){}
 	public Cliente buscar(Vendas vend){
 		return null;

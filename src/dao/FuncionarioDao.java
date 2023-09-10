@@ -34,7 +34,23 @@ public class FuncionarioDao extends BaseDaoImp<Funcionario> {
 		return null;
 	}
 	
-	public void deletar(Funcionario func){}
+	public void deletar(Funcionario func){
+        Connection con = BaseDaoImp.getConnection();
+        String rua = func.getId();
+        String sql = "DELETE FROM funcionario WHERE id_funcionario = ?";
+        try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setLong(1, id_funcionario);
+			ps.execute();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+            BaseDaoImp.closeConnection();
+		}
+    	}
+
 	public void alterar(Funcionario func){}
 	public Cliente buscar(Funcionario func){
 		return null;
