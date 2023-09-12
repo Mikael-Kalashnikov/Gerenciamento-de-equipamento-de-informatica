@@ -8,7 +8,7 @@ public class Equipamento {
 
     public Equipamento() {}
 
-    public Equipamento(String nome, String numSerie, Double preco, int quantidade, Local local, Responsavel responsavel) {
+    public Equipamento(String nome, String numSerie, Double preco, int quantidade, Local local, Responsavel responsavel) throws Exception {
         setNome(nome);
         setNumSerie(numSerie);
         setPreco(preco);
@@ -17,11 +17,11 @@ public class Equipamento {
         setResponsavel(responsavel);
     }
 
-    public void setNome(String nome) {
+    public void setNome(String nome) throws Exception {
         if (nome != null && !nome.equals("")) {
             this.nome = nome;
         } else {
-            System.out.println("O nome do equipamento nao pode ser vazio.");
+            throw new Exception();
         }
     }
 
@@ -29,11 +29,11 @@ public class Equipamento {
         return this.nome;
     }
 
-    public void setNumSerie(String numSerie) {
+    public void setNumSerie(String numSerie) throws Exception {
         if (numSerie != null && !numSerie.equals("")) {
             this.numSerie = numSerie;
         } else {
-            System.out.println("O número de série do equipamento nao pode ser vazio.");
+            throw new Exception();
         }
     }
 
@@ -41,11 +41,11 @@ public class Equipamento {
         return this.numSerie;
     }
 
-    public void setPreco(Double preco) {
+    public void setPreco(Double preco) throws Exception {
         if (preco != null && preco >= 0) {
             this.preco = preco;
         } else {
-            System.out.println("O preço do equipamento nao pode ser negativo.");
+            throw new Exception();
         }
     }
 
@@ -53,11 +53,11 @@ public class Equipamento {
         return this.preco;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(int quantidade) throws Exception {
         if (quantidade >= 0) {
             this.quantidade = quantidade;
         } else {
-            System.out.println("A quantidade do equipamento nao pode ser negativa.");
+            throw new Exception();
         }
     }
 
@@ -65,16 +65,22 @@ public class Equipamento {
         return this.quantidade;
     }
 
-    public void setLocal(Local local) {
-        this.local = local;
+    public void setLocal(Local local) throws Exception {
+        if (local != null)
+            this.local = local;
+        else
+            throw new Exception();
     }
 
     public Local getLocal() {
         return this.local;
     }
 
-    public void setResponsavel(Responsavel responsavel) {
-        this.responsavel = responsavel;
+    public void setResponsavel(Responsavel responsavel) throws Exception {
+        if (responsavel != null)
+            this.responsavel = responsavel;
+        else
+            throw new Exception();
     }
 
     public Responsavel getResponsavel() {

@@ -1,20 +1,21 @@
 public class Funcionario extends Usuario {
-	private Double salario;
+	private double salario;
 	
 	public Funcionario() {}
 	
-	public Funcionario(String login, String senha) {
+	public Funcionario(String login, String senha, double Salario) throws Exception {
 		super(login, senha);
+		setSalario(salario);
 	}
 	
-	public void setSalario(Double salario) {
+	public void setSalario(double salario) throws Exception {
 		if (salario > 0)
 			this.salario = salario;
 		else
-			System.out.println("O valor de um salário não pode ser nulo ou negativo.");
+			throw new Exception();
 	}
 	
-	public Double getSalario() {
+	public double getSalario() {
 		return this.salario;
 	}
 	

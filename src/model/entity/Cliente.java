@@ -4,38 +4,38 @@
 	private String cpf;
 	
 	public Cliente() {}
-	public Cliente(String nome, String cpf) {
+	public Cliente(String nome, String cpf) throws Exception {
 		setNome(nome);
 		setCpf(cpf);
 	}
 	
-	public void setNome(String nome) {
+	public void setNome(String nome) throws Exception {
 		if (nome != null && nome != "")
 			this.nome = nome;
 		else
-			System.out.println("Digite um nome válido.");
+			throw new Exception();
 	}
 	
 	public String getNome() {
 		return this.nome;
 	}
 	
-	public void setEndereco(String endereco) {
+	public void setEndereco(String endereco) throws Exception {
 		if (endereco != null && endereco != "")
 			this.endereco = endereco;
 		else
-			System.out.println("Digite um endereço válido.");
+			throw new Exception();
 	}
 	
 	public String getEndereco() {
 		return this.endereco;
 	}
 	
-	public void setCpf(String cpf) {
+	public void setCpf(String cpf) throws Exception {
 		if (cpf != null && cpf != "" && cpf.length() == 11)
 			this.cpf = endereco;
 		else
-			System.out.println("Digite um cpf válido.");
+			throw new Exception();
 	}
 	
 	public String getCpf() {

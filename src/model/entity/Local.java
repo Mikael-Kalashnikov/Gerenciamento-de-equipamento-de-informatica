@@ -4,16 +4,16 @@ public class Local {
 
     public Local() {}
 	
-    public Local(String nome, String nomeCompartimento) {
+    public Local(String nome, String nomeCompartimento) throws Exception {
         setNome(nome);
         setNomeCompartimento(nomeCompartimento);
     }
 
-    public void setNome(String nome) {
+    public void setNome(String nome) throws Exception {
         if (nome != null && !nome.equals("")) {
             this.nome = nome;
         } else {
-            System.out.println("Nome do local nao pode ser vazio.");
+            throw new Exception();
         }
     }
 
@@ -21,11 +21,11 @@ public class Local {
         return this.nome;
     }
 
-    public void setNomeCompartimento(String nomeCompartimento) {
+    public void setNomeCompartimento(String nomeCompartimento) throws Exception {
         if (nomeCompartimento != null && !nomeCompartimento.equals("")) {
             this.nomeCompartimento = nomeCompartimento;
         } else {
-            System.out.println("Nome do compartimento nao pode ser vazio.");
+            throw new Exception();
         }
     }
 

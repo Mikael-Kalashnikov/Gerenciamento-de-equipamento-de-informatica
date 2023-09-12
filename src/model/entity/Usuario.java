@@ -7,60 +7,60 @@
 	
 	public Usuario() {}
 	
-	public Usuario(String login, String senha) {
+	public Usuario(String login, String senha) throws Exception {
 		setLogin(login);
 		setSenha(senha);
 	}
 	
-	public void setNome(String nome) {
+	public void setNome(String nome) throws Exception {
 		if (nome != null && nome != "")
 			this.nome = nome;
 		else
-			System.out.println("Digite um nome válido.");
+			throw new Exception();
 	}
 	
 	public String getNome() {
 		return this.nome;
 	}
 	
-	public void setLogin(String login) {
+	public void setLogin(String login) throws Exception {
 		if (login != null && login != "")
 			this.login = login;
 		else
-			System.out.println("Digite um login válido.");
+			throw new Exception();
 	}
 	
 	public String getLogin() {
 		return this.login;
 	}
 	
-	public void setSenha(String senha) {
+	public void setSenha(String senha) throws Exception {
 		if (senha != null && senha != "")
 			this.senha = senha;
 		else
-			System.out.println("Digite uma senha válida.");
+			throw new Exception();
 	}
 	
 	public String getSenha() {
 		return this.senha;
 	}
 	
-	public void setEndereco(String endereco) {
+	public void setEndereco(String endereco) throws Exception {
 		if (endereco != null && endereco != "")
 			this.endereco = endereco;
 		else
-			System.out.println("Digite um endereço válido.");
+			throw new Exception();
 	}
 	
 	public String getEndereco() {
 		return this.endereco;
 	}
 	
-	public void setTelefone(String telefone) {
+	public void setTelefone(String telefone) throws Exception {
 		if (telefone != null && telefone != "")
 			this.telefone = telefone;
 		else
-			System.out.println("Digite um telefone válido.");
+			throw new Exception();
 	}
 	
 	public String getTelefone() {
