@@ -1,8 +1,9 @@
-package dao;
+package br.edu.ufersa.MinhaCasaTech.src.dao;
 
 import java.sql.*;
-import model.entity.Responsavel;
 import java.util.List;
+import br.edu.ufersa.MinhaCasaTech.src.model.entity.Responsavel;
+import java.util.ArrayList;
 
 public class ResponsavelDao extends BaseDaoImp<Responsavel> {
 	
@@ -34,11 +35,11 @@ public class ResponsavelDao extends BaseDaoImp<Responsavel> {
 	
 	public void deletar(Responsavel resp){
         Connection con = BaseDaoImp.getConnection();
-        String rua = resp.getId();
+        //String rua = resp.getId();
         String sql = "DELETE FROM responsavel WHERE id_responsavel = ?";
         try {
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setLong(1, id_responsavel);
+			//ps.setLong(1, id_responsavel);
 			ps.execute();
 			ps.close();
 		} catch (SQLException e) {
@@ -60,7 +61,7 @@ public class ResponsavelDao extends BaseDaoImp<Responsavel> {
             ps.setString(3, func.getSenha());
             ps.setString(4, func.getEndereco());
             ps.setString(5, func.getTelefone());
-            ps.setLong(6, func.getId());
+            //ps.setLong(6, func.getId());
 			ps.execute();
 			ps.close();
 		} catch (SQLException e) {
@@ -77,12 +78,12 @@ public class ResponsavelDao extends BaseDaoImp<Responsavel> {
         Responsavel responsavel = null;
         try {
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setLong(1, func.getId());
+			//ps.setLong(1, func.getId());
 			ps.execute();
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 responsavel = new Responsavel();
-                responsavel.setId(rs.getLong(1));
+               //responsavel.setId(rs.getLong(1));
                 responsavel.setNome(rs.getString(2));
                 responsavel.setLogin(rs.getString(3));
                 responsavel.setEndereco(rs.getString(4));
@@ -90,7 +91,9 @@ public class ResponsavelDao extends BaseDaoImp<Responsavel> {
             }
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} catch (Exception e) {
+            e.printStackTrace();
+        }
 		finally {
             BaseDaoImp.closeConnection();
 		}
@@ -105,8 +108,8 @@ public class ResponsavelDao extends BaseDaoImp<Responsavel> {
 			PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Responsavel func = new Responsavel(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
-                lista.add(func);
+                //Responsavel func = new Responsavel(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+                //lista.add(func);
             }
 		} catch (SQLException e) {
 			e.printStackTrace();

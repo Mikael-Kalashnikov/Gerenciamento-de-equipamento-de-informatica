@@ -1,3 +1,5 @@
+package br.edu.ufersa.MinhaCasaTech.src.model.entity;
+
 public class Equipamento {
     private String nome;
     private String numSerie;
@@ -7,14 +9,17 @@ public class Equipamento {
     private Responsavel responsavel;
 
     public Equipamento() {}
-
-    public Equipamento(String nome, String numSerie, Double preco, int quantidade, Local local, Responsavel responsavel) throws Exception {
-        setNome(nome);
-        setNumSerie(numSerie);
-        setPreco(preco);
-        setQuantidade(quantidade);
-        setLocal(local);
-        setResponsavel(responsavel);
+    public Equipamento(String nome, String numSerie, Double preco, int quantidade, Local local, Responsavel responsavel) {
+        try {
+            setNome(nome);
+            setNumSerie(numSerie);
+            setPreco(preco);
+            setQuantidade(quantidade);
+            setLocal(local);
+            setResponsavel(responsavel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void setNome(String nome) throws Exception {

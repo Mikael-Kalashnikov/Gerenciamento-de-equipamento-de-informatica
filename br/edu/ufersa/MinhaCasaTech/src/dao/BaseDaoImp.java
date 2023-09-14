@@ -1,4 +1,4 @@
-package dao;
+package br.edu.ufersa.MinhaCasaTech.src.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,22 +1,26 @@
-package dao;
+package br.edu.ufersa.MinhaCasaTech.src.dao;
 
 import java.sql.*;
-import model.entity.Endereco;
 import java.util.List;
 import java.util.ArrayList;
+import br.edu.ufersa.MinhaCasaTech.src.model.entity.Endereco;
 
 public class EnderecoDao extends BaseDaoImp<Endereco> {
 	
 	public Long inserir(Endereco end) {
 		Connection con = BaseDaoImp.getConnection();
 		String sql = "INSERT INTO endereco (rua, numero) values (?, ?)";
-		String rua = end.getRua();
+		Long id = null;
+        String rua = end.getRua();
 		int numero = end.getNumero();
 		try {
-			PreparedStatement ps = con.prepareStatement(sql);
+			PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, rua);
 			ps.setInt(2, numero);
 			ps.execute();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next())
+                id = rs.getLong("id_endereco");
 			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -24,16 +28,16 @@ public class EnderecoDao extends BaseDaoImp<Endereco> {
 		finally {
             BaseDaoImp.closeConnection();
 		}
-		return null;
+		return id;
 	}
 	
 	public void deletar(Endereco end) {
         Connection con = BaseDaoImp.getConnection();
-        String rua = end.getRua();
-        String sql = "DELETE FROM endereco WHERE rua = ?";
+        Long id = end.getId();
+        String sql = "DELETE FROM endereco WHERE id_endereco = ?";
         try {
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, rua);
+			ps.setLong(1, id);
 			ps.execute();
 			ps.close();
 		} catch (SQLException e) {
@@ -72,14 +76,14 @@ public class EnderecoDao extends BaseDaoImp<Endereco> {
 			ps.execute();
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                endereco = new Endereco();
+                endereco = new Endereco(rs.getString(2), rs.getInt(3));
                 endereco.setId(rs.getLong(1));
-                endereco.setRua(rs.getString(2));
-                endereco.setNumero(rs.getInt(3));
             }
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} catch (Exception e) {
+            e.printStackTrace();
+        }
 		finally {
             BaseDaoImp.closeConnection();
 		}
@@ -94,12 +98,15 @@ public class EnderecoDao extends BaseDaoImp<Endereco> {
 			PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Endereco end = new Endereco(rs.getLong(1), rs.getString(2), rs.getInt(3));
+                Endereco end = new Endereco(rs.getString(2), rs.getInt(3));
+                end.setId(rs.getLong(1));
                 lista.add(end);
             }
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} catch (Exception e) {
+            e.printStackTrace();
+        }
 		finally {
             BaseDaoImp.closeConnection();
 		}

@@ -1,8 +1,9 @@
-package dao;
+package br.edu.ufersa.MinhaCasaTech.src.dao;
 
 import java.sql.*;
-import model.entity.Equipamento;
+import java.util.ArrayList;
 import java.util.List;
+import br.edu.ufersa.MinhaCasaTech.src.model.entity.Equipamento;
 
 public class EquipamentoDao extends BaseDaoImp<Equipamento> {
 	
@@ -10,13 +11,9 @@ public class EquipamentoDao extends BaseDaoImp<Equipamento> {
 		Connection con = BaseDaoImp.getConnection();
 		String sql = "INSERT INTO equipamento (nome, endereco, cpf) values (?, ?, ?)";
 		String nome = eq.getNome();
-		String endereco = eq.getEndereco();
-		String cpf = eq.getCpf();
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, nome);
-			ps.setString(2, endereco);
-			ps.setString(3, cpf);
 			ps.execute();
 			ps.close();
 		} catch (SQLException e) {
@@ -30,11 +27,9 @@ public class EquipamentoDao extends BaseDaoImp<Equipamento> {
 	
 	public void deletar(Equipamento eq){
         Connection con = BaseDaoImp.getConnection();
-        String rua = eq.getId();
         String sql = "DELETE FROM equipamento WHERE id_equipamento = ?";
         try {
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setLong(1, id_equipamento);
 			ps.execute();
 			ps.close();
 		} catch (SQLException e) {
@@ -50,10 +45,8 @@ public class EquipamentoDao extends BaseDaoImp<Equipamento> {
         String sql = "UPDATE equipamento SET nome = ?, endereco = ?, cpf = ? WHERE id_equipamento = ?";
         try {
 			PreparedStatement ps = con.prepareStatement(sql);
-            			ps.setString(1, eq.getNome());
-            ps.setString(2, eq.getEndereco());
-            ps.setString(3, eq.getCpf());
-            ps.setLong(4, eq.getId());
+            ps.setString(1, eq.getNome());
+            
 			ps.execute();
 			ps.close();
 		} catch (SQLException e) {
@@ -69,15 +62,12 @@ public class EquipamentoDao extends BaseDaoImp<Equipamento> {
         Equipamento equipamento = null;
         try {
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setLong(1, eq.getId());
+			//ps.setLong(1, eq.getId());
 			ps.execute();
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 equipamento = new Equipamento();
-                equipamento.setId(rs.getLong(1));
-                equipamento.setNome(rs.getString(2));
-                equipamento.setEndereco(rs.getString(3));
-                equipamento.setCpf(rs.getString(4));
+                
             }
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -95,8 +85,8 @@ public class EquipamentoDao extends BaseDaoImp<Equipamento> {
 			PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Equipamento eq = new Equipamento(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4));
-                lista.add(eq);
+                //Equipamento eq = new Equipamento(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4));
+                //lista.add(eq);
             }
 		} catch (SQLException e) {
 			e.printStackTrace();

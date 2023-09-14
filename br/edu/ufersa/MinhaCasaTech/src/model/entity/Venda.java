@@ -1,10 +1,17 @@
-public class Vendas {
+package br.edu.ufersa.MinhaCasaTech.src.model.entity;
+
+public class Venda {
     private Cliente cliente;
     private Equipamento[] equipamentos;
 
-    public Vendas(Cliente cliente, Equipamento[] equipamentos) throws Exception {
-        setCliente(cliente);
-        setEquipamentos(equipamentos);
+    public Venda() {}
+    public Venda(Cliente cliente, Equipamento[] equipamentos) {
+        try {
+            setCliente(cliente);
+            setEquipamentos(equipamentos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Cliente getCliente() {

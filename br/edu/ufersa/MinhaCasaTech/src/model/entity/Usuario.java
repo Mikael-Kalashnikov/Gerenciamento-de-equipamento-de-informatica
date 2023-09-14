@@ -1,4 +1,6 @@
-﻿public abstract class Usuario {
+﻿package br.edu.ufersa.MinhaCasaTech.src.model.entity;
+
+public abstract class Usuario {
 	private String nome;
 	private String login;
 	private String senha;
@@ -7,9 +9,13 @@
 	
 	public Usuario() {}
 	
-	public Usuario(String login, String senha) throws Exception {
-		setLogin(login);
-		setSenha(senha);
+	public Usuario(String login, String senha) {
+		try {
+            setLogin(login);
+            setSenha(senha);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 	
 	public void setNome(String nome) throws Exception {
@@ -65,17 +71,5 @@
 	
 	public String getTelefone() {
 		return this.telefone;
-	}
-	
-	public boolean verificaLogin(String login, String senha) {
-		if (this.login == login && this.senha == senha) {
-			System.out.println("Login realizado com sucesso.");
-			return true;
-		}
-		else
-		{
-			System.out.println("Login ou senha incorretos.");
-			return false;
-		}
-	}
+	}	
 }

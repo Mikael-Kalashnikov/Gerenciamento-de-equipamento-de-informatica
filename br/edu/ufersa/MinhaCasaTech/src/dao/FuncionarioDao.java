@@ -1,8 +1,9 @@
-package dao;
+package br.edu.ufersa.MinhaCasaTech.src.dao;
 
 import java.sql.*;
-import model.entity.Funcionario;
 import java.util.List;
+import java.util.ArrayList;
+import br.edu.ufersa.MinhaCasaTech.src.model.entity.Funcionario;
 
 public class FuncionarioDao extends BaseDaoImp<Funcionario> {
 	
@@ -14,7 +15,7 @@ public class FuncionarioDao extends BaseDaoImp<Funcionario> {
 		String senha = func.getSenha();
 		String endereco = func.getEndereco();
 		String telefone = func.getTelefone();
-		String salario = func.getSalario();
+		//String salario = func.getSalario();
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, nome);
@@ -22,7 +23,7 @@ public class FuncionarioDao extends BaseDaoImp<Funcionario> {
 			ps.setString(3, senha);
 			ps.setString(4, endereco);
 			ps.setString(5, telefone);
-			ps.setString(6, salario);
+			//ps.setString(6, salario);
 			ps.execute();
 			ps.close();
 		} catch (SQLException e) {
@@ -36,11 +37,11 @@ public class FuncionarioDao extends BaseDaoImp<Funcionario> {
 	
 	public void deletar(Funcionario func){
         Connection con = BaseDaoImp.getConnection();
-        String rua = func.getId();
+        //String rua = func.getId();
         String sql = "DELETE FROM funcionario WHERE id_funcionario = ?";
         try {
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setLong(1, id_funcionario);
+			//ps.setLong(1, id_funcionario);
 			ps.execute();
 			ps.close();
 		} catch (SQLException e) {
@@ -61,8 +62,8 @@ public class FuncionarioDao extends BaseDaoImp<Funcionario> {
             ps.setString(3, func.getSenha());
             ps.setString(4, func.getEndereco());
             ps.setString(5, func.getTelefone());
-            ps.setLong(6, func.getSalario());
-            ps.setLong(7, func.getId());
+            //ps.setLong(6, func.getSalario());
+            //ps.setLong(7, func.getId());
 			ps.execute();
 			ps.close();
 		} catch (SQLException e) {
@@ -78,21 +79,23 @@ public class FuncionarioDao extends BaseDaoImp<Funcionario> {
         Funcionario funcionario = null;
         try {
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setLong(1, func.getId());
+			//ps.setLong(1, func.getId());
 			ps.execute();
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 funcionario = new Funcionario();
-                funcionario.setId(rs.getLong(1));
+                //funcionario.setId(rs.getLong(1));
                 funcionario.setNome(rs.getString(2));
                 funcionario.setLogin(rs.getString(3));
                 funcionario.setEndereco(rs.getString(4));
                 funcionario.setTelefone(rs.getString(5));
-                funcionario.setSalario(rs.getString(6));
+                //funcionario.setSalario(rs.getString(6));
             }
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} catch (Exception e) {
+            e.printStackTrace();
+        }
 		finally {
             BaseDaoImp.closeConnection();
 		}
@@ -106,8 +109,8 @@ public class FuncionarioDao extends BaseDaoImp<Funcionario> {
 			PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Funcionario func = new Funcionario(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
-                lista.add(func);
+                //Funcionario func = new Funcionario(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
+                //lista.add(func);
             }
 		} catch (SQLException e) {
 			e.printStackTrace();
