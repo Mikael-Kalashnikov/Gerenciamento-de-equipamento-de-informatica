@@ -1,8 +1,10 @@
-package view;
+package br.edu.ufersa.minhacasatech.view;
 
+import br.edu.ufersa.minhacasatech.model.entity.Responsavel;
+import br.edu.ufersa.minhacasatech.model.entity.Usuario;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -10,15 +12,20 @@ public class TelaLogin extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Scene scene = FXMLLoader.load(getClass().getResource("ve/tela_login.fxml"));
-        
+        Parent root = FXMLLoader.load(getClass().getResource("/br/edu/ufersa/minhacasatech/view/ve/tela_login.fxml"));
+	Scene cena = new Scene(root);
+	
         stage.setTitle("Sistema MinhaCasaTech");
-        stage.setScene(scene);
+        stage.setScene(cena);
         stage.show();
     }
     
     public static void main(String[] args) {
-        launch(args);
+	Usuario kanalense = new Responsavel();
+	kanalense.setLogin("kanalense");
+	kanalense.setSenha("kanalense123");
+	
+	launch(args);
     }
     
 }

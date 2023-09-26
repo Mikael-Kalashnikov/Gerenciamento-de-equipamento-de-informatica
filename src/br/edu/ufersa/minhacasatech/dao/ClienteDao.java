@@ -1,67 +1,65 @@
-package br.edu.ufersa.MinhaCasaTech.src.dao;
+package br.edu.ufersa.minhacasatech.dao;
 
+import br.edu.ufersa.minhacasatech.exception.InvalidInsertException;
+import br.edu.ufersa.minhacasatech.model.entity.Cliente;
+import br.edu.ufersa.minhacasatech.model.entity.Endereco;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import br.edu.ufersa.MinhaCasaTech.src.model.entity.Cliente;
-import br.edu.ufersa.MinhaCasaTech.src.model.entity.Endereco;
 
-public class ClienteDao extends BaseDaoImp<Cliente> {
-	
-	public Long inserir(Cliente cli) {
-		Connection con = BaseDaoImp.getConnection();
-		String sql = "INSERT INTO cliente (nome, cpf, endereco) values (?, ?, ?)";
-        Long id = null;
-		String nome = cli.getNome();
-        String cpf = cli.getCpf();
-		Long id_endereco = cli.getEndereco().getId();
-
-        // verifica se o endereco do cliente ja existe
-        EnderecoDao endao = new EnderecoDao();
-        if (id_endereco == null || endao.buscar(cli.getEndereco()) == null) {
-            id_endereco = endao.inserir(cli.getEndereco());
-            con = BaseDaoImp.getConnection();
-        }
-
-		try {
-            PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-			ps.setString(1, nome);
-			ps.setString(2, cpf);
-            ps.setLong(3, id_endereco);
-			ps.execute();
-            ResultSet rs = ps.getGeneratedKeys();
-            rs.next();
-            id = rs.getLong("id_cliente");
-            ps.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
+public class ClienteDAO extends BaseDAOImp<Cliente> {
+    
+    @Override
+    public Long inserir(Cliente cli) {
+	String sql = "INSERT INTO cliente (nome, cpf, endereco) values (?, ?, ?)";
+	Long id = null;
+	try {
+	    Connection con = BaseDAOImp.getConnection();
+	    // verifica se o endereco do cliente ja existe
+	    EnderecoDAO endao = new EnderecoDAO();
+	    Endereco end = new Endereco();
+	    end.setId(cli.getEndereco().getId());
+	    end = endao.buscar(end);
+	    if (end != null) {
+		PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+		ps.setString(1, cli.getNome());
+		ps.setString(2, cli.getCpf());
+		ps.setLong(3, cli.getEndereco().getId());
+		ps.execute();
+		ResultSet rs = ps.getGeneratedKeys();
+		if (rs.next()) {
+		    id = rs.getLong(1);
 		}
-		finally {
-            BaseDaoImp.closeConnection();
-		}
-        return id;
+	    }
+	    else {
+		throw new InvalidInsertException("Cliente");
+	    }
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	} catch (Exception e) {
+	    e.printStackTrace();
 	}
+	return id;
+    }
 
+	@Override
 	public void deletar(Cliente cli){
-        Connection con = BaseDaoImp.getConnection();
+        Connection con = BaseDAOImp.getConnection();
         String sql = "DELETE FROM cliente WHERE id_cliente = ?";
         try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setLong(1, cli.getId());
 			ps.execute();
-			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		finally {
-            BaseDaoImp.closeConnection();
-		}
     }
 
+	@Override
 	public void alterar(Cliente cli)  {
-        Connection con = BaseDaoImp.getConnection();
+        Connection con = BaseDAOImp.getConnection();
         String sql = "UPDATE cliente SET nome = ?, endereco = ?, cpf = ? WHERE id_cliente = ?";
-        EnderecoDao endao = new EnderecoDao();
+        EnderecoDAO endao = new EnderecoDAO();
 
         if (endao.buscar(cli.getEndereco()) != null) {
             try {
@@ -71,21 +69,15 @@ public class ClienteDao extends BaseDaoImp<Cliente> {
                 ps.setString(3, cli.getCpf());
                 ps.setLong(4, cli.getId());
                 ps.execute();
-                ps.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            finally {
-                BaseDaoImp.closeConnection();
-            }
-        }
-        else {
-            System.out.println("Não é possível atualizar um cliente com endereco que não existe");
         }
     }
 
+	@Override
 	public Cliente buscar(Cliente cli){
-		Connection con = BaseDaoImp.getConnection();
+		Connection con = BaseDAOImp.getConnection();
         String sql = "SELECT * FROM cliente WHERE id_cliente = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -94,7 +86,7 @@ public class ClienteDao extends BaseDaoImp<Cliente> {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 // pega endereco correspondente
-                EnderecoDao endao = new EnderecoDao();
+                EnderecoDAO endao = new EnderecoDAO();
                 Endereco end = new Endereco();
                 end.setId(rs.getLong("endereco"));
                 end = endao.buscar(end);
@@ -103,35 +95,44 @@ public class ClienteDao extends BaseDaoImp<Cliente> {
                 cli = new Cliente(rs.getString("nome"), rs.getString("cpf"), end);
                 cli.setId(rs.getLong(1));
             }
-            ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        finally {
-            BaseDaoImp.closeConnection();
-        }
-		return cli;
-	}
+	return cli;
+    }
 
-	public List<Cliente> listar(){
-		Connection con = BaseDaoImp.getConnection();
-        String sql = "SELECT * FROM cliente";
-        List<Cliente> lista = new ArrayList<>();
-        try {
-			PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                //Cliente cli = new Cliente(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4));
-                //lista.add(cli);
-            }
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		finally {
-            BaseDaoImp.closeConnection();
-		}
-		return lista;
+    @Override
+    public List<Cliente> listar(){
+	String sql = "SELECT * FROM cliente";
+	List<Cliente> lista = new ArrayList<>();
+	Endereco end;
+	EnderecoDAO endao = new EnderecoDAO();
+	try {
+	    Connection con = BaseDAOImp.getConnection();
+	    PreparedStatement ps = con.prepareStatement(sql);
+	    ResultSet rs = ps.executeQuery();
+	    while (rs.next()) {
+		// Instancia um novo endereco e atribui o id atrelado ao cliente
+		end = new Endereco();
+		end.setId(rs.getLong(4));
+		
+		// Busca o endereco completo no banco
+		end = endao.buscar(end);
+		
+		// Instancia um novo objeto cliente com o endereco associado
+		Cliente cli = new Cliente(rs.getString(2), rs.getString(3), end);
+		cli.setId(rs.getLong(1));
+		
+		// Adiciona o cliente na lista
+		lista.add(cli);
+	    }
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	} catch (Exception e) {
+	    e.printStackTrace();
 	}
+	return lista;
+    }
 }

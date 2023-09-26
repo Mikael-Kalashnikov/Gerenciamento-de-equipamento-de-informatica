@@ -1,4 +1,4 @@
-package br.edu.ufersa.MinhaCasaTech.src.model.entity;
+package br.edu.ufersa.minhacasatech.model.entity;
 
 public class Local {
     private Long id;
@@ -8,32 +8,38 @@ public class Local {
     public Local() {}
 	
     public Local(String nome, String nomeCompartimento) {
-        try {
-            setNome(nome);
-            setNomeCompartimento(nomeCompartimento);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+	setNome(nome);
+	setNomeCompartimento(nomeCompartimento);
     }
 
-    public void setNome(String nome) throws Exception {
-        if (nome != null && !nome.equals("")) {
-            this.nome = nome;
-        } else {
-            throw new Exception();
-        }
+    public void setNome(String nome) {
+        try {
+	    if (nome != null && !nome.isEmpty()) {
+		this.nome = nome;
+	    }
+	    else {
+		throw new Exception();
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
     }
 
     public String getNome() {
         return this.nome;
     }
 
-    public void setNomeCompartimento(String nomeCompartimento) throws Exception {
-        if (nomeCompartimento != null && !nomeCompartimento.equals("")) {
-            this.nomeCompartimento = nomeCompartimento;
-        } else {
-            throw new Exception();
-        }
+    public void setNomeCompartimento(String nomeCompartimento) {
+        try {
+	    if (nomeCompartimento != null && !nomeCompartimento.isEmpty()) {
+		this.nomeCompartimento = nomeCompartimento;
+	    }
+	    else {
+		throw new Exception();
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
     }
 
     public String getNomeCompartimento() {
@@ -44,14 +50,21 @@ public class Local {
         return id;
     }
 
-    public void setId(Long id) throws Exception {
-        if (id > 0)
-            this.id = id;
-        else throw new Exception();
+    public void setId(Long id) {
+        try {
+	    if (id > 0) {
+		this.id = id;
+	    }
+	    else {
+		throw new Exception();
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
     }
 
+    @Override
     public String toString() {
         return "ID: " + id + " | Nome: " + nome + " | Compartimento: " + nomeCompartimento;
     }
-
 }
