@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: blue;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="59.0" prefWidth="600.0" style="-fx-background-color: white;">
+         <children>
+            <ImageView fitHeight="47.0" fitWidth="124.0" layoutX="2.0" layoutY="4.0">
+               <image>
+                  <Image url="@../Imagens/Screenshots/Captura%20de%20tela%202023-09-25%20210432.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="30.0" layoutX="561.0" layoutY="13.0">
+               <image>
+                  <Image url="@../../Downloads/icons8-exit-50%204.png" />
+               </image>
+            </ImageView>
+            <SplitPane layoutX="126.0" prefHeight="59.0" prefWidth="100.0" style="-fx-background-color: white;">
+               <items>
+                  <Text fill="#3a5fcd" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipamentos" />
+               </items>
+            </SplitPane>
+            <SplitPane layoutX="226.0" prefHeight="59.0" prefWidth="68.0" style="-fx-background-color: white;">
+               <items>
+                  <Text fill="#3a5fcd" strokeType="OUTSIDE" strokeWidth="0.0" text="Vendas" textAlignment="CENTER" wrappingWidth="66.47900390625" />
+               </items>
+            </SplitPane>
+            <SplitPane layoutX="295.0" prefHeight="59.0" prefWidth="21.0" style="-fx-background-color: white;">
+               <items>
+                  <Text fill="#3a5fcd" strokeType="OUTSIDE" strokeWidth="0.0" text="Locais" textAlignment="CENTER" wrappingWidth="64.40771484375" />
+               </items>
+            </SplitPane>
+            <SplitPane layoutX="362.0" prefHeight="59.0" prefWidth="21.0" style="-fx-background-color: white;">
+               <items>
+                  <Text fill="#3a5fcd" strokeType="OUTSIDE" strokeWidth="0.0" text="Clientes" textAlignment="CENTER" wrappingWidth="64.40771484375" />
+               </items>
+            </SplitPane>
+            <SplitPane layoutX="429.0" prefHeight="59.0" prefWidth="21.0" style="-fx-background-color: white;">
+               <items>
+                  <Text fill="#3a5fcd" strokeType="OUTSIDE" strokeWidth="0.0" text="Funcionários" textAlignment="CENTER" wrappingWidth="87.40771484375" />
+               </items>
+            </SplitPane>
+         </children>
+      </Pane>
+      <Pane layoutY="375.0" prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: white;">
+         <children>
+            <Text fill="#3a5fcd" layoutX="334.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Copyright © 2023 - Todos os direitos reservados">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <ImageView fitHeight="257.0" fitWidth="514.0" layoutX="34.0" layoutY="83.0">
+         <image>
+            <Image url="@../../Downloads/Captura_de_tela_2023-09-25_210328-removebg-preview.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>
