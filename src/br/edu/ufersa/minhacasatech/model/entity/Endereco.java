@@ -1,4 +1,4 @@
-package br.edu.ufersa.MinhaCasaTech.src.model.entity;
+package br.edu.ufersa.minhacasatech.model.entity;
 
 public class Endereco {
     private Long id;
@@ -8,44 +8,62 @@ public class Endereco {
     public Endereco(){}
 
     public Endereco(String rua, int numero) {
-        try {
-            setRua(rua);
-            setNumero(numero);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+	setRua(rua);
+	setNumero(numero);
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) throws Exception {
-        if (id > 0)
-            this.id = id;
-        else throw new Exception();
+    public void setId(Long id) {
+        try {
+	    if (id > 0) {
+		this.id = id;
+	    }
+	    else {
+		throw new Exception();
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
     }
 
     public String getRua() {
         return rua;
     }
 
-    public void setRua(String rua) throws Exception {
-        if (rua != null && !rua.isEmpty())
-            this.rua = rua;
-        else throw new Exception();
+    public void setRua(String rua) {
+        try {
+	    if (rua != null && !rua.isEmpty()) {
+		this.rua = rua;
+	    }
+	    else {
+		throw new Exception();
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
     }
 
     public int getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) throws Exception {
-        if (numero > 0)
-            this.numero = numero;
-        else throw new Exception();
+    public void setNumero(int numero) {
+        try {
+	    if (numero > 0) {
+		this.numero = numero;
+	    }
+	    else {
+		throw new Exception();
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
     }
-
+    
+    @Override
     public String toString() {
         return rua + ", " + numero;
     }

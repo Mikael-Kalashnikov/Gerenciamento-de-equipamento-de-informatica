@@ -1,15 +1,15 @@
-package br.edu.ufersa.MinhaCasaTech.src.model.entity;
+package br.edu.ufersa.minhacasatech.model.entity;
 
 public class Equipamento {
     private String nome;
     private String numSerie;
-    private Double preco;
+    private double preco;
     private int quantidade;
     private Local local;
     private Responsavel responsavel;
 
     public Equipamento() {}
-    public Equipamento(String nome, String numSerie, Double preco, int quantidade, Local local, Responsavel responsavel) {
+    public Equipamento(String nome, String numSerie, double preco, int quantidade, Local local, Responsavel responsavel) {
         try {
             setNome(nome);
             setNumSerie(numSerie);
@@ -35,7 +35,7 @@ public class Equipamento {
     }
 
     public void setNumSerie(String numSerie) throws Exception {
-        if (numSerie != null && !numSerie.equals("")) {
+        if (numSerie != null && !numSerie.isEmpty()) {
             this.numSerie = numSerie;
         } else {
             throw new Exception();
@@ -46,15 +46,15 @@ public class Equipamento {
         return this.numSerie;
     }
 
-    public void setPreco(Double preco) throws Exception {
-        if (preco != null && preco >= 0) {
+    public void setPreco(double preco) throws Exception {
+        if (preco >= 0) {
             this.preco = preco;
         } else {
             throw new Exception();
         }
     }
 
-    public Double getPreco() {
+    public double getPreco() {
         return this.preco;
     }
 

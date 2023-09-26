@@ -1,11 +1,13 @@
-package br.edu.ufersa.MinhaCasaTech.src.dao;
+package br.edu.ufersa.minhacasatech.dao;
 
 import java.util.List;
 
-public interface BaseDao<E> {
-	public Long inserir(E entity);
-	public void deletar(E entity);
-	public void alterar(E entity);
-	public E buscar(E entity);
-	public List<E> listar();
+public interface BaseDAO<Entity> {
+    
+    public Long inserir(Entity e);
+    public void deletar(Entity e);
+    public void alterar(Entity e);
+    public Entity buscar(Entity e);
+    public List<Entity> listar();
+    
 }
