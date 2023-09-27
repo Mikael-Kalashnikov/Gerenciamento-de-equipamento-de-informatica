@@ -1,14 +1,11 @@
 package br.edu.ufersa.minhacasatech.controller;
 
 import br.edu.ufersa.minhacasatech.model.entity.Usuario;
+import br.edu.ufersa.minhacasatech.view.Telas;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 public class FrontController {
     
@@ -16,8 +13,7 @@ public class FrontController {
     @FXML private PasswordField senha;
     @FXML private DialogPane erroAutenticar;
     
-    @FXML
-    private void autenticar(ActionEvent event) {
+    public void autenticar(ActionEvent event) throws IOException {
 	Usuario usu = new Usuario();
 	usu.setLogin(login.getText());
 	usu.setSenha(senha.getText());
@@ -27,6 +23,7 @@ public class FrontController {
 	
 	if (loginUsu.equals("kanalense") && senhaUsu.equals("kanalense123") || loginUsu.equals("toinho") && senhaUsu.equals("toinho123")) {
 	    // mostrar tela principal de responsavel
+	    Telas.telaPrincipalResponsavel();
 	}
 	else if (loginUsu.equals("funcionario1") && senhaUsu.equals("func123")) {
 	    // mostrar tela principal de funcionario
@@ -40,6 +37,10 @@ public class FrontController {
 	    dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
 	    dialog.showAndWait();
 	}
+    }
+    
+    public void telaEquipamentos() throws IOException {
+	Telas.telaEquipamentos();
     }
     
 }

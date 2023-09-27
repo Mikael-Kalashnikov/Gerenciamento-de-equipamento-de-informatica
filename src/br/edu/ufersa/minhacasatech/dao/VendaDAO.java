@@ -24,6 +24,7 @@ public class VendaDAO extends BaseDAOImp<Venda> {
 		ps.setLong(2, eq.getId());
 		ps.execute();
 	    }
+	    ps.close();
 	} catch (SQLException e) {
 	    e.printStackTrace();
 	}
