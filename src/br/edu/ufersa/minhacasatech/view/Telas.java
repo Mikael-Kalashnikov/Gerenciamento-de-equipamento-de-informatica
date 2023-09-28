@@ -52,4 +52,19 @@ public class Telas extends Application {
 	primaryStage.setScene(new Scene(root));
     }
     
+    public static void telaVenda() throws IOException {
+	Parent root = FXMLLoader.load(Telas.class.getResource("/br/edu/ufersa/minhacasatech/view/ve/TelaVenda.fxml"));
+	primaryStage.setScene(new Scene(root));
+    }
+    
+    public static void telaVendaFuncionario() throws IOException {
+	Parent root = FXMLLoader.load(Telas.class.getResource("/br/edu/ufersa/minhacasatech/view/ve/TelaVendaFuncionario.fxml"));
+	primaryStage.setScene(new Scene(root));
+    }
+    
+    public static void telaLocal() throws IOException {
+	Parent root = FXMLLoader.load(Telas.class.getResource("/br/edu/ufersa/minhacasatech/view/ve/TelaLocal.fxml"));
+	primaryStage.setScene(new Scene(root));
+    }
+    
 }

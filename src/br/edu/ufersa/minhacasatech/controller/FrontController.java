@@ -25,9 +25,11 @@ public class FrontController {
 	    // mostrar tela principal de responsavel
 	    Telas.telaPrincipalResponsavel();
 	}
-	else if (loginUsu.equals("funcionario1") && senhaUsu.equals("func123")) {
-	    // mostrar tela principal de funcionario
+        else if (loginUsu.equals("funcionario1") && senhaUsu.equals("func123") || loginUsu.equals("lucas") && senhaUsu.equals("lucas123")) {
+	    // mostrar tela principal de responsavel
+	    Telas.telaVendaFuncionario();
 	}
+        
 	else {
 	    // mostrar tela erro de autenticacao
 	    DialogPane dp = new DialogPane();
@@ -41,6 +43,14 @@ public class FrontController {
     
     public void telaEquipamentos() throws IOException {
 	Telas.telaEquipamentos();
+    }
+    
+    public void telaVenda() throws IOException {
+	Telas.telaVenda();
+    }
+    
+    public void telaLocal() throws IOException {
+	Telas.telaLocal();
     }
     
 }

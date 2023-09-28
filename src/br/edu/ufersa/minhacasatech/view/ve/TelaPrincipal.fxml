@@ -36,7 +36,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Text>
-                  <Text accessibleRole="BUTTON" boundsType="VISUAL" fill="#3a5fcd" text="Vendas" wrappingWidth="49.482421875">
+                  <Text accessibleRole="BUTTON" onMouseClicked="#telaVenda" boundsType="VISUAL" fill="#3a5fcd" text="Vendas" wrappingWidth="49.482421875">
                      <font>
                         <Font name="Consolas Bold" size="15.0" />
                      </font>
@@ -44,7 +44,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Text>
-                  <Text accessibleRole="BUTTON" fill="#3a5fcd" nodeOrientation="LEFT_TO_RIGHT" strokeType="OUTSIDE" strokeWidth="0.0" text="Locais" textAlignment="CENTER">
+                  <Text accessibleRole="BUTTON" onMouseClicked="#telaLocal" fill="#3a5fcd" nodeOrientation="LEFT_TO_RIGHT" strokeType="OUTSIDE" strokeWidth="0.0" text="Locais" textAlignment="CENTER">
                      <font>
                         <Font name="Consolas Bold" size="15.0" />
                      </font>
