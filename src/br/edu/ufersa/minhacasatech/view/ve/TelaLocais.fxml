@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="415.0" prefWidth="720.0" style="-fx-background-color: #3A5FCD;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.minhacasatech.controller.FrontController">
+<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="415.0" prefWidth="720.0" style="-fx-background-color: #3A5FCD;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.minhacasatech.controller.FrontController">
    <children>
       <AnchorPane maxHeight="65.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="720.0" style="-fx-background-color: #ffffff;" VBox.vgrow="NEVER">
          <children>
@@ -26,24 +26,17 @@
             </ImageView>
             <HBox alignment="CENTER" fillHeight="false" layoutX="124.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="65.0" prefWidth="535.0" spacing="25.0" AnchorPane.leftAnchor="124.0" AnchorPane.rightAnchor="61.0">
                <children>
-                  <TilePane alignment="CENTER" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefColumns="1" prefHeight="65.0" prefRows="1" prefWidth="107.0" style="-fx-background-color: #3A5FCD;" HBox.hgrow="NEVER">
-                     <children>
-                        <Text accessibleRole="BUTTON" fill="WHITE" onMouseClicked="#telaEquipamentos" text="Equipamentos" textAlignment="CENTER">
-                           <font>
-                              <Font name="Consolas Bold" size="15.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Text>
-                     </children>
+                  <Text accessibleRole="BUTTON" fill="#3a5fcd" onMouseClicked="#telaEquipamentos" text="Equipamentos" textAlignment="CENTER">
+                     <font>
+                        <Font name="Consolas Bold" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                      <HBox.margin>
-                        <Insets />
+                        <Insets left="12.0" />
                      </HBox.margin>
-                     <padding>
-                        <Insets left="20.0" right="20.0" />
-                     </padding>
-                  </TilePane>
+                  </Text>
                   <Text accessibleRole="BUTTON" fill="#3a5fcd" onMouseClicked="#telaVendas" text="Vendas">
                      <font>
                         <Font name="Consolas Bold" size="15.0" />
@@ -52,14 +45,24 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Text>
-                  <Text fill="#3a5fcd" onMouseClicked="#telaLocais" text="Locais">
-                     <font>
-                        <Font name="Consolas Bold" size="15.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Text>
+                  <TilePane alignment="CENTER" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefColumns="1" prefHeight="65.0" prefRows="1" prefWidth="107.0" style="-fx-background-color: #3A5FCD;" HBox.hgrow="NEVER">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                     <children>
+                        <Text fill="WHITE" text="Locais">
+                           <font>
+                              <Font name="Consolas Bold" size="15.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Text>
+                     </children>
+                  </TilePane>
                   <Text accessibleRole="BUTTON" fill="#3a5fcd" text="Clientes">
                      <font>
                         <Font name="Consolas Bold" size="15.0" />
@@ -83,7 +86,7 @@
             </HBox>
             <AnchorPane layoutX="678.0" layoutY="17.0" maxHeight="32.0" maxWidth="32.0" AnchorPane.rightAnchor="17.0">
                <children>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#logout" AnchorPane.rightAnchor="0.0">
+                  <ImageView fx:id="logout" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#logout" preserveRatio="true" AnchorPane.rightAnchor="0.0">
                      <image>
                         <Image url="@icons8-exit-50%204.png" />
                      </image>
@@ -120,18 +123,12 @@
             <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
          </padding>
       </HBox>
-      <TableView minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="720.0" tableMenuButtonVisible="true" VBox.vgrow="SOMETIMES">
+      <TableView prefHeight="247.0" prefWidth="584.0" VBox.vgrow="ALWAYS">
         <columns>
-          <TableColumn minWidth="100.0" prefWidth="100.0" text="Nº de série" />
-          <TableColumn minWidth="150.0" prefWidth="150.0" text="Equipamentos" />
-            <TableColumn minWidth="50.0" prefWidth="50.0" text="Preço" />
-            <TableColumn minWidth="50.0" prefWidth="50.0" text="Quant." />
-            <TableColumn minWidth="100.0" prefWidth="100.0" text="Local" />
-            <TableColumn minWidth="100.0" prefWidth="100.0" text="Responsável" />
+          <TableColumn prefWidth="107.0" text="Identificador" />
+          <TableColumn prefWidth="214.0" text="Nome do local " />
+            <TableColumn prefWidth="134.0" text="Compartimento" />
         </columns>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
       </TableView>
       <AnchorPane maxHeight="40.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="720.0">
          <VBox.margin>
@@ -140,7 +137,7 @@
          <children>
             <HBox alignment="CENTER" fillHeight="false" maxHeight="40.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="720.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0">
+                  <ImageView fitHeight="30.0" fitWidth="30.0" preserveRatio="true">
                      <image>
                         <Image url="@icons8-add-50%203.png" />
                      </image>
@@ -151,29 +148,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <Text boundsType="LOGICAL_VERTICAL_CENTER" fill="WHITE" strokeWidth="0.0" text="Novo equipamento" textOrigin="BOTTOM" HBox.hgrow="NEVER">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Text>
-                  <ImageView fitHeight="30.0" fitWidth="30.0">
-                     <image>
-                        <Image url="@icons8-file-50%203.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                     </HBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Gerar Relatório">
+                  <Text boundsType="LOGICAL_VERTICAL_CENTER" fill="WHITE" strokeWidth="0.0" text="Cadastrar Local" textOrigin="BOTTOM" HBox.hgrow="NEVER">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>

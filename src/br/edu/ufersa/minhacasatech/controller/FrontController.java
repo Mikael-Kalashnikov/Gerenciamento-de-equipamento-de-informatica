@@ -23,13 +23,11 @@ public class FrontController {
 	
 	if (loginUsu.equals("kanalense") && senhaUsu.equals("kanalense123") || loginUsu.equals("toinho") && senhaUsu.equals("toinho123")) {
 	    // mostrar tela principal de responsavel
-	    Telas.telaPrincipalResponsavel();
+	    Telas.telaPrincipal();
 	}
-        else if (loginUsu.equals("funcionario1") && senhaUsu.equals("func123") || loginUsu.equals("lucas") && senhaUsu.equals("lucas123")) {
-	    // mostrar tela principal de responsavel
-	    Telas.telaVendaFuncionario();
+	else if (loginUsu.equals("funcionario1") && senhaUsu.equals("func123")) {
+	    // mostrar tela principal de funcionario
 	}
-        
 	else {
 	    // mostrar tela erro de autenticacao
 	    DialogPane dp = new DialogPane();
@@ -45,12 +43,20 @@ public class FrontController {
 	Telas.telaEquipamentos();
     }
     
-    public void telaVenda() throws IOException {
-	Telas.telaVenda();
+    public void telaVendas() throws IOException {
+	Telas.telaVendas();
     }
     
-    public void telaLocal() throws IOException {
-	Telas.telaLocal();
+    public void telaLocais() throws IOException {
+	Telas.telaLocais();
+    }
+    
+    public void telaVendasFunc() throws IOException {
+	Telas.telaVendasFunc();
+    }
+    
+    public void logout() throws IOException {
+	Telas.telaLogin();
     }
     
 }

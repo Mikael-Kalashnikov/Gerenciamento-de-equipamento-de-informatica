@@ -1,7 +1,5 @@
 package br.edu.ufersa.minhacasatech.view;
 
-import br.edu.ufersa.minhacasatech.model.entity.Responsavel;
-import br.edu.ufersa.minhacasatech.model.entity.Usuario;
 import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -14,10 +12,6 @@ public class Telas extends Application {
     private static Stage primaryStage;
     
     public static void main(String[] args) {
-	Usuario kanalense = new Responsavel();
-	kanalense.setLogin("kanalense");
-	kanalense.setSenha("kanalense123");
-	
 	launch(args);
     }
     
@@ -42,29 +36,34 @@ public class Telas extends Application {
 	primaryStage.show();
     }
     
-    public static void telaPrincipalResponsavel() throws IOException {
+    public static void telaPrincipal() throws IOException {
 	Parent root = FXMLLoader.load(Telas.class.getResource("/br/edu/ufersa/minhacasatech/view/ve/TelaPrincipal.fxml"));
 	primaryStage.setScene(new Scene(root));
+	primaryStage.show();
     }
     
     public static void telaEquipamentos() throws IOException {
 	Parent root = FXMLLoader.load(Telas.class.getResource("/br/edu/ufersa/minhacasatech/view/ve/TelaEquipamentos.fxml"));
 	primaryStage.setScene(new Scene(root));
+	primaryStage.show();
     }
     
-    public static void telaVenda() throws IOException {
-	Parent root = FXMLLoader.load(Telas.class.getResource("/br/edu/ufersa/minhacasatech/view/ve/TelaVenda.fxml"));
+    public static void telaVendas() throws IOException {
+	Parent root = FXMLLoader.load(Telas.class.getResource("/br/edu/ufersa/minhacasatech/view/ve/TelaVendas.fxml"));
 	primaryStage.setScene(new Scene(root));
+	primaryStage.show();
     }
     
-    public static void telaVendaFuncionario() throws IOException {
-	Parent root = FXMLLoader.load(Telas.class.getResource("/br/edu/ufersa/minhacasatech/view/ve/TelaVendaFuncionario.fxml"));
+    public static void telaLocais() throws IOException {
+	Parent root = FXMLLoader.load(Telas.class.getResource("/br/edu/ufersa/minhacasatech/view/ve/TelaLocais.fxml"));
 	primaryStage.setScene(new Scene(root));
+	primaryStage.show();
     }
     
-    public static void telaLocal() throws IOException {
-	Parent root = FXMLLoader.load(Telas.class.getResource("/br/edu/ufersa/minhacasatech/view/ve/TelaLocal.fxml"));
+    public static void telaVendasFunc() throws IOException {
+	Parent root = FXMLLoader.load(Telas.class.getResource("/br/edu/ufersa/minhacasatech/view/ve/TelaVendasFuncionario.fxml"));
 	primaryStage.setScene(new Scene(root));
+	primaryStage.show();
     }
     
 }

@@ -6,29 +6,23 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<VBox alignment="CENTER" prefHeight="410.0" prefWidth="720.0" style="-fx-background-color: #3A5FCD;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.minhacasatech.controller.FrontController">
+<VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="415.0" prefWidth="720.0" style="-fx-background-color: #3A5FCD;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.minhacasatech.controller.FrontController">
    <children>
-      <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="720.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
+      <AnchorPane maxHeight="65.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="720.0" style="-fx-background-color: #ffffff;">
          <children>
-            <ImageView fitHeight="55.0" fitWidth="124.0" layoutX="2.0" layoutY="3.0">
+            <ImageView fitHeight="55.0" fitWidth="124.0" layoutX="5.0" layoutY="5.0" preserveRatio="true">
                <image>
                   <Image url="@Captura%20de%20tela%202023-09-25%20210432.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="32.0" fitWidth="30.0" layoutX="676.0" layoutY="14.0" nodeOrientation="RIGHT_TO_LEFT">
-               <image>
-                  <Image url="@icons8-exit-50%204.png" />
-               </image>
-            </ImageView>
-            <FlowPane columnHalignment="CENTER" hgap="30.0" layoutX="126.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="65.0" prefWidth="534.0">
+            <HBox alignment="CENTER" fillHeight="false" layoutX="124.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="65.0" prefWidth="535.0" spacing="25.0" AnchorPane.leftAnchor="124.0" AnchorPane.rightAnchor="61.0">
                <children>
-                  <Text accessibleRole="BUTTON" fill="#3a5fcd" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#telaEquipamentos" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipamentos" textAlignment="CENTER">
+                  <Text accessibleRole="BUTTON" fill="#3a5fcd" onMouseClicked="#telaEquipamentos" text="Equipamentos" textAlignment="CENTER">
                      <font>
                         <Font name="Consolas Bold" size="15.0" />
                      </font>
@@ -36,7 +30,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Text>
-                  <Text accessibleRole="BUTTON" onMouseClicked="#telaVenda" boundsType="VISUAL" fill="#3a5fcd" text="Vendas" wrappingWidth="49.482421875">
+                  <Text accessibleRole="BUTTON" fill="#3a5fcd" text="Vendas">
                      <font>
                         <Font name="Consolas Bold" size="15.0" />
                      </font>
@@ -44,7 +38,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Text>
-                  <Text accessibleRole="BUTTON" onMouseClicked="#telaLocal" fill="#3a5fcd" nodeOrientation="LEFT_TO_RIGHT" strokeType="OUTSIDE" strokeWidth="0.0" text="Locais" textAlignment="CENTER">
+                  <Text fill="#3a5fcd" text="Locais">
                      <font>
                         <Font name="Consolas Bold" size="15.0" />
                      </font>
@@ -52,7 +46,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Text>
-                  <Text accessibleRole="BUTTON" fill="#3a5fcd" strokeType="OUTSIDE" strokeWidth="0.0" text="Clientes" textAlignment="CENTER">
+                  <Text accessibleRole="BUTTON" fill="#3a5fcd" text="Clientes">
                      <font>
                         <Font name="Consolas Bold" size="15.0" />
                      </font>
@@ -60,38 +54,45 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Text>
-                  <Text accessibleRole="BUTTON" fill="#3a5fcd" strokeType="OUTSIDE" strokeWidth="0.0" text="Funcionários" textAlignment="CENTER">
+                  <Text accessibleRole="BUTTON" fill="#3a5fcd" text="Funcionários">
                      <font>
                         <Font name="Consolas Bold" size="15.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
+                     <HBox.margin>
+                        <Insets right="12.0" />
+                     </HBox.margin>
                   </Text>
                </children>
-               <padding>
-                  <Insets left="23.0" top="23.0" />
-               </padding>
-            </FlowPane>
+            </HBox>
+            <AnchorPane layoutX="678.0" layoutY="17.0" maxHeight="32.0" maxWidth="32.0" AnchorPane.rightAnchor="17.0">
+               <children>
+                  <ImageView fx:id="logout" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#logout" AnchorPane.rightAnchor="0.0">
+                     <image>
+                        <Image url="@icons8-exit-50%204.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </AnchorPane>
          </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-         <padding>
-            <Insets top="60.0" />
-         </padding>
-      </Pane>
-      <ImageView fitHeight="257.0" fitWidth="514.0" preserveRatio="true" VBox.vgrow="ALWAYS">
-         <image>
-            <Image url="@Captura_de_tela_2023-09-25_210328-removebg-preview.png" />
-         </image>
-         <VBox.margin>
-            <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
-         </VBox.margin>
-      </ImageView>
-      <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="720.0" style="-fx-background-color: #ffffff;" VBox.vgrow="ALWAYS">
+      </AnchorPane>
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" VBox.vgrow="ALWAYS">
          <children>
-            <Text fill="#3a5fcd" layoutX="400.0" layoutY="15.0" strokeWidth="0.0" text="Copyright © 2023 - Todos os direitos reservados" textAlignment="RIGHT">
+            <ImageView nodeOrientation="INHERIT" preserveRatio="true">
+               <image>
+                  <Image url="@Captura_de_tela_2023-09-25_210328-removebg-preview.png" />
+               </image>
+            </ImageView>
+         </children>
+      </FlowPane>
+      <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="720.0" style="-fx-background-color: #ffffff;" VBox.vgrow="NEVER">
+         <children>
+            <Text fill="#3a5fcd" layoutX="399.08984375" layoutY="15.0" nodeOrientation="LEFT_TO_RIGHT" strokeWidth="0.0" text="Copyright © 2023 - Todos os direitos reservados" textAlignment="RIGHT" AnchorPane.bottomAnchor="6.912109375" AnchorPane.rightAnchor="9.91015625">
                <font>
                   <Font name="Consolas" size="12.0" />
                </font>
