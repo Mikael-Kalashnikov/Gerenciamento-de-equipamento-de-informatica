@@ -4,18 +4,27 @@ import java.sql.Date;
 import java.util.List;
 
 public class Venda {
+    public enum StatusVenda {
+	EM_PROCESSAMENTO,
+	APROVADA,
+	CANCELADA,
+	CONCLUÍDA
+    }
+    
     private Cliente cliente;
     private List<Equipamento> equipamentos;
     private Date dataVenda;
     private double valorTotal;
+    private StatusVenda status;
     
     public Venda() {}
     
-    public Venda(Cliente cliente, List<Equipamento> equipamentos, Date dataVenda, double valorTotal) {
+    public Venda(Cliente cliente, List<Equipamento> equipamentos, Date dataVenda, double valorTotal, StatusVenda status) {
 	setCliente(cliente);
 	setEquipamentos(equipamentos);
 	setDataVenda(dataVenda);
 	setValorTotal(valorTotal);
+	setStatus(status);
     }
     
     public Cliente getCliente() {
@@ -77,6 +86,23 @@ public class Venda {
 	try {
 	    if (valorTotal > 0) {
 		this.valorTotal = valorTotal;
+	    }
+	    else {
+		throw new Exception();
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
+    }
+    
+    public StatusVenda getStatus() {
+	return status;
+    }
+    
+    public void setStatus(StatusVenda status) {
+	try {
+	    if (status != null) {
+		this.status = status;
 	    }
 	    else {
 		throw new Exception();

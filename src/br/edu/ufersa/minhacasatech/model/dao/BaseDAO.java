@@ -1,4 +1,4 @@
-package br.edu.ufersa.minhacasatech.dao;
+package br.edu.ufersa.minhacasatech.model.dao;
 
 import java.util.List;
 

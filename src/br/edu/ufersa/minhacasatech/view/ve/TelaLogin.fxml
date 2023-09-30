@@ -11,82 +11,77 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane style="-fx-background-color: #3A5FCD;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.minhacasatech.controller.FrontController">
-   <center>
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0">
+<FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="480.0" prefWidth="720.0" style="-fx-background-color: #3a5fcd;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.minhacasatech.controller.FrontController">
+   <children>
+       <AnchorPane prefHeight="316.0" prefWidth="447.0" style="-fx-background-color: #ffffff;">
          <children>
-             <AnchorPane layoutX="97.0" layoutY="80.0" prefHeight="316.0" prefWidth="447.0" style="-fx-background-color: #ffffff;">
-               <children>
-                  <Button defaultButton="true" layoutX="192.0" layoutY="243.0" mnemonicParsing="false" onAction="#autenticar" text="Entrar" />
-                  <TextField fx:id="login" layoutX="115.0" layoutY="151.0" prefHeight="35.0" prefWidth="207.0" promptText="Login">
-                     <effect>
-                        <Glow />
-                     </effect>
-                  </TextField>
-                  <ImageView disable="true" fitHeight="230.0" fitWidth="239.0" layoutX="157.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Logotipo_moderno_ilustrado_para_técnico_de_informática-removebg-preview%201.png" />
-                     </image>
-                  </ImageView>
-                  <Label contentDisplay="CENTER" layoutX="119.0" layoutY="79.0" prefHeight="72.0" prefWidth="126.0" text="Minha&#10;CasaTech" textOverrun="CLIP" wrapText="true">
-                     <font>
-                        <Font name="Monospaced Regular" size="24.0" />
-                     </font>
-                     <textFill>
-                        <LinearGradient endX="1.0" endY="1.0" startX="0.4218009478672986" startY="0.09004739336492891">
-                           <stops>
-                              <Stop>
-                                 <color>
-                                    <Color />
-                                 </color>
-                              </Stop>
-                              <Stop offset="0.3550499263381895">
-                                 <color>
-                                    <Color red="0.23199999332427979" green="0.3834666609764099" blue="0.800000011920929" />
-                                 </color>
-                              </Stop>
-                              <Stop offset="1.0">
-                                 <color>
-                                    <Color red="0.23199999332427979" green="0.3834666609764099" blue="0.800000011920929" />
-                                 </color>
-                              </Stop>
-                           </stops>
-                        </LinearGradient>
-                     </textFill>
-                  </Label>
-                  <PasswordField fx:id="senha" layoutX="115.0" layoutY="186.0" prefHeight="37.0" prefWidth="207.0" promptText="Senha">
-                     <effect>
-                        <Glow />
-                     </effect>
-                  </PasswordField>
-                  <DialogPane fx:id="erroAutenticar" layoutX="91.0" layoutY="106.0" visible="false">
-                     <content>
-                        <Label alignment="TOP_LEFT" minHeight="-Infinity" prefHeight="44.0" prefWidth="266.0" text="Usuário e/ou senha incorretos" textFill="#ff0606">
-                           <font>
-                              <Font name="Consolas" size="15.0" />
-                           </font>
-                        </Label>
-                     </content>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                     <buttonTypes>
-                        <ButtonType fx:constant="OK" />
-                     </buttonTypes>
-                  </DialogPane>
-               </children>
+            <Button defaultButton="true" layoutX="192.0" layoutY="243.0" mnemonicParsing="false" onAction="#autenticar" text="Entrar" />
+            <TextField fx:id="login" layoutX="115.0" layoutY="151.0" onAction="#autenticar" prefHeight="35.0" prefWidth="207.0" promptText="Login">
                <effect>
-                  <DropShadow blurType="TWO_PASS_BOX" height="37.0" offsetX="0.1" offsetY="0.1" radius="18.0" spread="0.31" width="37.0" />
+                  <Glow />
                </effect>
-            </AnchorPane>
+            </TextField>
+            <ImageView disable="true" fitHeight="230.0" fitWidth="239.0" layoutX="157.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@logotipo.png" />
+               </image>
+            </ImageView>
+            <Label contentDisplay="CENTER" layoutX="119.0" layoutY="79.0" prefHeight="72.0" prefWidth="126.0" text="Minha&#10;CasaTech" textOverrun="CLIP" wrapText="true">
+               <font>
+                  <Font name="Monospaced Regular" size="24.0" />
+               </font>
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0" startX="0.4218009478672986" startY="0.09004739336492891">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.3550499263381895">
+                           <color>
+                              <Color red="0.23199999332427979" green="0.3834666609764099" blue="0.800000011920929" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.23199999332427979" green="0.3834666609764099" blue="0.800000011920929" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </textFill>
+            </Label>
+            <PasswordField fx:id="senha" layoutX="115.0" layoutY="186.0" onAction="#autenticar" prefHeight="37.0" prefWidth="207.0" promptText="Senha">
+               <effect>
+                  <Glow />
+               </effect>
+            </PasswordField>
+            <DialogPane fx:id="erroAutenticar" layoutX="91.0" layoutY="107.0" visible="false">
+               <content>
+                  <Label alignment="TOP_LEFT" minHeight="-Infinity" prefHeight="44.0" prefWidth="266.0" text="Usuário e/ou senha incorretos" textFill="#ff0606">
+                     <font>
+                        <Font name="Consolas" size="15.0" />
+                     </font>
+                  </Label>
+               </content>
+               <effect>
+                  <DropShadow />
+               </effect>
+               <buttonTypes>
+                  <ButtonType fx:constant="OK" />
+               </buttonTypes>
+            </DialogPane>
          </children>
-      </Pane>
-   </center>
-</BorderPane>
+         <effect>
+            <DropShadow blurType="TWO_PASS_BOX" height="37.0" offsetX="0.1" offsetY="0.1" radius="18.0" spread="0.31" width="37.0" />
+         </effect>
+      </AnchorPane>
+   </children>
+</FlowPane>

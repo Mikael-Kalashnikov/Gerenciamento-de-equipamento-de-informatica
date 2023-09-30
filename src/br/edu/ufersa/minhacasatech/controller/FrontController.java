@@ -26,7 +26,8 @@ public class FrontController {
 	    Telas.telaPrincipal();
 	}
 	else if (loginUsu.equals("funcionario1") && senhaUsu.equals("func123")) {
-	    // mostrar tela principal de funcionario
+	    // mostrar tela principal de funcionario (tela vendas)
+	    Telas.telaVendasFunc();
 	}
 	else {
 	    // mostrar tela erro de autenticacao
@@ -51,8 +52,28 @@ public class FrontController {
 	Telas.telaLocais();
     }
     
+    public void telaClientes() throws IOException {
+	Telas.telaClientes();
+    }
+    
+    public void telaFuncionarios() throws IOException {
+	Telas.telaFuncionarios();
+    }
+	
+    public void telaEquipamentosFunc() throws IOException {
+	Telas.telaEquipamentosFunc();
+    }
+    
     public void telaVendasFunc() throws IOException {
 	Telas.telaVendasFunc();
+    }
+    
+    public void telaLocaisFunc() throws IOException {
+	Telas.telaLocaisFunc();
+    }
+    
+    public void telaClientesFunc() throws IOException {
+	Telas.telaClientesFunc();
     }
     
     public void logout() throws IOException {

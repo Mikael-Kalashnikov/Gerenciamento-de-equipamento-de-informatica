@@ -1,4 +1,4 @@
-package br.edu.ufersa.minhacasatech.dao;
+package br.edu.ufersa.minhacasatech.model.dao;
 
 import br.edu.ufersa.minhacasatech.model.entity.Endereco;
 import java.sql.*;

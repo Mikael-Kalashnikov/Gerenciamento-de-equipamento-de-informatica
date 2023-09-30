@@ -1,10 +1,13 @@
 package br.edu.ufersa.minhacasatech.model.entity;
 
+import java.sql.Date;
+
 public class Cliente {
     private Long id;
     private String nome;
     private String cpf;
     private Endereco endereco;
+    private Date dataCadastro;
     
     public Cliente() {}
     
@@ -80,6 +83,23 @@ public class Cliente {
 
     public String getCpf() {
 	return this.cpf;
+    }
+    
+    public Date getDataCadastro() {
+	return dataCadastro;
+    }
+    
+    public void setDataVenda(Date dataCadastro) {
+	try {
+	    if (dataCadastro != null) {
+		this.dataCadastro = dataCadastro;
+	    }
+	    else {
+		throw new Exception();
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
     }
 
     @Override

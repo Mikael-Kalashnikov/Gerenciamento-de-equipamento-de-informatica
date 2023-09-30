@@ -1,5 +1,7 @@
 package br.edu.ufersa.minhacasatech.model.entity;
 
+import java.sql.Date;
+
 public class Equipamento {
     private Long id;
     private String nome;
@@ -8,6 +10,7 @@ public class Equipamento {
     private int quantidade;
     private Local local;
     private Responsavel responsavel;
+    private Date dataCadastro;
 
     public Equipamento() {}
     
@@ -137,6 +140,23 @@ public class Equipamento {
 
     public Responsavel getResponsavel() {
         return this.responsavel;
+    }
+    
+    public Date getDataCadastro() {
+	return dataCadastro;
+    }
+    
+    public void setDataVenda(Date dataCadastro) {
+	try {
+	    if (dataCadastro != null) {
+		this.dataCadastro = dataCadastro;
+	    }
+	    else {
+		throw new Exception();
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
     }
     
     @Override

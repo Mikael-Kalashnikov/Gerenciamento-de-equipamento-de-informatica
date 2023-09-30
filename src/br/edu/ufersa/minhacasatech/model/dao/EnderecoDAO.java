@@ -1,39 +1,39 @@
-package br.edu.ufersa.minhacasatech.dao;
+package br.edu.ufersa.minhacasatech.model.dao;
 
+import br.edu.ufersa.minhacasatech.model.entity.Endereco;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
-import br.edu.ufersa.minhacasatech.model.entity.Local;
+import java.util.ArrayList;
 
-public class LocalDAO extends BaseDAOImp<Local> {
-    
+public class EnderecoDAO extends BaseDAOImp<Endereco> {
+
     @Override
-    public Long inserir(Local loc) {
-	String sql = "INSERT INTO local (nome, nome_compartimento) values (?, ?)";
+    public Long inserir(Endereco end) {
+	String sql = "INSERT INTO endereco (rua, numero) VALUES (?, ?)";
 	Long id = null;
 	try {
 	    Connection con = BaseDAOImp.getConnection();
 	    PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-	    ps.setString(1, loc.getNome());
-	    ps.setString(2, loc.getNomeCompartimento());
+	    ps.setString(1, end.getRua());
+	    ps.setInt(2, end.getNumero());
 	    ps.execute();
 	    ResultSet rs = ps.getGeneratedKeys();
 	    if (rs.next()) {
-		id = rs.getLong("id");
+		id = rs.getLong(1);
 	    }
 	} catch (SQLException e) {
 	    e.printStackTrace();
 	}
 	return id;
     }
-    
+
     @Override
-    public void deletar(Local loc){
-	String sql = "DELETE FROM local WHERE id = ?";
-	try {
+    public void deletar(Endereco end) {
+	String sql = "DELETE FROM endereco WHERE id = ?";
+        try {
 	    Connection con = BaseDAOImp.getConnection();
 	    PreparedStatement ps = con.prepareStatement(sql);
-	    ps.setLong(1, loc.getId());
+	    ps.setLong(1, end.getId());
 	    ps.execute();
 	} catch (SQLException e) {
 	    e.printStackTrace();
@@ -41,14 +41,14 @@ public class LocalDAO extends BaseDAOImp<Local> {
     }
 
     @Override
-    public void alterar(Local loc){
-	String sql = "UPDATE local SET nome = ?, nome_compartimento = ? WHERE id = ?";
-	try {
+    public void alterar(Endereco end) {
+        String sql = "UPDATE endereco SET rua = ?, numero = ? WHERE id = ?";
+        try {
 	    Connection con = BaseDAOImp.getConnection();
 	    PreparedStatement ps = con.prepareStatement(sql);
-	    ps.setString(1, loc.getNome());
-	    ps.setString(2, loc.getNomeCompartimento());
-	    ps.setLong(3, loc.getId());
+	    ps.setString(1, end.getRua());
+	    ps.setInt(2, end.getNumero());
+	    ps.setLong(3, end.getId());
 	    ps.execute();
 	} catch (SQLException e) {
 	    e.printStackTrace();
@@ -56,42 +56,42 @@ public class LocalDAO extends BaseDAOImp<Local> {
     }
 
     @Override
-    public Local buscar(Local loc){
-	String sql = "SELECT * FROM local WHERE id = ?";
-	Local local = null;
-	try {
+    public Endereco buscar(Endereco end) {
+        String sql = "SELECT * FROM endereco WHERE id = ?";
+        Endereco endereco = null;
+        try {
 	    Connection con = BaseDAOImp.getConnection();
 	    PreparedStatement ps = con.prepareStatement(sql);
-	    ps.setLong(1, loc.getId());
+	    ps.setLong(1, end.getId());
 	    ps.execute();
 	    ResultSet rs = ps.executeQuery();
-	    while (rs.next()) {
-		local = new Local(rs.getString("nome"), rs.getString("nome_compartimento"));
-		local.setId(rs.getLong("id"));
+	    if (rs.next()) {
+		endereco = new Endereco(rs.getString(2), rs.getInt(3));
+		endereco.setId(rs.getLong(1));
 	    }
 	} catch (SQLException e) {
 	    e.printStackTrace();
-	} catch (Exception e) {	
+	} catch (Exception e) {
 	    e.printStackTrace();
-	}
-	return local;
+        }
+	return endereco;
     }
 
     @Override
-    public List<Local> listar(){
-	String sql = "SELECT * FROM local";
-	List<Local> lista = new ArrayList<>();
+    public List<Endereco> listar() {
+	String sql = "SELECT * FROM endereco";
+	List<Endereco> lista = new ArrayList<>();
 	try {
 	    Connection con = BaseDAOImp.getConnection();
 	    PreparedStatement ps = con.prepareStatement(sql);
 	    ResultSet rs = ps.executeQuery();
 	    while (rs.next()) {
-		Local loc = new Local(rs.getString(2), rs.getString(3));
-		loc.setId(rs.getLong(1));
-		lista.add(loc);
+		Endereco end = new Endereco(rs.getString(2), rs.getInt(3));
+		end.setId(rs.getLong(1));
+		lista.add(end);
 	    }
 	} catch (SQLException e) {
-		e.printStackTrace();
+	    e.printStackTrace();
 	} catch (Exception e) {
 	    e.printStackTrace();
 	}

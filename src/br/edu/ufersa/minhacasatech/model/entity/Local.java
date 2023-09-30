@@ -1,9 +1,12 @@
 package br.edu.ufersa.minhacasatech.model.entity;
 
+import java.sql.Date;
+
 public class Local {
     private Long id;
     private String nome;
     private String nomeCompartimento;
+    private Date dataCadastro;
 
     public Local() {}
 	
@@ -54,6 +57,23 @@ public class Local {
         try {
 	    if (id > 0) {
 		this.id = id;
+	    }
+	    else {
+		throw new Exception();
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
+    }
+    
+    public Date getDataCadastro() {
+	return dataCadastro;
+    }
+    
+    public void setDataVenda(Date dataCadastro) {
+	try {
+	    if (dataCadastro != null) {
+		this.dataCadastro = dataCadastro;
 	    }
 	    else {
 		throw new Exception();

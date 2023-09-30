@@ -1,5 +1,7 @@
 package br.edu.ufersa.minhacasatech.model.entity;
 
+import java.sql.Date;
+
 public class Usuario {
     private Long id;
     private String nome;
@@ -7,6 +9,7 @@ public class Usuario {
     private String senha;
     private Endereco endereco;
     private String telefone;
+    private Date dataCadastro;
 
     public Usuario() {}
 
@@ -89,5 +92,22 @@ public class Usuario {
 
     public String getTelefone() {
         return this.telefone;
+    }
+    
+    public Date getDataCadastro() {
+	return dataCadastro;
+    }
+    
+    public void setDataVenda(Date dataCadastro) {
+	try {
+	    if (dataCadastro != null) {
+		this.dataCadastro = dataCadastro;
+	    }
+	    else {
+		throw new Exception();
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
     }
 }
