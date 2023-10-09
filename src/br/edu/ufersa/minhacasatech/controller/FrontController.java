@@ -48,7 +48,17 @@ public class FrontController {
 	Telas.telaVendas();
     }
     
+    @FXML private TableView tabelaLocais;
+    
     public void telaLocais() throws IOException {
+//	try {
+//	    LocalBO locbo = new LocalBO(new LocalDAO());
+//	    tabelaLocais.getColumns().addAll(locbo.listar());
+//	    Telas.telaLocais();
+//	} catch (InvalidInsertException ex) {
+//	    ex.printStackTrace();
+//	}
+	
 	Telas.telaLocais();
     }
     
