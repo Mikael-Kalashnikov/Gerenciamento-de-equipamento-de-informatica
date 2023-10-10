@@ -9,41 +9,68 @@ import java.util.List;
 public class LocalBO implements BaseBO<Local> {
 
     private LocalDAO locdao;
-    
+
     public LocalBO(LocalDAO locdao) {
-	this.locdao = locdao;
+        this.locdao = locdao;
     }
-    
+
     @Override
     public void cadastrar(Local loc) throws InvalidInsertException {
-	// validar os dados
-	
-	// verificar se o local ja existe
-	
-	// inserir o local no banco
-	LocalDAO.getConnection();
-	locdao.inserir(loc);
-	LocalDAO.closeConnection();
+        // validar os dados
+        validarLocal(loc);
+
+        // verificar se o local ja existe
+        if (locdao.existeLocalPorNome(loc.getNome())) {
+            throw new InvalidInsertException("Local já existe com o nome: " + loc.getNome());
+        }
+
+        // inserir o local no banco
+        try {
+            LocalDAO.getConnection();
+            locdao.inserir(loc);
+        } finally {
+            LocalDAO.closeConnection();
+        }
+
+    }
+
+    private void validarLocal(Local loc) {
     }
 
     @Override
     public void buscarPorId(Local loc) throws NotFoundException {
-	
+
     }
 
     @Override
     public List<Local> listar() throws InvalidInsertException {
-	return null;
+        return null;
     }
 
     @Override
     public void alterar(Local loc) throws InvalidInsertException {
-	
+        validarLocal(loc);
+
+        if (!locdao.existeLocalPorId(loc.getId())) {
+            try {
+                throw new NotFoundException("Local não existe com ID: " + loc.getId());
+            } catch (NotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            LocalDAO.getConnection();
+            locdao.atualizar(loc);
+        } finally {
+            LocalDAO.closeConnection();
+        }
+
     }
 
     @Override
     public void remover(Local loc) throws InvalidInsertException {
-	
+
     }
-    
+
 }
