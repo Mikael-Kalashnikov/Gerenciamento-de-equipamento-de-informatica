@@ -3,6 +3,9 @@ package br.edu.ufersa.minhacasatech.model.dao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
+
 import br.edu.ufersa.minhacasatech.model.entity.Local;
 
 public class LocalDAO extends BaseDAOImp<Local> {
@@ -21,6 +24,9 @@ public class LocalDAO extends BaseDAOImp<Local> {
 			if (rs.next()) {
 				id = rs.getLong("id");
 			}
+
+			JOptionPane.showMessageDialog(null, "Local cadastrado com sucesso!", "Sucesso",
+					JOptionPane.INFORMATION_MESSAGE);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -35,6 +41,9 @@ public class LocalDAO extends BaseDAOImp<Local> {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setLong(1, loc.getId());
 			ps.execute();
+
+			JOptionPane.showMessageDialog(null, "Local deletado com sucesso!", "Sucesso",
+					JOptionPane.INFORMATION_MESSAGE);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -50,6 +59,9 @@ public class LocalDAO extends BaseDAOImp<Local> {
 			ps.setString(2, loc.getNomeCompartimento());
 			ps.setLong(3, loc.getId());
 			ps.execute();
+
+			JOptionPane.showMessageDialog(null, "Dados editado com sucesso!", "Sucesso",
+					JOptionPane.INFORMATION_MESSAGE);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
