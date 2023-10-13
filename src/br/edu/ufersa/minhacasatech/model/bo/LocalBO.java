@@ -34,17 +34,30 @@ public class LocalBO implements BaseBO<Local> {
 
     }
 
-    private void validarLocal(Local loc) {
+    private void validarLocal(Local loc) throws InvalidInsertException {
+        if (loc == null) {
+            throw new InvalidInsertException("Local não pode ser nulo");
+        }
+
+        if (loc.getNome() == null || loc.getNome().isEmpty()) {
+            throw new InvalidInsertException("Nome do local é obrigatório");
+        }
     }
 
     @Override
     public void buscarPorId(Local loc) throws NotFoundException {
-
+        if (!locdao.existeLocalPorId(loc.getId())) {
+            throw new NotFoundException("Local não encontrado com ID: " + loc.getId());
+        }
     }
 
     @Override
     public List<Local> listar() throws InvalidInsertException {
-        return null;
+        try {
+            return locdao.listar();
+        } catch (Exception e) {
+            throw new InvalidInsertException("Erro ao listar os locais: " + e.getMessage());
+        }
     }
 
     @Override
@@ -70,7 +83,22 @@ public class LocalBO implements BaseBO<Local> {
 
     @Override
     public void remover(Local loc) throws InvalidInsertException {
+        validarLocal(loc);
 
+        if (!locdao.existeLocalPorId(loc.getId())) {
+            try {
+                throw new NotFoundException("Local não encontrado com ID: " + loc.getId());
+            } catch (NotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            LocalDAO.getConnection();
+            locdao.deletar(loc);
+        } finally {
+            LocalDAO.closeConnection();
+        }
     }
 
 }

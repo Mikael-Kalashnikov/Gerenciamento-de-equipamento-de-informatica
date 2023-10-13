@@ -121,7 +121,32 @@ public class LocalDAO extends BaseDAOImp<Local> {
 	public void atualizar(Local loc) {
 	}
 
-	public Local buscarPorId() {
-		return null;
+	public Local buscarPorId(int localId) throws SQLException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		Local local = null;
+
+		try {
+			connection = getConnection();
+			String sql = "SELECT * FROM locais WHERE id = ?";
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, localId);
+			resultSet = statement.executeQuery();
+
+			if (resultSet.next()) {
+				local = new Local();
+				local.setId(resultSet.getInt("id"));
+				local.setNome(resultSet.getString("nome"));
+				// Preencha outros campos do Local, se necessário
+			}
+		} finally {
+			closeResources(connection, statement, resultSet);
+		}
+
+		return local;
+	}
+
+	private void closeResources(Connection connection, PreparedStatement statement, ResultSet resultSet) {
 	}
 }
