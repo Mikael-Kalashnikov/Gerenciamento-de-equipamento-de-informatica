@@ -8,7 +8,7 @@ public class Venda {
 	EM_PROCESSAMENTO,
 	APROVADA,
 	CANCELADA,
-	CONCLUÍDA
+	CONCLUIDA;
     }
     
     private Cliente cliente;

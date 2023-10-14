@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" prefHeight="480.0" prefWidth="720.0" style="-fx-background-color: #3A5FCD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.minhacasatech.controller.FrontController">
+<VBox alignment="CENTER" prefHeight="480.0" prefWidth="720.0" style="-fx-background-color: #3A5FCD;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.minhacasatech.controller.TelaCadClienteController">
    <children>
       <AnchorPane maxHeight="483.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="720.0" style="-fx-background-color: #ffffff;">
          <children>
@@ -22,7 +22,7 @@
             </ImageView>
             <AnchorPane layoutX="678.0" layoutY="17.0" maxHeight="32.0" maxWidth="32.0" AnchorPane.rightAnchor="17.0">
                <children>
-                  <ImageView fx:id="logout" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#logout" AnchorPane.rightAnchor="0.0">
+                  <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#logout" AnchorPane.rightAnchor="0.0">
                      <image>
                         <Image url="@icons8-exit-50%204.png" />
                      </image>
@@ -32,7 +32,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" layoutX="129.0" layoutY="182.0" onMouseClicked="#telaEquipamentos" text="Nome" textAlignment="CENTER" textOrigin="BOTTOM">
+            <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" layoutX="129.0" layoutY="182.0" text="Nome" textAlignment="CENTER" textOrigin="BOTTOM">
                <font>
                   <Font name="Consolas Bold" size="15.0" />
                </font>
@@ -40,7 +40,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Text>
-            <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" layoutX="129.0" layoutY="242.0" onMouseClicked="#telaVendas" text="Endereço" textOrigin="BOTTOM">
+            <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" layoutX="129.0" layoutY="242.0" text="Endereço" textOrigin="BOTTOM">
                <font>
                   <Font name="Consolas Bold" size="15.0" />
                </font>
@@ -48,7 +48,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Text>
-            <Text boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" layoutX="360.0" layoutY="182.0" onMouseClicked="#telaLocais" text="CPF" textOrigin="BOTTOM">
+            <Text boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" layoutX="360.0" layoutY="182.0" text="CPF" textOrigin="BOTTOM">
                <font>
                   <Font name="Consolas Bold" size="15.0" />
                </font>
@@ -56,7 +56,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Text>
-            <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" layoutX="360.0" layoutY="242.0" onMouseClicked="#telaClientes" text="Bairro" textOrigin="BOTTOM">
+            <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" layoutX="360.0" layoutY="242.0" text="Bairro" textOrigin="BOTTOM">
                <font>
                   <Font name="Consolas Bold" size="15.0" />
                </font>
@@ -64,7 +64,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Text>
-            <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" layoutX="129.0" layoutY="304.0" onMouseClicked="#telaFuncionarios" text="Cidade" textOrigin="BOTTOM">
+            <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" layoutX="129.0" layoutY="304.0" text="Cidade" textOrigin="BOTTOM">
                <font>
                   <Font name="Consolas Bold" size="15.0" />
                </font>
@@ -75,7 +75,7 @@
             <TextField layoutX="129.0" layoutY="184.0" prefHeight="32.0" prefWidth="200.0" />
             <TextField layoutX="360.0" layoutY="242.0" prefHeight="32.0" prefWidth="200.0" />
             <TextField layoutX="129.0" layoutY="304.0" prefHeight="32.0" prefWidth="200.0" />
-            <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" layoutX="162.0" layoutY="137.0" onMouseClicked="#telaEquipamentos" text="Cadastrar cliente" textAlignment="CENTER" textOrigin="BOTTOM">
+            <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" layoutX="162.0" layoutY="137.0" text="Cadastrar cliente" textAlignment="CENTER" textOrigin="BOTTOM">
                <font>
                   <Font name="Consolas Bold" size="40.0" />
                </font>
@@ -83,17 +83,17 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Text>
-            <Button defaultButton="true" layoutX="205.0" layoutY="421.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="124.0" text="Salvar" textAlignment="RIGHT" textFill="#3a5fcd" textOverrun="CLIP" wrapText="true">
+            <Button defaultButton="true" layoutX="205.0" layoutY="421.0" mnemonicParsing="false" onAction="#cadastrarCliente" prefHeight="40.0" prefWidth="124.0" text="Salvar" textAlignment="RIGHT" textFill="#3a5fcd" textOverrun="CLIP" wrapText="true">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button defaultButton="true" layoutX="360.0" layoutY="421.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="124.0" text="Voltar" textAlignment="RIGHT" textFill="#3a5fcd" textOverrun="CLIP" wrapText="true">
+            <Button defaultButton="true" layoutX="360.0" layoutY="421.0" mnemonicParsing="false" onAction="#telaClientes" prefHeight="40.0" prefWidth="124.0" text="Voltar" textAlignment="RIGHT" textFill="#3a5fcd" textOverrun="CLIP" wrapText="true">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" layoutX="360.0" layoutY="304.0" onMouseClicked="#telaFuncionarios" text="Estado" textOrigin="BOTTOM">
+            <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" layoutX="360.0" layoutY="304.0" text="Estado" textOrigin="BOTTOM">
                <font>
                   <Font name="Consolas Bold" size="15.0" />
                </font>
@@ -104,7 +104,7 @@
             <TextField layoutX="360.0" layoutY="304.0" prefHeight="32.0" prefWidth="200.0" />
             <TextField layoutX="360.0" layoutY="184.0" prefHeight="32.0" prefWidth="200.0" />
             <TextField layoutX="129.0" layoutY="242.0" prefHeight="32.0" prefWidth="200.0" />
-            <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" layoutX="129.0" layoutY="364.0" onMouseClicked="#telaFuncionarios" text="CEP" textOrigin="BOTTOM">
+            <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" layoutX="129.0" layoutY="364.0" text="CEP" textOrigin="BOTTOM">
                <font>
                   <Font name="Consolas Bold" size="15.0" />
                </font>
@@ -113,7 +113,7 @@
                </cursor>
             </Text>
             <TextField layoutX="129.0" layoutY="364.0" prefHeight="32.0" prefWidth="200.0" />
-            <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" layoutX="360.0" layoutY="364.0" onMouseClicked="#telaFuncionarios" text="Telefone" textOrigin="BOTTOM">
+            <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" layoutX="360.0" layoutY="364.0" text="Telefone" textOrigin="BOTTOM">
                <font>
                   <Font name="Consolas Bold" size="15.0" />
                </font>

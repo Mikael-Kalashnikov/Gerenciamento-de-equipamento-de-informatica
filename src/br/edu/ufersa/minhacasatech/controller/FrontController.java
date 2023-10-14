@@ -1,93 +1,85 @@
 package br.edu.ufersa.minhacasatech.controller;
 
+import br.edu.ufersa.minhacasatech.exception.AutenticationException;
+import br.edu.ufersa.minhacasatech.exception.InvalidInsertException;
+import br.edu.ufersa.minhacasatech.model.bo.UsuarioBO;
 import br.edu.ufersa.minhacasatech.model.entity.Usuario;
 import br.edu.ufersa.minhacasatech.view.Telas;
-import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 
-public class FrontController {
+public class FrontController implements Initializable {
+    
+    static Label labelError;
+    static Label labelMessage;
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // label de mensagem
+        labelMessage = new Label();
+        labelMessage.setFont(Font.font("Consolas", 15));
+        
+        // label de mensagem de erro
+        labelError = new Label();
+        labelError.setTextFill(Paint.valueOf("#ff0606"));
+        labelError.setFont(Font.font("Consolas", 15));
+    }
+    
+    // cria um painel de dialogo personalizado
+    public static void callDialogPane(String typeMessage, String message) {
+        DialogPane dp = new DialogPane();
+        if (typeMessage.equals("Error")) {
+            labelError.setText(message);
+            dp.setContent(labelError);
+        }
+        else {
+            labelMessage.setText(message);
+            dp.setContent(labelMessage);
+        }
+        Dialog dialog = new Dialog();
+        dialog.setDialogPane(dp);
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        dialog.showAndWait();
+    }
     
     @FXML private TextField login;
     @FXML private PasswordField senha;
-    @FXML private DialogPane erroAutenticar;
     
-    public void autenticar(ActionEvent event) throws IOException {
-	Usuario usu = new Usuario();
-	usu.setLogin(login.getText());
-	usu.setSenha(senha.getText());
-	
-	String loginUsu = usu.getLogin();
-	String senhaUsu = usu.getSenha();
-	
-	if (loginUsu.equals("kanalense") && senhaUsu.equals("kanalense123") || loginUsu.equals("toinho") && senhaUsu.equals("toinho123")) {
-	    // mostrar tela principal de responsavel
-	    Telas.telaPrincipal();
-	}
-	else if (loginUsu.equals("funcionario1") && senhaUsu.equals("func123")) {
-	    // mostrar tela principal de funcionario (tela vendas)
-	    Telas.telaVendasFunc();
-	}
-	else {
-	    // mostrar tela erro de autenticacao
-	    DialogPane dp = new DialogPane();
-	    dp.setContent(erroAutenticar.getContent());
-	    Dialog dialog = new Dialog();
-	    dialog.setDialogPane(dp);
-	    dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-	    dialog.showAndWait();
-	}
-    }
-    
-    public void telaEquipamentos() throws IOException {
-	Telas.telaEquipamentos();
-    }
-    
-    public void telaVendas() throws IOException {
-	Telas.telaVendas();
-    }
-    
-    @FXML private TableView tabelaLocais;
-    
-    public void telaLocais() throws IOException {
-//	try {
-//	    LocalBO locbo = new LocalBO(new LocalDAO());
-//	    tabelaLocais.getColumns().addAll(locbo.listar());
-//	    Telas.telaLocais();
-//	} catch (InvalidInsertException ex) {
-//	    ex.printStackTrace();
-//	}
-	
-	Telas.telaLocais();
-    }
-    
-    public void telaClientes() throws IOException {
-	Telas.telaClientes();
-    }
-    
-    public void telaFuncionarios() throws IOException {
-	Telas.telaFuncionarios();
-    }
-	
-    public void telaEquipamentosFunc() throws IOException {
-	Telas.telaEquipamentosFunc();
-    }
-    
-    public void telaVendasFunc() throws IOException {
-	Telas.telaVendasFunc();
-    }
-    
-    public void telaLocaisFunc() throws IOException {
-	Telas.telaLocaisFunc();
-    }
-    
-    public void telaClientesFunc() throws IOException {
-	Telas.telaClientesFunc();
-    }
-    
-    public void logout() throws IOException {
-	Telas.telaLogin();
+    @FXML
+    public void autenticar(ActionEvent event) {
+        Usuario usu = new Usuario();
+        try {
+            // pega os dados digitados na tela de login
+            usu.setLogin(login.getText());
+            usu.setSenha(senha.getText());
+            
+            UsuarioBO usubo = new UsuarioBO();
+            usu = usubo.autenticar(usu);
+            if (usu.getTipo().equals("Responsavel")) {
+                Telas.switchScene("/br/edu/ufersa/minhacasatech/view/ve/TelaPrincipal.fxml");
+            }
+            else {
+                Telas.switchScene("/br/edu/ufersa/minhacasatech/view/ve/TelaVendasFuncionario.fxml");
+            }
+        } catch (InvalidInsertException | AutenticationException ex) {
+            Logger.getLogger(FrontController.class.getName()).log(Level.SEVERE, null, ex);
+            
+            // mostrar tela erro de autenticacao
+            callDialogPane("Error", ex.getMessage());
+        }
     }
     
 }

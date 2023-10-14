@@ -134,7 +134,7 @@
          <children>
             <HBox alignment="CENTER" fillHeight="false" maxHeight="40.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="720.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#telaCadastrarVenda" preserveRatio="true">
                      <image>
                         <Image url="@icons8-add-50%203.png" />
                      </image>
@@ -145,7 +145,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <Text boundsType="LOGICAL_VERTICAL_CENTER" fill="WHITE" strokeWidth="0.0" text="Cadastrar Venda" textOrigin="BOTTOM" HBox.hgrow="NEVER">
+                  <Text boundsType="LOGICAL_VERTICAL_CENTER" fill="WHITE" onMouseClicked="#telaCadastrarVenda" strokeWidth="0.0" text="Cadastrar Venda" textOrigin="BOTTOM" HBox.hgrow="NEVER">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>

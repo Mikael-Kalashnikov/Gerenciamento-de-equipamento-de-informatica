@@ -3,32 +3,35 @@ package br.edu.ufersa.minhacasatech.model.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class BaseDAOImp<Entity> implements BaseDAO<Entity> {
     
-    private static final String URL = "jdbc:postgresql:projetopoo";
-    private static final String USER = "postgres";
-    private static final String PASS = "netodev";
-    private static Connection con = null;
+    static final String URL = "jdbc:postgresql:projetopoo";
+    static final String USER = "postgres";
+    static final String PASS = "netodev";
+    static Connection conn = null;
     
     public static Connection getConnection() {
-	if(con == null) {
-	    try {
-		con = DriverManager.getConnection(URL,USER,PASS);
-	    } catch (SQLException e) {
-		e.printStackTrace();
-	    }
+	if(conn == null) {
+            try {
+                conn = DriverManager.getConnection(URL, USER, PASS);
+            } catch (SQLException ex) {
+                Logger.getLogger(BaseDAOImp.class.getName()).log(Level.SEVERE, null, ex);
+            }
 	}
-	return con;
+	return conn;
     }
     
     public static void closeConnection() {
-	if (con != null) {
-	    try {
-		con.close();
-	    } catch (SQLException e) {
-		e.printStackTrace();
-	    }
+	if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(BaseDAOImp.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            conn = null;
 	}
     }
 }

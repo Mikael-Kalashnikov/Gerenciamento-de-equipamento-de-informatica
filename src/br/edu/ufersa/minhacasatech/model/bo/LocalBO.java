@@ -1,5 +1,6 @@
 package br.edu.ufersa.minhacasatech.model.bo;
 
+import br.edu.ufersa.minhacasatech.exception.AlreadyExistsException;
 import br.edu.ufersa.minhacasatech.exception.InvalidInsertException;
 import br.edu.ufersa.minhacasatech.exception.NotFoundException;
 import br.edu.ufersa.minhacasatech.model.entity.Local;
@@ -7,98 +8,51 @@ import br.edu.ufersa.minhacasatech.model.dao.LocalDAO;
 import java.util.List;
 
 public class LocalBO implements BaseBO<Local> {
-
+    
     private LocalDAO locdao;
-
-    public LocalBO(LocalDAO locdao) {
-        this.locdao = locdao;
-    }
-
+    
     @Override
-    public void cadastrar(Local loc) throws InvalidInsertException {
-        // validar os dados
-        validarLocal(loc);
-
+    public void cadastrar(Local loc) throws InvalidInsertException, AlreadyExistsException {
+        locdao = new LocalDAO();
         // verificar se o local ja existe
-        if (locdao.existeLocalPorNome(loc.getNome())) {
-            throw new InvalidInsertException("Local já existe com o nome: " + loc.getNome());
+        if (locdao.existeLocal(loc) != null) {
+            throw new AlreadyExistsException("Este local já está cadastrado");
         }
-
-        // inserir o local no banco
-        try {
-            LocalDAO.getConnection();
-            locdao.inserir(loc);
-        } finally {
-            LocalDAO.closeConnection();
+        else {
+            // inserir o local no banco
+            loc.setId(locdao.inserir(loc));
         }
-
     }
-
-    private void validarLocal(Local loc) throws InvalidInsertException {
-        if (loc == null) {
-            throw new InvalidInsertException("Local não pode ser nulo");
-        }
-
-        if (loc.getNome() == null || loc.getNome().isEmpty()) {
-            throw new InvalidInsertException("Nome do local é obrigatório");
-        }
+    
+    @Override
+    public Local buscarPorId(Local loc) throws NotFoundException {
+        locdao = new LocalDAO();
+	// validar os dados
+	
+	loc = locdao.buscarPorId(loc);
+	return loc;
     }
 
     @Override
-    public void buscarPorId(Local loc) throws NotFoundException {
-        if (!locdao.existeLocalPorId(loc.getId())) {
-            throw new NotFoundException("Local não encontrado com ID: " + loc.getId());
-        }
-    }
-
-    @Override
-    public List<Local> listar() throws InvalidInsertException {
-        try {
-            return locdao.listar();
-        } catch (Exception e) {
-            throw new InvalidInsertException("Erro ao listar os locais: " + e.getMessage());
-        }
+    public List<Local> listar() {
+        locdao = new LocalDAO();
+	List<Local> lista = locdao.listar();
+	return lista;
     }
 
     @Override
     public void alterar(Local loc) throws InvalidInsertException {
-        validarLocal(loc);
-
-        if (!locdao.existeLocalPorId(loc.getId())) {
-            try {
-                throw new NotFoundException("Local não existe com ID: " + loc.getId());
-            } catch (NotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
-        try {
-            LocalDAO.getConnection();
-            locdao.atualizar(loc);
-        } finally {
-            LocalDAO.closeConnection();
-        }
-
+        locdao = new LocalDAO();
+	// validar os dados
+	
+	// realizar as alteracoes
+	locdao.alterar(loc);
     }
 
     @Override
-    public void remover(Local loc) throws InvalidInsertException {
-        validarLocal(loc);
-
-        if (!locdao.existeLocalPorId(loc.getId())) {
-            try {
-                throw new NotFoundException("Local não encontrado com ID: " + loc.getId());
-            } catch (NotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
-        try {
-            LocalDAO.getConnection();
-            locdao.deletar(loc);
-        } finally {
-            LocalDAO.closeConnection();
-        }
+    public void remover(Local loc) {
+        locdao = new LocalDAO();
+	locdao.deletar(loc);
     }
-
+    
 }
