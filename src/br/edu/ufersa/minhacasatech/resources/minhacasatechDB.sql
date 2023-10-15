@@ -320,6 +320,7 @@ COPY public.funcionario (id, nome, login, senha, telefone, data_cadastro, is_res
 9	Afonso	afon	afo123	(84)99999-9999	2023-10-13	t	3	123.456.789-10
 11	Funcionario Legal	func	func123	(84)99999-9999	2023-10-14	f	1	234.567.891-01
 14	Mikael	mikael	mikael123	(84)99999-9999	2023-10-15	t	7	345.678.910-11
+15	Lucas	lucas	luca123	(84)99999-9999	2023-10-15	t	1	456.789.101-11
 \.
 
 
@@ -382,7 +383,7 @@ SELECT pg_catalog.setval('public.local_id_local_seq', 36, true);
 -- Name: usuario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.usuario_id_seq', 14, true);
+SELECT pg_catalog.setval('public.usuario_id_seq', 15, true);
 
 
 --
