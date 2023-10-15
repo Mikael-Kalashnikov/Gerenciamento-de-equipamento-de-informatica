@@ -2,7 +2,7 @@ package br.edu.ufersa.minhacasatech.model.dao;
 
 import br.edu.ufersa.minhacasatech.model.entity.Equipamento;
 import br.edu.ufersa.minhacasatech.model.entity.Local;
-import br.edu.ufersa.minhacasatech.model.entity.Responsavel;
+import br.edu.ufersa.minhacasatech.model.entity.Funcionario;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +69,7 @@ public class EquipamentoDAO extends BaseDAOImp<Equipamento> {
 	String sql = "SELECT * FROM equipamento WHERE id = ?";
 	Equipamento equipamento = null;
 	Local local = new Local();
-	Responsavel responsavel = new Responsavel();
+	Funcionario responsavel = new Funcionario();
 	try {
 	    Connection con = BaseDAOImp.getConnection();
 	    PreparedStatement ps = con.prepareStatement(sql);
@@ -81,9 +81,9 @@ public class EquipamentoDAO extends BaseDAOImp<Equipamento> {
 		responsavel.setId(rs.getLong("responsavel"));
 		
 		LocalDAO locdao = new LocalDAO();
-		ResponsavelDAO respdao = new ResponsavelDAO();
+		FuncionarioDAO funcdao = new FuncionarioDAO();
 		local = locdao.buscarPorId(local);
-		responsavel = respdao.buscarPorId(responsavel);
+		responsavel = funcdao.buscarPorId(responsavel);
 		
 		equipamento = new Equipamento(rs.getString("nome"), rs.getString("numserie"), rs.getDouble("preco"), rs.getInt("quantidade"), local, responsavel);
 		equipamento.setId(rs.getLong("id"));
@@ -106,14 +106,14 @@ public class EquipamentoDAO extends BaseDAOImp<Equipamento> {
 	    ResultSet rs = ps.executeQuery();
 	    while (rs.next()) {
 		Local local = new Local();
-		Responsavel responsavel = new Responsavel();
+		Funcionario responsavel = new Funcionario();
 		local.setId(rs.getLong("local"));
 		responsavel.setId(rs.getLong("responsavel"));
 		
 		LocalDAO locdao = new LocalDAO();
-		ResponsavelDAO respdao = new ResponsavelDAO();
+		FuncionarioDAO funcdao = new FuncionarioDAO();
 		local = locdao.buscarPorId(local);
-		responsavel = respdao.buscarPorId(responsavel);
+		responsavel = funcdao.buscarPorId(responsavel);
 		
 		Equipamento equipamento = new Equipamento(rs.getString("nome"), rs.getString("numserie"), rs.getDouble("preco"), rs.getInt("quantidade"), local, responsavel);
 		equipamento.setId(rs.getLong("id"));

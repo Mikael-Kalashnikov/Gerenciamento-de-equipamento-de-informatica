@@ -25,7 +25,7 @@ public class EnderecoDAO extends BaseDAOImp<Endereco> {
 		id = rs.getLong(1);
 	    }
 	} catch (SQLException ex) {
-	    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+	    Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
 	} finally {
             BaseDAOImp.closeConnection();
         }
@@ -41,7 +41,7 @@ public class EnderecoDAO extends BaseDAOImp<Endereco> {
 	    ps.setLong(1, end.getId());
 	    ps.execute();
 	} catch (SQLException ex) {
-	    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+	    Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
 	} finally {
             BaseDAOImp.closeConnection();
         }
@@ -58,7 +58,7 @@ public class EnderecoDAO extends BaseDAOImp<Endereco> {
 	    ps.setLong(3, end.getId());
 	    ps.execute();
 	} catch (SQLException ex) {
-	    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+	    Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
 	} finally {
             BaseDAOImp.closeConnection();
         }
@@ -79,7 +79,7 @@ public class EnderecoDAO extends BaseDAOImp<Endereco> {
 		endereco.setId(rs.getLong("id"));
 	    }
 	} catch (SQLException | InvalidInsertException ex) {
-	    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+	    Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
 	} finally {
             BaseDAOImp.closeConnection();
         }
@@ -100,7 +100,7 @@ public class EnderecoDAO extends BaseDAOImp<Endereco> {
 		endereco.setId(rs.getLong("id"));
 	    }
 	} catch (SQLException | InvalidInsertException ex) {
-	    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+	    Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
 	} finally {
             BaseDAOImp.closeConnection();
         }
@@ -121,7 +121,7 @@ public class EnderecoDAO extends BaseDAOImp<Endereco> {
 		lista.add(end);
 	    }
 	} catch (SQLException | InvalidInsertException ex) {
-	    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+	    Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
 	} finally {
             BaseDAOImp.closeConnection();
         }

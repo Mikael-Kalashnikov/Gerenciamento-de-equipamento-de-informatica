@@ -11,12 +11,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class TelaClienteController implements Initializable {
+public class TelaClienteController extends TelaPrincipalController implements Initializable {
     
     @FXML private TextField dataInicio;
     @FXML private TextField dataFim;
     @FXML private TextField pesquisarCliente;
-    
     @FXML private TableView tabelaClientes;
     @FXML private TableColumn<Cliente, Long> idColumn;
     @FXML private TableColumn<Cliente, String> nomeColumn;
@@ -36,33 +35,51 @@ public class TelaClienteController implements Initializable {
     }
     
     @FXML
-    private void telaCadastrarCliente() {
-        Telas.switchScene("/br/edu/ufersa/minhacasatech/view/ve/TelaCadastrarCliente.fxml");
+    private void cadastrarCliente() {
+        
     }
     
     @FXML
-    private void telaEquipamentos() {
-        Telas.switchScene("/br/edu/ufersa/minhacasatech/view/ve/TelaEquipamentos.fxml");
+    private void editarCliente() {
+        
     }
-
+    
     @FXML
-    private void telaVendas() {
-        Telas.switchScene("/br/edu/ufersa/minhacasatech/view/ve/TelaVendas.fxml");
+    private void excluirCliente() {
+        
     }
-
+    
     @FXML
-    private void telaLocais() {
-        Telas.switchScene("/br/edu/ufersa/minhacasatech/view/ve/TelaLocais.fxml");
+    private void gerarRelatorioClientes() {
+        
     }
-
+    
     @FXML
-    private void telaFuncionarios() {
-        Telas.switchScene("/br/edu/ufersa/minhacasatech/view/ve/TelaFuncionarios.fxml");
+    private void telaCadastrarCliente() {
+        init = false;
+        newStage = Telas.newScene("/br/edu/ufersa/minhacasatech/view/ve/TelaCadastrarCliente.fxml");
     }
-
+    
     @FXML
-    private void logout() {
-        Telas.switchScene("/br/edu/ufersa/minhacasatech/view/ve/TelaLogin.fxml");
+    private void telaEditarCliente() {
+        init = false;
+        newStage = Telas.newScene("/br/edu/ufersa/minhacasatech/view/ve/TelaEditarCliente.fxml");
     }
-
+    
+    @FXML
+    private void telaExcluirCliente() {
+        // gerar tela de confirmacao de exclusao
+    }
+    
+    @FXML
+    private void close() {
+        init = true;
+        newStage.close();
+        if (user.getIsResponsavel()) {
+            telaClientes();
+        } else {
+            telaClientesFunc();
+        }
+    }
+    
 }

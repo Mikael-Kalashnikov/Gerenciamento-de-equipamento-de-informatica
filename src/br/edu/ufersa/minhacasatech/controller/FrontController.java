@@ -2,8 +2,8 @@ package br.edu.ufersa.minhacasatech.controller;
 
 import br.edu.ufersa.minhacasatech.exception.AutenticationException;
 import br.edu.ufersa.minhacasatech.exception.InvalidInsertException;
-import br.edu.ufersa.minhacasatech.model.bo.UsuarioBO;
-import br.edu.ufersa.minhacasatech.model.entity.Usuario;
+import br.edu.ufersa.minhacasatech.model.bo.FuncionarioBO;
+import br.edu.ufersa.minhacasatech.model.entity.Funcionario;
 import br.edu.ufersa.minhacasatech.view.Telas;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -60,15 +60,16 @@ public class FrontController implements Initializable {
     
     @FXML
     public void autenticar(ActionEvent event) {
-        Usuario usu = new Usuario();
+        Funcionario func = new Funcionario();
         try {
             // pega os dados digitados na tela de login
-            usu.setLogin(login.getText());
-            usu.setSenha(senha.getText());
+            func.setLogin(login.getText());
+            func.setSenha(senha.getText());
             
-            UsuarioBO usubo = new UsuarioBO();
-            usu = usubo.autenticar(usu);
-            if (usu.getTipo().equals("Responsavel")) {
+            FuncionarioBO usubo = new FuncionarioBO();
+            func = usubo.autenticar(func);
+            TelaPrincipalController.user = func;
+            if (func.getIsResponsavel()) {
                 Telas.switchScene("/br/edu/ufersa/minhacasatech/view/ve/TelaPrincipal.fxml");
             }
             else {

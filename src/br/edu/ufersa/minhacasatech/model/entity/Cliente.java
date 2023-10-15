@@ -29,7 +29,7 @@ public class Cliente {
             this.id = id;
         }
         else {
-            throw new InvalidInsertException("Telefone inválido!");
+            throw new InvalidInsertException("ID inválido!");
         }
     }
 	
@@ -38,7 +38,7 @@ public class Cliente {
             this.nome = nome;
         }
         else {
-            throw new InvalidInsertException("Telefone inválido!");
+            throw new InvalidInsertException("Nome inválido!");
         }
     }
     
@@ -51,7 +51,7 @@ public class Cliente {
             this.endereco = endereco;
         }
         else {
-            throw new InvalidInsertException("Telefone inválido!");
+            throw new InvalidInsertException("Endereço inválido!");
         }
     }
 
@@ -59,17 +59,20 @@ public class Cliente {
 	return this.endereco;
     }
 
+    public boolean cpfValido(String cpf) {
+        String regex = "\\{d3}\\.\\{d3}\\.\\{d3}\\-\\{d2}";
+        return cpf.matches(regex);
+    }
+    
     public void setCpf(String cpf) throws InvalidInsertException {
-        if (cpf != null && !cpf.isEmpty() && cpf.length() == 14) {
-            this.cpf = cpf;
-        }
-        else {
-            throw new InvalidInsertException("Telefone inválido!");
-        }
+	if (cpf != null && !cpf.isEmpty() && cpfValido(cpf))
+	   this.cpf = cpf;
+	else
+	    throw new InvalidInsertException("CPF inválido!");
     }
 
     public String getCpf() {
-	return this.cpf;
+        return this.cpf;
     }
     
     public String getTelefone() {
@@ -94,7 +97,7 @@ public class Cliente {
             this.dataCadastro = dataCadastro;
         }
         else {
-            throw new InvalidInsertException("Telefone inválido!");
+            throw new InvalidInsertException("Data de cadastro inválida!");
         }
     }
 

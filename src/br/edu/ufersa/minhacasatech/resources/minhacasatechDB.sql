@@ -134,33 +134,18 @@ ALTER SEQUENCE public.equipamento_id_equipamento_seq OWNED BY public.equipamento
 
 CREATE TABLE public.funcionario (
     id bigint NOT NULL,
-    id_usuario bigint,
-    salario numeric(6,2)
+    nome character varying(50),
+    login character varying(50),
+    senha character varying(50),
+    telefone character varying(50),
+    data_cadastro date DEFAULT CURRENT_DATE,
+    is_responsavel boolean,
+    endereco bigint,
+    cpf character varying(14)
 );
 
 
 ALTER TABLE public.funcionario OWNER TO postgres;
-
---
--- Name: funcionario_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public.funcionario_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.funcionario_id_seq OWNER TO postgres;
-
---
--- Name: funcionario_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public.funcionario_id_seq OWNED BY public.funcionario.id;
-
 
 --
 -- Name: local; Type: TABLE; Schema: public; Owner: postgres
@@ -198,57 +183,6 @@ ALTER SEQUENCE public.local_id_local_seq OWNED BY public.local.id;
 
 
 --
--- Name: responsavel; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.responsavel (
-    id bigint NOT NULL,
-    id_usuario bigint
-);
-
-
-ALTER TABLE public.responsavel OWNER TO postgres;
-
---
--- Name: responsavel_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public.responsavel_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.responsavel_id_seq OWNER TO postgres;
-
---
--- Name: responsavel_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public.responsavel_id_seq OWNED BY public.responsavel.id;
-
-
---
--- Name: usuario; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.usuario (
-    id bigint NOT NULL,
-    nome character varying(50),
-    login character varying(50),
-    senha character varying(50),
-    telefone character varying(50),
-    data_cadastro date DEFAULT CURRENT_DATE,
-    tipo character varying(15),
-    endereco bigint
-);
-
-
-ALTER TABLE public.usuario OWNER TO postgres;
-
---
 -- Name: usuario_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -266,7 +200,7 @@ ALTER TABLE public.usuario_id_seq OWNER TO postgres;
 -- Name: usuario_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public.usuario_id_seq OWNED BY public.usuario.id;
+ALTER SEQUENCE public.usuario_id_seq OWNED BY public.funcionario.id;
 
 
 --
@@ -306,42 +240,6 @@ ALTER SEQUENCE public.venda_id_venda_seq OWNED BY public.venda.id;
 
 
 --
--- Name: view_funcionarios; Type: VIEW; Schema: public; Owner: postgres
---
-
-CREATE VIEW public.view_funcionarios AS
- SELECT u.id,
-    u.nome,
-    u.login,
-    u.senha,
-    u.telefone,
-    u.data_cadastro,
-    u.tipo
-   FROM (public.usuario u
-     JOIN public.funcionario f ON ((u.id = f.id_usuario)));
-
-
-ALTER TABLE public.view_funcionarios OWNER TO postgres;
-
---
--- Name: view_responsaveis; Type: VIEW; Schema: public; Owner: postgres
---
-
-CREATE VIEW public.view_responsaveis AS
- SELECT u.id,
-    u.nome,
-    u.login,
-    u.senha,
-    u.telefone,
-    u.data_cadastro,
-    u.tipo
-   FROM (public.usuario u
-     JOIN public.responsavel r ON ((u.id = r.id_usuario)));
-
-
-ALTER TABLE public.view_responsaveis OWNER TO postgres;
-
---
 -- Name: cliente id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -366,7 +264,7 @@ ALTER TABLE ONLY public.equipamento ALTER COLUMN id SET DEFAULT nextval('public.
 -- Name: funcionario id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.funcionario ALTER COLUMN id SET DEFAULT nextval('public.funcionario_id_seq'::regclass);
+ALTER TABLE ONLY public.funcionario ALTER COLUMN id SET DEFAULT nextval('public.usuario_id_seq'::regclass);
 
 
 --
@@ -374,20 +272,6 @@ ALTER TABLE ONLY public.funcionario ALTER COLUMN id SET DEFAULT nextval('public.
 --
 
 ALTER TABLE ONLY public.local ALTER COLUMN id SET DEFAULT nextval('public.local_id_local_seq'::regclass);
-
-
---
--- Name: responsavel id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.responsavel ALTER COLUMN id SET DEFAULT nextval('public.responsavel_id_seq'::regclass);
-
-
---
--- Name: usuario id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.usuario ALTER COLUMN id SET DEFAULT nextval('public.usuario_id_seq'::regclass);
 
 
 --
@@ -432,7 +316,10 @@ COPY public.equipamento (id, nome, numserie, quantidade, local, responsavel, pre
 -- Data for Name: funcionario; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.funcionario (id, id_usuario, salario) FROM stdin;
+COPY public.funcionario (id, nome, login, senha, telefone, data_cadastro, is_responsavel, endereco, cpf) FROM stdin;
+9	Afonso	afon	afo123	(84)99999-9999	2023-10-13	t	3	123.456.789-10
+11	Funcionario Legal	func	func123	(84)99999-9999	2023-10-14	f	1	234.567.891-01
+14	Mikael	mikael	mikael123	(84)99999-9999	2023-10-15	t	7	345.678.910-11
 \.
 
 
@@ -441,41 +328,17 @@ COPY public.funcionario (id, id_usuario, salario) FROM stdin;
 --
 
 COPY public.local (id, nome, nome_compartimento, data_cadastro) FROM stdin;
-4	A casa	Sala	2023-10-10
 5	Outra casa	Sala	2023-10-10
-1	Casa do Adonso	Sala	2023-10-10
 3	Casa	Quarto	2023-10-10
-2	Casa do Breno	Quarto	2023-10-10
 10	Mais uma casa	Garagem	2023-10-10
 17	Mais uma outra casa	Depósito	2023-10-10
 18	Mais uma outra casa2	Depósito	2023-10-10
 16	Outro	Depósito	2023-10-10
-19	ladwiwjaildj	adwlijawildj	2023-10-13
-20	Casa do Adonso	Quarto	2023-10-13
-21	umkk	kkk	2023-10-13
-22	outra casa	quarto	2023-10-13
-23	kasldj	dlaiwdj	2023-10-13
-24	zeruelaessejavafxviu	ali	2023-10-13
-25	teste	tstea	2023-10-13
-26	testetete	aldwijawidj	2023-10-13
-27	Fulano de tal	12	2023-10-13
-\.
-
-
---
--- Data for Name: responsavel; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.responsavel (id, id_usuario) FROM stdin;
-\.
-
-
---
--- Data for Name: usuario; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.usuario (id, nome, login, senha, telefone, data_cadastro, tipo, endereco) FROM stdin;
-9	Afonso	afon	afo123	(84)99999-9999	2023-10-13	Responsavel	3
+4	Casa do Mikael	Sala	2023-10-10
+2	Casa do Lucas	Quarto	2023-10-10
+20	Casa do Afonso	Quarto	2023-10-13
+36	Casa do Kanalense	Porão	2023-10-15
+1	Casa do Afonso	Sala	2023-10-10
 \.
 
 
@@ -509,31 +372,17 @@ SELECT pg_catalog.setval('public.equipamento_id_equipamento_seq', 1, false);
 
 
 --
--- Name: funcionario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.funcionario_id_seq', 1, true);
-
-
---
 -- Name: local_id_local_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.local_id_local_seq', 27, true);
-
-
---
--- Name: responsavel_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.responsavel_id_seq', 2, true);
+SELECT pg_catalog.setval('public.local_id_local_seq', 36, true);
 
 
 --
 -- Name: usuario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.usuario_id_seq', 9, true);
+SELECT pg_catalog.setval('public.usuario_id_seq', 14, true);
 
 
 --
@@ -568,14 +417,6 @@ ALTER TABLE ONLY public.equipamento
 
 
 --
--- Name: funcionario funcionario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.funcionario
-    ADD CONSTRAINT funcionario_pkey PRIMARY KEY (id);
-
-
---
 -- Name: local local_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -584,18 +425,10 @@ ALTER TABLE ONLY public.local
 
 
 --
--- Name: responsavel responsavel_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: funcionario usuario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.responsavel
-    ADD CONSTRAINT responsavel_pkey PRIMARY KEY (id);
-
-
---
--- Name: usuario usuario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.usuario
+ALTER TABLE ONLY public.funcionario
     ADD CONSTRAINT usuario_pkey PRIMARY KEY (id);
 
 
@@ -632,26 +465,10 @@ ALTER TABLE ONLY public.venda
 
 
 --
--- Name: funcionario funcionario_id_usuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: funcionario usuario_endereco_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.funcionario
-    ADD CONSTRAINT funcionario_id_usuario_fkey FOREIGN KEY (id_usuario) REFERENCES public.usuario(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: responsavel responsavel_id_usuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.responsavel
-    ADD CONSTRAINT responsavel_id_usuario_fkey FOREIGN KEY (id_usuario) REFERENCES public.usuario(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: usuario usuario_endereco_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.usuario
     ADD CONSTRAINT usuario_endereco_fkey FOREIGN KEY (endereco) REFERENCES public.endereco(id);
 
 

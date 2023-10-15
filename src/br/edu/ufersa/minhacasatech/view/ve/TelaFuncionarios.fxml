@@ -15,55 +15,20 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" prefHeight="480.0" prefWidth="720.0" style="-fx-background-color: #3A5FCD;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.minhacasatech.controller.MainController">
+<VBox alignment="CENTER" prefHeight="520.0" prefWidth="780.0" style="-fx-background-color: #3A5FCD;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.minhacasatech.controller.TelaFuncionarioController">
    <children>
-      <AnchorPane maxHeight="65.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="720.0" style="-fx-background-color: #ffffff;" VBox.vgrow="NEVER">
+      <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="780.0" style="-fx-background-color: #ffffff;" VBox.vgrow="NEVER">
          <children>
             <ImageView fitHeight="55.0" fitWidth="124.0" layoutX="5.0" layoutY="5.0" preserveRatio="true">
                <image>
                   <Image url="@Captura%20de%20tela%202023-09-25%20210432.png" />
                </image>
             </ImageView>
-            <HBox alignment="CENTER" fillHeight="false" layoutX="124.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="65.0" prefWidth="535.0" spacing="25.0" AnchorPane.leftAnchor="124.0" AnchorPane.rightAnchor="61.0">
+            <HBox alignment="CENTER" fillHeight="false" layoutX="67.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="65.0" prefWidth="535.0" AnchorPane.leftAnchor="124.0" AnchorPane.rightAnchor="65.0">
                <children>
-                  <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" onMouseClicked="#telaEquipamentos" text="Equipamentos" textAlignment="CENTER" textOrigin="BOTTOM">
-                     <font>
-                        <Font name="Consolas Bold" size="15.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Text>
-                  <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" onMouseClicked="#telaVendas" text="Vendas" textOrigin="BOTTOM">
-                     <font>
-                        <Font name="Consolas Bold" size="15.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Text>
-                  <Text boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" onMouseClicked="#telaLocais" text="Locais" textOrigin="BOTTOM">
-                     <font>
-                        <Font name="Consolas Bold" size="15.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Text>
-                  <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" onMouseClicked="#telaClientes" text="Clientes" textOrigin="BOTTOM">
-                     <font>
-                        <Font name="Consolas Bold" size="15.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Text>
-                  <TilePane alignment="CENTER" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefColumns="1" prefHeight="65.0" prefRows="1" prefWidth="107.0" style="-fx-background-color: #3A5FCD;">
-                     <padding>
-                        <Insets left="20.0" right="20.0" />
-                     </padding>
+                  <TilePane alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefColumns="1" prefHeight="65.0" prefRows="1" prefWidth="0.0">
                      <children>
-                        <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="WHITE" text="Funcionários" textOrigin="BOTTOM">
+                        <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" onMouseClicked="#telaEquipamentos" text="Equipamentos" textAlignment="CENTER" textOrigin="BOTTOM" TilePane.alignment="CENTER">
                            <font>
                               <Font name="Consolas Bold" size="15.0" />
                            </font>
@@ -72,6 +37,69 @@
                            </cursor>
                         </Text>
                      </children>
+                     <padding>
+                        <Insets left="25.0" right="25.0" />
+                     </padding>
+                  </TilePane>
+                  <TilePane alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefColumns="1" prefHeight="65.0" prefRows="1" prefWidth="0.0" HBox.hgrow="NEVER">
+                     <children>
+                        <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" onMouseClicked="#telaVendas" text="Vendas" textOrigin="BOTTOM" TilePane.alignment="CENTER">
+                           <font>
+                              <Font name="Consolas Bold" size="15.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Text>
+                     </children>
+                     <padding>
+                        <Insets left="25.0" right="25.0" />
+                     </padding>
+                  </TilePane>
+                  <TilePane alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefColumns="1" prefHeight="65.0" prefRows="1" prefWidth="0.0" HBox.hgrow="NEVER">
+                     <children>
+                        <Text boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" onMouseClicked="#telaLocais" text="Locais" textOrigin="BOTTOM" TilePane.alignment="CENTER">
+                           <font>
+                              <Font name="Consolas Bold" size="15.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Text>
+                     </children>
+                     <padding>
+                        <Insets left="25.0" right="25.0" />
+                     </padding>
+                  </TilePane>
+                  <TilePane alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefColumns="1" prefHeight="65.0" prefRows="1" prefWidth="0.0" HBox.hgrow="NEVER">
+                     <children>
+                        <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="#3a5fcd" onMouseClicked="#telaClientes" text="Clientes" textOrigin="BOTTOM" TilePane.alignment="CENTER">
+                           <font>
+                              <Font name="Consolas Bold" size="15.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Text>
+                     </children>
+                     <padding>
+                        <Insets left="25.0" right="25.0" />
+                     </padding>
+                  </TilePane>
+                  <TilePane alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefColumns="1" prefHeight="65.0" prefRows="1" prefWidth="0.0" style="-fx-background-color: #3a5fcd;" HBox.hgrow="NEVER">
+                     <children>
+                        <Text accessibleRole="BUTTON" boundsType="LOGICAL_VERTICAL_CENTER" fill="WHITE" text="Funcionários" textOrigin="BOTTOM" TilePane.alignment="CENTER">
+                           <font>
+                              <Font name="Consolas Bold" size="15.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Text>
+                     </children>
+                     <padding>
+                        <Insets left="25.0" right="25.0" />
+                     </padding>
                   </TilePane>
                </children>
             </HBox>
@@ -89,22 +117,22 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="50.0" prefWidth="720.0" spacing="10.0" VBox.vgrow="NEVER">
+      <HBox alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="50.0" prefWidth="780.0" spacing="10.0" VBox.vgrow="NEVER">
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="De">
                <font>
                   <Font name="Consolas Bold" size="12.0" />
                </font>
             </Text>
-            <TextField prefHeight="26.0" prefWidth="101.0" promptText="DD/MM/AAAA" />
+            <TextField fx:id="dataInicio" onAction="#buscarFuncionario" prefHeight="26.0" prefWidth="101.0" promptText="DD/MM/AAAA" />
             <Text fill="WHITE" strokeType="OUTSIDE" text="Até">
                <font>
                   <Font name="Consolas Bold" size="12.0" />
                </font>
             </Text>
-            <TextField prefHeight="26.0" prefWidth="101.0" promptText="DD/MM/AAAA" />
-            <TextField prefHeight="26.0" prefWidth="150.0" promptText="Pesquisar funcionario" />
-            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Buscar" textFill="#3a5fcd">
+            <TextField fx:id="dataFim" onAction="#buscarFuncionario" prefHeight="26.0" prefWidth="101.0" promptText="DD/MM/AAAA" />
+            <TextField fx:id="pesquisarFuncionario" onAction="#buscarFuncionario" prefHeight="26.0" prefWidth="150.0" promptText="Pesquisar funcionario" />
+            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#buscarFuncionario" prefHeight="30.0" prefWidth="70.0" text="Buscar" textFill="#3a5fcd">
                <font>
                   <Font name="Consolas Bold" size="12.0" />
                </font>
@@ -114,14 +142,14 @@
             <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
          </padding>
       </HBox>
-      <TableView editable="true" prefHeight="260.0" prefWidth="720.0" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
+      <TableView fx:id="tabelaFuncionarios" editable="true" prefHeight="260.0" prefWidth="720.0" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
         <columns>
-          <TableColumn minWidth="80.0" prefWidth="90.0" text="Identificador" />
-          <TableColumn minWidth="68.0" prefWidth="97.0" text="Nome" />
-            <TableColumn minWidth="50.0" prefWidth="120.0" text="CPF" />
-            <TableColumn minWidth="50.0" prefWidth="165.0" text="Endereço" />
-            <TableColumn minWidth="40.0" prefWidth="124.0" text="Contato" />
-            <TableColumn minWidth="100.0" prefWidth="119.0" text="Total de vendas" />
+          <TableColumn fx:id="idColumn" minWidth="80.0" prefWidth="90.0" text="Identificador" />
+          <TableColumn fx:id="nomeColumn" minWidth="68.0" prefWidth="97.0" text="Nome" />
+            <TableColumn fx:id="cpfColumn" minWidth="50.0" prefWidth="120.0" text="CPF" />
+            <TableColumn fx:id="enderecoColumn" minWidth="50.0" prefWidth="165.0" text="Endereço" />
+            <TableColumn fx:id="contatoColumn" minWidth="40.0" prefWidth="124.0" text="Contato" />
+            <TableColumn fx:id="totalColumn" minWidth="100.0" prefWidth="119.0" text="Total de vendas" />
         </columns>
          <VBox.margin>
             <Insets left="10.0" right="10.0" />
@@ -137,7 +165,7 @@
          <children>
             <HBox alignment="CENTER" fillHeight="false" maxHeight="40.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="720.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0">
+                  <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#telaCadastrarFuncionario">
                      <image>
                         <Image url="@icons8-add-50%203.png" />
                      </image>
@@ -148,7 +176,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <Text boundsType="LOGICAL_VERTICAL_CENTER" fill="WHITE" strokeWidth="0.0" text="Cadastrar Funcionario" textOrigin="BOTTOM" HBox.hgrow="NEVER">
+                  <Text boundsType="LOGICAL_VERTICAL_CENTER" fill="WHITE" onMouseClicked="#telaCadastrarFuncionario" strokeWidth="0.0" text="Cadastrar Funcionario" textOrigin="BOTTOM" HBox.hgrow="NEVER">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>

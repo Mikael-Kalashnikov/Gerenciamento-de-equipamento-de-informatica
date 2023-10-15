@@ -15,6 +15,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
+
 <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="480.0" prefWidth="720.0" style="-fx-background-color: #3a5fcd;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.minhacasatech.controller.FrontController">
    <children>
        <AnchorPane prefHeight="316.0" prefWidth="447.0" style="-fx-background-color: #ffffff;">

@@ -9,12 +9,12 @@ public class Equipamento {
     private double preco;
     private int quantidade;
     private Local local;
-    private Responsavel responsavel;
+    private Funcionario responsavel;
     private Date dataCadastro;
 
     public Equipamento() {}
     
-    public Equipamento(String nome, String numSerie, double preco, int quantidade, Local local, Responsavel responsavel) {
+    public Equipamento(String nome, String numSerie, double preco, int quantidade, Local local, Funcionario responsavel) {
 	setNome(nome);
 	setNumSerie(numSerie);
 	setPreco(preco);
@@ -125,7 +125,7 @@ public class Equipamento {
         return this.local;
     }
 
-    public void setResponsavel(Responsavel responsavel) {
+    public void setResponsavel(Funcionario responsavel) {
         try {
 	    if (responsavel != null) {
 		this.responsavel = responsavel;
@@ -138,7 +138,7 @@ public class Equipamento {
 	}
     }
 
-    public Responsavel getResponsavel() {
+    public Funcionario getResponsavel() {
         return this.responsavel;
     }
     
