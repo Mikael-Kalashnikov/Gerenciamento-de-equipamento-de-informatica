@@ -112,7 +112,7 @@ public class LocalDAO extends BaseDAOImp<Local> {
     
     @Override
     public List<Local> listar(){
-	String sql = "SELECT * FROM local";
+	String sql = "SELECT * FROM local ORDER BY id";
 	List<Local> lista = new ArrayList<>();
 	try {
 	    Connection con = BaseDAOImp.getConnection();

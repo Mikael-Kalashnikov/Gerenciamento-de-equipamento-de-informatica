@@ -59,7 +59,6 @@ public class TelaVendaController extends TelaPrincipalController implements Init
     
     @FXML
     private void telaCadastrarVenda() {
-        init = false;
         newStage = Telas.newScene("/br/edu/ufersa/minhacasatech/view/ve/TelaCadastrarVenda.fxml");
     }
     
@@ -70,7 +69,6 @@ public class TelaVendaController extends TelaPrincipalController implements Init
     
     @FXML
     private void close() {
-        init = true;
         newStage.close();
         if (user.getIsResponsavel()) {
             telaVendas();

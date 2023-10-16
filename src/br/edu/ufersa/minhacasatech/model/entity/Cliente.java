@@ -2,24 +2,25 @@ package br.edu.ufersa.minhacasatech.model.entity;
 
 import br.edu.ufersa.minhacasatech.exception.InvalidInsertException;
 import java.sql.Date;
+import java.time.format.DateTimeFormatter;
 
 public class Cliente {
     private Long id;
     private String nome;
     private String cpf;
     private String telefone;
-    private Endereco endereco;
-    private Date dataCadastro;
+    private String endereco;
+    private String dataCadastro;
     
     public Cliente() {}
     
-    public Cliente(String nome, String cpf, String telefone, Endereco endereco) throws InvalidInsertException {
+    public Cliente(String nome, String cpf, String telefone, String endereco) throws InvalidInsertException {
 	setNome(nome);
 	setCpf(cpf);
         setTelefone(telefone);
 	setEndereco(endereco);
     }
-
+    
     public Long getId() {
         return id;
     }
@@ -45,8 +46,13 @@ public class Cliente {
     public String getNome() {
 	return this.nome;
     }
-
-    public void setEndereco(Endereco endereco) throws InvalidInsertException {
+    
+    public boolean enderecoValido(String endereco) {
+        String regex = "^[A-Z][A-Za-z\\s]+,\\s\\d+$";
+        return endereco.matches(regex);
+    }
+    
+    public void setEndereco(String endereco) throws InvalidInsertException {
         if (endereco != null) {
             this.endereco = endereco;
         }
@@ -54,13 +60,13 @@ public class Cliente {
             throw new InvalidInsertException("Endereço inválido!");
         }
     }
-
-    public Endereco getEndereco() {
+    
+    public String getEndereco() {
 	return this.endereco;
     }
 
     public boolean cpfValido(String cpf) {
-        String regex = "\\{d3}\\.\\{d3}\\.\\{d3}\\-\\{d2}";
+        String regex = "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}";
         return cpf.matches(regex);
     }
     
@@ -70,7 +76,7 @@ public class Cliente {
 	else
 	    throw new InvalidInsertException("CPF inválido!");
     }
-
+    
     public String getCpf() {
         return this.cpf;
     }
@@ -88,21 +94,21 @@ public class Cliente {
         }
     }
     
-    public Date getDataCadastro() {
+    public String getDataCadastro() {
 	return dataCadastro;
     }
     
     public void setDataCadastro(Date dataCadastro) throws InvalidInsertException {
         if (dataCadastro != null) {
-            this.dataCadastro = dataCadastro;
+            String data = dataCadastro.toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            this.dataCadastro = data;
         }
-        else {
-            throw new InvalidInsertException("Data de cadastro inválida!");
-        }
+        else
+	    throw new InvalidInsertException("Data de cadastro inválida");
     }
 
     @Override
     public String toString() {
-        return "ID: " + id + " | Nome: " + nome + " | Endereco: " + endereco.toString() + " | CPF: " + cpf + " | Telefone: " + telefone;
+        return "ID: " + id + " | Nome: " + nome + " | Endereco: " + endereco + " | CPF: " + cpf + " | Telefone: " + telefone;
     }
 }

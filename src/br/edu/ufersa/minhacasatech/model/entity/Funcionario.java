@@ -11,9 +11,10 @@ public class Funcionario {
     private String senha;
     private String telefone;
     private String cpf;
-    private Endereco endereco;
+    private String endereco;
+    private double vendas;
     private boolean isResponsavel;
-    private Date dataCadastro;
+    private String dataCadastro;
     
     public Funcionario() {}
     
@@ -66,15 +67,22 @@ public class Funcionario {
 	return this.senha;
     }
 
-    public void setEndereco(Endereco endereco) throws InvalidInsertException {
-	if (endereco != null)
-	    this.endereco = endereco;
-	else
-	    throw new InvalidInsertException("Endereço inválido");
+    public boolean enderecoValido(String endereco) {
+        String regex = "^[A-Z][A-Za-z\\s]+,\\s\\d+$";
+        return endereco.matches(regex);
     }
-
-    public Endereco getEndereco() {
-	return this.endereco;
+    
+    public void setEndereco(String endereco) throws InvalidInsertException {
+        if (endereco != null) {
+            this.endereco = endereco;
+        }
+        else {
+            throw new InvalidInsertException("Endereço inválido!");
+        }
+    }
+    
+    public String getEndereco() {
+        return this.endereco;
     }
     
     public boolean telefoneValido(String telefone) {
@@ -83,7 +91,7 @@ public class Funcionario {
     }
 
     public void setTelefone(String telefone) throws InvalidInsertException {
-	if (telefone != null && !telefone.isEmpty())
+	if (telefone != null && !telefone.isEmpty() && telefoneValido(telefone))
 	   this.telefone = telefone;
 	else
 	    throw new InvalidInsertException("Telefone inválido");
@@ -109,7 +117,15 @@ public class Funcionario {
         return this.cpf;
     }
     
-    public void setIsResponsavel(boolean responsavel) throws InvalidInsertException {
+    public double getVendas() {
+        return this.vendas;
+    }
+    
+    public void setVendas(double vendas) {
+        this.vendas = vendas;
+    }
+    
+    public void setIsResponsavel(boolean responsavel) {
         this.isResponsavel = responsavel;
     }
     
@@ -117,20 +133,22 @@ public class Funcionario {
         return this.isResponsavel;
     }
     
-    public Date getDataCadastro() {
+    public String getDataCadastro() {
 	return dataCadastro;
     }
     
     public void setDataCadastro(Date dataCadastro) throws InvalidInsertException {
-        if (dataCadastro != null)
-            this.dataCadastro = dataCadastro;
+        if (dataCadastro != null) {
+            String data = dataCadastro.toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            this.dataCadastro = data;
+        }
         else
-            throw new InvalidInsertException("Data de cadastro inválida");
+	    throw new InvalidInsertException("Data de cadastro inválida");
     }
     
     @Override
     public String toString() {
-        return "ID: " + id + " | Nome: " + nome + " | Login: " + login + " | Senha: " + senha + " | Endereço: " + endereco + " | Telefone: " + telefone + " | Tipo: " + (isResponsavel ? "Responsável" : "Funcionário") + " | DataCadastro: " + dataCadastro.toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        return "ID: " + id + " | Nome: " + nome + " | Login: " + login + " | Senha: " + senha + " | Endereço: " + endereco + " | Telefone: " + telefone + " | Tipo: " + (isResponsavel ? "Responsável" : "Funcionário") + " | DataCadastro: " + dataCadastro;
     }
     
 }

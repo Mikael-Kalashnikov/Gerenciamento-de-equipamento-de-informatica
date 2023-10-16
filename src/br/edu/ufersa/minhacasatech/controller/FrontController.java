@@ -38,23 +38,6 @@ public class FrontController implements Initializable {
         labelError.setFont(Font.font("Consolas", 15));
     }
     
-    // cria um painel de dialogo personalizado
-    public static void callDialogPane(String typeMessage, String message) {
-        DialogPane dp = new DialogPane();
-        if (typeMessage.equals("Error")) {
-            labelError.setText(message);
-            dp.setContent(labelError);
-        }
-        else {
-            labelMessage.setText(message);
-            dp.setContent(labelMessage);
-        }
-        Dialog dialog = new Dialog();
-        dialog.setDialogPane(dp);
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-        dialog.showAndWait();
-    }
-    
     @FXML private TextField login;
     @FXML private PasswordField senha;
     
@@ -79,8 +62,37 @@ public class FrontController implements Initializable {
             Logger.getLogger(FrontController.class.getName()).log(Level.SEVERE, null, ex);
             
             // mostrar tela erro de autenticacao
-            callDialogPane("Error", ex.getMessage());
+            Dialog dialog = callDialogPane("Error", ex.getMessage());
+            dialog.showAndWait();
         }
+    }
+    
+    // cria um painel de dialogo personalizado
+    public static Dialog callDialogPane(String typeMessage, String message) {
+        DialogPane dp = new DialogPane();
+        Dialog dialog = new Dialog();
+        switch (typeMessage) {
+            case "Error" -> {
+                labelError.setText(message);
+                dp.setContent(labelError);
+                dialog.setDialogPane(dp);
+                dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            }
+            case "Message" -> {
+                labelMessage.setText(message);
+                dp.setContent(labelMessage);
+                dialog.setDialogPane(dp);
+                dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+            }
+            case "Dialog" -> {
+                labelMessage.setText(message);
+                dp.setContent(labelMessage);
+                dialog.setDialogPane(dp);
+                dialog.getDialogPane().getButtonTypes().add(ButtonType.YES);
+                dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+            }
+        }
+        return dialog;
     }
     
 }

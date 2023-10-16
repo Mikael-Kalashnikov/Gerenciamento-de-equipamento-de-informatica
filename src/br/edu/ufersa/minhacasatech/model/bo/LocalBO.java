@@ -12,7 +12,7 @@ public class LocalBO implements BaseBO<Local> {
     private LocalDAO locdao;
     
     @Override
-    public void cadastrar(Local loc) throws InvalidInsertException, AlreadyExistsException {
+    public Local cadastrar(Local loc) throws InvalidInsertException, AlreadyExistsException {
         locdao = new LocalDAO();
         // verificar se o local ja existe
         if (locdao.existeLocal(loc) != null) {
@@ -22,6 +22,7 @@ public class LocalBO implements BaseBO<Local> {
             // inserir o local no banco
             loc.setId(locdao.inserir(loc));
         }
+        return loc;
     }
     
     @Override

@@ -131,7 +131,7 @@
                </font>
             </Text>
             <TextField fx:id="dataFim" onAction="#buscarFuncionario" prefHeight="26.0" prefWidth="101.0" promptText="DD/MM/AAAA" />
-            <TextField fx:id="pesquisarFuncionario" onAction="#buscarFuncionario" prefHeight="26.0" prefWidth="150.0" promptText="Pesquisar funcionario" />
+            <TextField fx:id="pesquisarFuncionario" onAction="#buscarFuncionario" prefHeight="26.0" prefWidth="150.0" promptText="Pesquisar funcionário" />
             <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#buscarFuncionario" prefHeight="30.0" prefWidth="70.0" text="Buscar" textFill="#3a5fcd">
                <font>
                   <Font name="Consolas Bold" size="12.0" />
@@ -144,12 +144,13 @@
       </HBox>
       <TableView fx:id="tabelaFuncionarios" editable="true" prefHeight="260.0" prefWidth="720.0" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
         <columns>
-          <TableColumn fx:id="idColumn" minWidth="80.0" prefWidth="90.0" text="Identificador" />
-          <TableColumn fx:id="nomeColumn" minWidth="68.0" prefWidth="97.0" text="Nome" />
-            <TableColumn fx:id="cpfColumn" minWidth="50.0" prefWidth="120.0" text="CPF" />
-            <TableColumn fx:id="enderecoColumn" minWidth="50.0" prefWidth="165.0" text="Endereço" />
-            <TableColumn fx:id="contatoColumn" minWidth="40.0" prefWidth="124.0" text="Contato" />
-            <TableColumn fx:id="totalColumn" minWidth="100.0" prefWidth="119.0" text="Total de vendas" />
+          <TableColumn fx:id="idColumn" minWidth="63.0" prefWidth="63.0" text="ID" />
+          <TableColumn fx:id="nomeColumn" minWidth="68.0" prefWidth="112.0" text="Nome" />
+            <TableColumn fx:id="cpfColumn" minWidth="50.0" prefWidth="107.0" text="CPF" />
+            <TableColumn fx:id="enderecoColumn" minWidth="50.0" prefWidth="150.0" text="Endereço" />
+            <TableColumn fx:id="contatoColumn" minWidth="40.0" prefWidth="133.0" text="Contato" />
+            <TableColumn fx:id="totalColumn" minWidth="100.0" prefWidth="128.0" text="Total de vendas" />
+            <TableColumn fx:id="dataColumn" minWidth="100.0" prefWidth="128.0" text="Data de cadastro" />
         </columns>
          <VBox.margin>
             <Insets left="10.0" right="10.0" />
@@ -176,7 +177,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <Text boundsType="LOGICAL_VERTICAL_CENTER" fill="WHITE" onMouseClicked="#telaCadastrarFuncionario" strokeWidth="0.0" text="Cadastrar Funcionario" textOrigin="BOTTOM" HBox.hgrow="NEVER">
+                  <Text boundsType="LOGICAL_VERTICAL_CENTER" fill="WHITE" onMouseClicked="#telaCadastrarFuncionario" strokeWidth="0.0" text="Cadastrar Funcionário" textOrigin="BOTTOM" HBox.hgrow="NEVER">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>

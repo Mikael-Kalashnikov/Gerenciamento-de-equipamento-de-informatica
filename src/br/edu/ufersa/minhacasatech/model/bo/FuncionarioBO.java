@@ -1,5 +1,6 @@
 package br.edu.ufersa.minhacasatech.model.bo;
 
+import br.edu.ufersa.minhacasatech.exception.AlreadyExistsException;
 import br.edu.ufersa.minhacasatech.exception.AutenticationException;
 import br.edu.ufersa.minhacasatech.exception.InvalidInsertException;
 import br.edu.ufersa.minhacasatech.exception.NotFoundException;
@@ -21,40 +22,50 @@ public class FuncionarioBO implements BaseBO<Funcionario> {
     }
     
     @Override
-    public void cadastrar(Funcionario func) throws InvalidInsertException {
+    public Funcionario cadastrar(Funcionario func) throws InvalidInsertException, AlreadyExistsException {
         funcdao = new FuncionarioDAO();
+        if (funcdao.buscarPorLogin(func) != null) {
+            throw new AlreadyExistsException("Login e/ou senha inválidos!");
+        }
         func.setId(funcdao.inserir(func));
+        return func;
     }
     
     @Override
     public void alterar(Funcionario func) throws InvalidInsertException {
         funcdao = new FuncionarioDAO();
+        funcdao.alterar(func);
     }
-
+    
     @Override
     public void remover(Funcionario func) {
         funcdao = new FuncionarioDAO();
+        funcdao.deletar(func);
     }
-
+    
     @Override
     public Funcionario buscarPorId(Funcionario func) throws NotFoundException {
         funcdao = new FuncionarioDAO();
-        return null;
+        func = funcdao.buscarPorId(func);
+        if (func != null) {
+            return func;
+        }
+        throw new NotFoundException("Funcionário não encontrado");
     }
     
-    public Funcionario buscarPorLogin(Funcionario func) throws NotFoundException, AutenticationException {
+    public Funcionario buscarPorLogin(Funcionario func) {
         funcdao = new FuncionarioDAO();
         func = funcdao.buscarPorLogin(func);
         if (func != null) {
             return func;
         }
-        throw new NotFoundException("Funcionario nao encontrado");
+        return null;
     }
     
     @Override
     public List<Funcionario> listar() {
         funcdao = new FuncionarioDAO();
-        return null;
+        return funcdao.listar();
     }
     
 }

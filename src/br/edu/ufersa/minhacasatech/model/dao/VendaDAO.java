@@ -88,7 +88,7 @@ public class VendaDAO extends BaseDAOImp<Venda> {
 
     @Override
     public List<Venda> listar() {
-	String sql = "SELECT * FROM venda";
+	String sql = "SELECT * FROM venda ORDER BY id";
 	List<Venda> listaVendas = new ArrayList<>();
 	try {
 	    Connection con = BaseDAOImp.getConnection();

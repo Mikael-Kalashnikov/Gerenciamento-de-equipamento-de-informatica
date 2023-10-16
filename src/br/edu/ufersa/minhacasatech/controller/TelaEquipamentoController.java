@@ -8,7 +8,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -28,7 +27,6 @@ public class TelaEquipamentoController extends TelaPrincipalController implement
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         
     }
     
@@ -59,7 +57,6 @@ public class TelaEquipamentoController extends TelaPrincipalController implement
     
     @FXML
     private void telaCadastrarEquipamento() {
-        init = false;
         newStage = Telas.newScene("/br/edu/ufersa/minhacasatech/view/ve/TelaCadastrarEquipamento.fxml");
     }
     
@@ -75,7 +72,6 @@ public class TelaEquipamentoController extends TelaPrincipalController implement
     
     @FXML
     private void close() {
-        init = true;
         newStage.close();
         if (user.getIsResponsavel()) {
             telaEquipamentos();

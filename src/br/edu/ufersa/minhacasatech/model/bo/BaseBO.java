@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BaseBO<Entity> {
     
-    public void cadastrar(Entity e) throws InvalidInsertException, AlreadyExistsException;
+    public Entity cadastrar(Entity e) throws InvalidInsertException, AlreadyExistsException;
     public void alterar(Entity e) throws InvalidInsertException;
     public void remover(Entity e);
     public Entity buscarPorId(Entity e) throws NotFoundException;

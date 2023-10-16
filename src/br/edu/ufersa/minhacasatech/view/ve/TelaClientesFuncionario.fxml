@@ -137,6 +137,7 @@
             <TableColumn fx:id="cpfColumn" minWidth="50.0" prefWidth="120.0" text="CPF" />
             <TableColumn fx:id="enderecoColumn" minWidth="50.0" prefWidth="165.0" text="Endereço" />
             <TableColumn fx:id="contatoColumn" minWidth="40.0" prefWidth="124.0" text="Contato" />
+            <TableColumn fx:id="dataColumn" minWidth="100.0" prefWidth="128.0" text="Data de cadastro" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
