@@ -2,6 +2,7 @@ package br.edu.ufersa.minhacasatech.controller;
 
 import br.edu.ufersa.minhacasatech.model.bo.ClienteBO;
 import br.edu.ufersa.minhacasatech.model.entity.Cliente;
+import br.edu.ufersa.minhacasatech.pdf.GerarPDFClientes;
 import br.edu.ufersa.minhacasatech.view.Telas;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -118,7 +119,18 @@ public class TelaClienteController extends TelaPrincipalController implements In
     
     @FXML
     private void gerarRelatorioClientes() {
-        // TODO
+        try {
+        GerarPDFClientes gerador = new GerarPDFClientes();
+        gerador.gerarRelatorio();
+        // Exibir uma mensagem de sucesso
+        Dialog success = FrontController.callDialogPane("Message", "Relatório de clientes gerado com sucesso.");
+        success.showAndWait();
+    } catch (Exception e) {
+        e.printStackTrace();
+        // Exibir uma mensagem de erro, se ocorrer um erro na geração do relatório
+        Dialog error = FrontController.callDialogPane("Error", "Erro ao gerar o relatório de clientes.");
+        error.showAndWait();
+    }
     }
     
     @FXML
