@@ -15,23 +15,28 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-
-<FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="480.0" prefWidth="720.0" style="-fx-background-color: #3a5fcd;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.minhacasatech.controller.FrontController">
+<FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="480.0" prefWidth="720.0" style="-fx-background-color: #3a5fcd;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.minhacasatech.controller.FrontController">
    <children>
-       <AnchorPane prefHeight="316.0" prefWidth="447.0" style="-fx-background-color: #ffffff;">
+       <AnchorPane prefHeight="486.0" prefWidth="719.0" style="-fx-background-color: #ffffff;">
          <children>
-            <Button defaultButton="true" layoutX="192.0" layoutY="243.0" mnemonicParsing="false" onAction="#autenticar" text="Entrar" />
-            <TextField fx:id="login" layoutX="115.0" layoutY="151.0" onAction="#autenticar" prefHeight="35.0" prefWidth="207.0" promptText="Login">
+            <Button defaultButton="true" layoutX="291.0" layoutY="367.0" mnemonicParsing="false" onAction="#autenticar" prefHeight="40.0" prefWidth="90.0" text="Entrar">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Button>
+            <TextField fx:id="login" layoutX="203.0" layoutY="220.0" onAction="#autenticar" prefHeight="45.0" prefWidth="267.0" promptText="Login">
                <effect>
                   <Glow />
                </effect>
+               <font>
+                  <Font size="15.0" />
+               </font>
             </TextField>
-            <ImageView disable="true" fitHeight="230.0" fitWidth="239.0" layoutX="157.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView disable="true" fitHeight="260.0" fitWidth="277.0" layoutX="248.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@logotipo.png" />
                </image>
             </ImageView>
-            <Label contentDisplay="CENTER" layoutX="119.0" layoutY="79.0" prefHeight="72.0" prefWidth="126.0" text="Minha&#10;CasaTech" textOverrun="CLIP" wrapText="true">
+            <Label contentDisplay="CENTER" layoutX="210.0" layoutY="114.0" prefHeight="81.0" prefWidth="160.0" text="Minha&#10;CasaTech" textOverrun="CLIP" wrapText="true">
                <font>
                   <Font name="Monospaced Regular" size="24.0" />
                </font>
@@ -57,10 +62,13 @@
                   </LinearGradient>
                </textFill>
             </Label>
-            <PasswordField fx:id="senha" layoutX="115.0" layoutY="186.0" onAction="#autenticar" prefHeight="37.0" prefWidth="207.0" promptText="Senha">
+            <PasswordField fx:id="senha" layoutX="203.0" layoutY="295.0" onAction="#autenticar" prefHeight="46.0" prefWidth="267.0" promptText="Senha">
                <effect>
                   <Glow />
                </effect>
+               <font>
+                  <Font size="15.0" />
+               </font>
             </PasswordField>
          </children>
          <effect>

@@ -108,11 +108,6 @@ public class TelaFuncionarioController extends TelaPrincipalController implement
         tabelaFuncionarios.setItems(filteredData);
     }
     
-    @FXML
-    private void gerarRelatorioFuncionarios() {
-        // TODO
-    }
-    
     public static Funcionario getFuncionario() {
         return selected;
     }

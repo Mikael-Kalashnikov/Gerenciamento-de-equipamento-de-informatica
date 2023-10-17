@@ -133,12 +133,6 @@ public class TelaEquipamentoController extends TelaPrincipalController implement
     }
     
     @FXML
-    private void gerarRelatorioEquipamentos() {
-        // TODO
-        
-    }
-    
-    @FXML
     private void telaCadastrarEquipamento() {
         newStage = Telas.newScene("/br/edu/ufersa/minhacasatech/view/ve/TelaCadastrarEquipamento.fxml");
     }
