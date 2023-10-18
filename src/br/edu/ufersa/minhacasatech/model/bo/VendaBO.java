@@ -9,6 +9,10 @@ import java.util.List;
 
 public class VendaBO implements BaseBO<Venda> {
 
+    public static List<Venda> buscarVendasPorData(String dataInicioText, String dataFimText) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     VendaDAO vendao;
     
     @Override
