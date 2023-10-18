@@ -72,24 +72,27 @@ public class FrontController implements Initializable {
         DialogPane dp = new DialogPane();
         Dialog dialog = new Dialog();
         switch (typeMessage) {
-            case "Error" -> {
+            case "Error" : {
                 labelError.setText(message);
                 dp.setContent(labelError);
                 dialog.setDialogPane(dp);
                 dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+                break;
             }
-            case "Message" -> {
+            case "Message" : {
                 labelMessage.setText(message);
                 dp.setContent(labelMessage);
                 dialog.setDialogPane(dp);
                 dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+                break;
             }
-            case "Dialog" -> {
+            case "Dialog" : {
                 labelMessage.setText(message);
                 dp.setContent(labelMessage);
                 dialog.setDialogPane(dp);
                 dialog.getDialogPane().getButtonTypes().add(ButtonType.YES);
                 dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+                break;
             }
         }
         return dialog;

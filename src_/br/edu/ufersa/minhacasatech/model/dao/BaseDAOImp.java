@@ -10,7 +10,7 @@ public abstract class BaseDAOImp<Entity> implements BaseDAO<Entity> {
     
     static final String URL = "jdbc:postgresql:projetopoo";
     static final String USER = "postgres";
-    static final String PASS = "netodev";
+    static final String PASS = "0517";
     static Connection conn = null;
     
     public static Connection getConnection() {
