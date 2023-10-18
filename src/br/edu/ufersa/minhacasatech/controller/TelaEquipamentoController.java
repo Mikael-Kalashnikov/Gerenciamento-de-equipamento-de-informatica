@@ -28,6 +28,7 @@ public class TelaEquipamentoController extends TelaPrincipalController implement
     @FXML private TableColumn<Equipamento, String> serialColumn;
     @FXML private TableColumn<Equipamento, Double> precoColumn;
     @FXML private TableColumn<Equipamento, Integer> qtdColumn;
+    @FXML private TableColumn<Equipamento, Integer> vendidosColumn;
     @FXML private TableColumn<Equipamento, String> localColumn;
     @FXML private TableColumn<Equipamento, String> responsavelColumn;
     @FXML private TableColumn<Equipamento, String> dataColumn;
@@ -49,7 +50,8 @@ public class TelaEquipamentoController extends TelaPrincipalController implement
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
         serialColumn.setCellValueFactory(new PropertyValueFactory<>("serial"));
         precoColumn.setCellValueFactory(new PropertyValueFactory<>("preco"));
-        qtdColumn.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+        qtdColumn.setCellValueFactory(new PropertyValueFactory<>("estoque"));
+        vendidosColumn.setCellValueFactory(new PropertyValueFactory<>("vendidos"));
         localColumn.setCellValueFactory(new PropertyValueFactory<>("local"));
         responsavelColumn.setCellValueFactory(new PropertyValueFactory<>("responsavel"));
         dataColumn.setCellValueFactory(new PropertyValueFactory<>("dataCadastro"));
@@ -130,6 +132,12 @@ public class TelaEquipamentoController extends TelaPrincipalController implement
         Dialog success = FrontController.callDialogPane("Message", "Equipamento excluído");
         success.showAndWait();
         telaEquipamentos();
+    }
+    
+    @FXML
+    private void gerarRelatorioEquipamentos() {
+        // TODO
+        
     }
     
     @FXML

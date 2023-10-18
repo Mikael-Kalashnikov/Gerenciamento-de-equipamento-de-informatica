@@ -174,7 +174,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Text>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#gerarRelatorio">
+                  <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#gerarRelatorioVendas">
                      <image>
                         <Image url="@icons8-file-50%203.png" />
                      </image>
@@ -182,7 +182,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <Text fill="WHITE" onMouseClicked="#gerarRelatorio" strokeType="OUTSIDE" strokeWidth="0.0" text="Gerar Relatório">
+                  <Text fill="WHITE" onMouseClicked="#gerarRelatorioVendas" strokeType="OUTSIDE" strokeWidth="0.0" text="Gerar Relatório">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>

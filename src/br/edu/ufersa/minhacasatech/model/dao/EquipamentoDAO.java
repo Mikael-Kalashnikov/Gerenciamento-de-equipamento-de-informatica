@@ -14,17 +14,17 @@ public class EquipamentoDAO extends BaseDAOImp<Equipamento> {
 
     @Override
     public Long inserir(Equipamento eq) {
-	String sql = "INSERT INTO equipamento (nome, serial, preco, quantidade, local, responsavel) values (?, ?, ?, ?, ?, ?)";
+	String sql = "INSERT INTO equipamento (nome, estoque, preco, num_serie, id_local, id_responsavel) values (?, ?, ?, ?, ?, ?)";
 	Long id = null;
 	try {
 	    Connection con = BaseDAOImp.getConnection();
 	    PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 	    ps.setString(1, eq.getNome());
-	    ps.setString(2, eq.getSerial());
-	    ps.setDouble(3, eq.getPreco());
-	    ps.setInt(4, eq.getQuantidade());
+	    ps.setInt(2, eq.getEstoque());
+            ps.setDouble(3, eq.getPreco());
+            ps.setString(4, eq.getSerial());
 	    ps.setLong(5, eq.getLocal().getId());
-	    ps.setLong(6, eq.getResponsavel().getId());
+            ps.setLong(6, eq.getResponsavel().getId());
 	    ps.execute();
 	    ResultSet rs = ps.getGeneratedKeys();
 	    if (rs.next()) {
@@ -44,6 +44,7 @@ public class EquipamentoDAO extends BaseDAOImp<Equipamento> {
 	try {
 	    Connection con = BaseDAOImp.getConnection();
 	    PreparedStatement ps = con.prepareStatement(sql);
+            ps.setLong(1, eq.getId());
 	    ps.execute();
 	} catch (SQLException ex) {
 	    Logger.getLogger(EquipamentoDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -51,20 +52,20 @@ public class EquipamentoDAO extends BaseDAOImp<Equipamento> {
             BaseDAOImp.closeConnection();
         }
     }
-
+    
     @Override
     public void alterar(Equipamento eq){
-	String sql = "UPDATE equipamento SET nome = ?, serial = ?, preco = ?, quantidade = ?, local = ?, responsavel = ? WHERE id = ?";
+	String sql = "UPDATE equipamento SET nome = ?, estoque = ?, preco = ?, num_serie = ?, id_local = ?, id_responsavel = ? WHERE id = ?";
 	try {
 	    Connection con = BaseDAOImp.getConnection();
 	    PreparedStatement ps = con.prepareStatement(sql);
 	    ps.setString(1, eq.getNome());
-	    ps.setString(2, eq.getSerial());
-	    ps.setDouble(3, eq.getPreco());
-	    ps.setInt(4, eq.getQuantidade());
+	    ps.setInt(2, eq.getEstoque());
+            ps.setDouble(3, eq.getPreco());
+            ps.setString(4, eq.getSerial());
 	    ps.setLong(5, eq.getLocal().getId());
-	    ps.setLong(6, eq.getResponsavel().getId());
-	    ps.setLong(7, eq.getId());
+            ps.setLong(6, eq.getResponsavel().getId());
+            ps.setLong(7, eq.getId());
 	    ps.execute();
 	} catch (SQLException ex) {
 	    Logger.getLogger(EquipamentoDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -86,18 +87,17 @@ public class EquipamentoDAO extends BaseDAOImp<Equipamento> {
 	    if (rs.next()) {
                 Local local = new Local();
 		LocalDAO locdao = new LocalDAO();
-                local.setId(rs.getLong("local"));
+                local.setId(rs.getLong("id_local"));
                 local = locdao.buscarPorId(local);
 		
                 Funcionario responsavel = new Funcionario();
                 FuncionarioDAO funcdao = new FuncionarioDAO();
-                responsavel.setId(rs.getLong("responsavel"));
+                responsavel.setId(rs.getLong("id_responsavel"));
 		responsavel = funcdao.buscarPorId(responsavel);
 		
-		equipamento = new Equipamento(rs.getString("nome"), rs.getString("serial"), rs.getDouble("preco"), rs.getInt("quantidade"));
-                equipamento.setLocal(local);
-                equipamento.setResponsavel(responsavel);
-		equipamento.setId(rs.getLong("id"));
+		equipamento = new Equipamento(rs.getString("nome"), rs.getString("num_serie"), rs.getDouble("preco"), rs.getInt("estoque"), local, responsavel);
+                equipamento.setId(rs.getLong("id"));
+                equipamento.setVendidos(rs.getInt("vendidos"));
                 equipamento.setDataCadastro(rs.getDate("data_cadastro"));
 	    }
 	} catch (SQLException | InvalidInsertException ex) {
@@ -109,7 +109,7 @@ public class EquipamentoDAO extends BaseDAOImp<Equipamento> {
     }
     
     public Equipamento buscarPorSerial(Equipamento eq){
-	String sql = "SELECT * FROM equipamento WHERE serial = ?";
+	String sql = "SELECT * FROM equipamento WHERE num_serie = ?";
 	Equipamento equipamento = null;
 	try {
 	    Connection con = BaseDAOImp.getConnection();
@@ -120,18 +120,17 @@ public class EquipamentoDAO extends BaseDAOImp<Equipamento> {
 	    if (rs.next()) {
                 Local local = new Local();
 		LocalDAO locdao = new LocalDAO();
-                local.setId(rs.getLong("local"));
+                local.setId(rs.getLong("id_local"));
                 local = locdao.buscarPorId(local);
 		
                 Funcionario responsavel = new Funcionario();
                 FuncionarioDAO funcdao = new FuncionarioDAO();
-                responsavel.setId(rs.getLong("responsavel"));
+                responsavel.setId(rs.getLong("id_responsavel"));
 		responsavel = funcdao.buscarPorId(responsavel);
 		
-		equipamento = new Equipamento(rs.getString("nome"), rs.getString("serial"), rs.getDouble("preco"), rs.getInt("quantidade"));
-                equipamento.setLocal(local);
-                equipamento.setResponsavel(responsavel);
-		equipamento.setId(rs.getLong("id"));
+		equipamento = new Equipamento(rs.getString("nome"), rs.getString("num_serie"), rs.getDouble("preco"), rs.getInt("estoque"), local, responsavel);
+                equipamento.setId(rs.getLong("id"));
+                equipamento.setVendidos(rs.getInt("vendidos"));
                 equipamento.setDataCadastro(rs.getDate("data_cadastro"));
 	    }
 	} catch (SQLException | InvalidInsertException ex) {
@@ -153,18 +152,17 @@ public class EquipamentoDAO extends BaseDAOImp<Equipamento> {
 	    while (rs.next()) {
                 Local local = new Local();
 		LocalDAO locdao = new LocalDAO();
-		local.setId(rs.getLong("local"));
+                local.setId(rs.getLong("id_local"));
                 local = locdao.buscarPorId(local);
-                
-		Funcionario responsavel = new Funcionario();
+		
+                Funcionario responsavel = new Funcionario();
                 FuncionarioDAO funcdao = new FuncionarioDAO();
-                responsavel.setId(rs.getLong("responsavel"));
+                responsavel.setId(rs.getLong("id_responsavel"));
 		responsavel = funcdao.buscarPorId(responsavel);
 		
-		Equipamento equipamento = new Equipamento(rs.getString("nome"), rs.getString("serial"), rs.getDouble("preco"), rs.getInt("quantidade"));
-                equipamento.setLocal(local);
-                equipamento.setResponsavel(responsavel);
-		equipamento.setId(rs.getLong("id"));
+		Equipamento equipamento = new Equipamento(rs.getString("nome"), rs.getString("num_serie"), rs.getDouble("preco"), rs.getInt("estoque"), local, responsavel);
+                equipamento.setId(rs.getLong("id"));
+                equipamento.setVendidos(rs.getInt("vendidos"));
                 equipamento.setDataCadastro(rs.getDate("data_cadastro"));
                 
 		lista.add(equipamento);

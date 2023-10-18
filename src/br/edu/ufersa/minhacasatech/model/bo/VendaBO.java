@@ -9,10 +9,6 @@ import java.util.List;
 
 public class VendaBO implements BaseBO<Venda> {
 
-    public static List<Venda> buscarVendasPorData(String dataInicioText, String dataFimText) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     VendaDAO vendao;
     
     @Override
@@ -24,19 +20,22 @@ public class VendaBO implements BaseBO<Venda> {
     
     @Override
     public void alterar(Venda e) throws InvalidInsertException {
-        
+        vendao = new VendaDAO();
+        vendao.alterar(e);
     }
 
     @Override
     public void remover(Venda e) {
-        
+        vendao = new VendaDAO();
+        vendao.deletar(e);
     }
 
     @Override
     public Venda buscarPorId(Venda e) throws NotFoundException {
-        return null;
+        vendao = new VendaDAO();
+        return vendao.buscarPorId(e);
     }
-
+    
     @Override
     public List<Venda> listar() {
         vendao = new VendaDAO();

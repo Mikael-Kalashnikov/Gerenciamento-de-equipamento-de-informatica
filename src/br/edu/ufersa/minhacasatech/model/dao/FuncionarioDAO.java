@@ -56,7 +56,7 @@ public class FuncionarioDAO extends BaseDAOImp<Funcionario> {
     
     @Override
     public void alterar(Funcionario func){
-	String sql = "UPDATE funcionario SET nome = ?, login = ?, senha = ?, telefone = ?, cpf = ?, endereco = ?, is_responsavel = ? WHERE id = ?";
+	String sql = "UPDATE funcionario SET nome = ?, login = ?, senha = ?, telefone = ?, cpf = ?, endereco = ? WHERE id = ?";
 	try {
 	    Connection con = BaseDAOImp.getConnection();
 	    PreparedStatement ps = con.prepareStatement(sql);
@@ -66,8 +66,7 @@ public class FuncionarioDAO extends BaseDAOImp<Funcionario> {
 	    ps.setString(4, func.getTelefone());
             ps.setString(5, func.getCpf());
             ps.setString(6, func.getEndereco());
-            ps.setBoolean(7, func.getIsResponsavel());
-	    ps.setLong(8, func.getId());
+	    ps.setLong(7, func.getId());
 	    ps.execute();
 	} catch (SQLException ex) {
 	    Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -87,13 +86,10 @@ public class FuncionarioDAO extends BaseDAOImp<Funcionario> {
 	    ps.execute();
 	    ResultSet rs = ps.executeQuery();
 	    while (rs.next()) {
-		funcionario = new Funcionario(rs.getString("login"), rs.getString("senha"));
+		funcionario = new Funcionario(rs.getString("nome"), rs.getString("login"), rs.getString("senha"), rs.getString("telefone"), rs.getString("cpf"), rs.getString("endereco"));
                 funcionario.setId(rs.getLong("id"));
-		funcionario.setNome(rs.getString("nome"));
-		funcionario.setEndereco(rs.getString("endereco"));
-		funcionario.setTelefone(rs.getString("telefone"));
-                funcionario.setCpf(rs.getString("cpf"));
                 funcionario.setIsResponsavel(rs.getBoolean("is_responsavel"));
+                funcionario.setTotalVendas(rs.getDouble("total_vendas"));
                 funcionario.setDataCadastro(rs.getDate("data_cadastro"));
 	    }
 	} catch (SQLException | InvalidInsertException ex) {
@@ -114,16 +110,9 @@ public class FuncionarioDAO extends BaseDAOImp<Funcionario> {
 	    ps.execute();
 	    ResultSet rs = ps.executeQuery();
 	    if (rs.next()) {
-                funcionario = new Funcionario();
-		funcionario.setId(rs.getLong("id"));
-		funcionario.setNome(rs.getString("nome"));
-                funcionario.setLogin(rs.getString("login"));
-                funcionario.setSenha(rs.getString("senha"));
-		funcionario.setEndereco(rs.getString("endereco"));
-		funcionario.setTelefone(rs.getString("telefone"));
-                funcionario.setCpf(rs.getString("cpf"));
+                funcionario = new Funcionario(rs.getString("nome"), rs.getString("login"), rs.getString("senha"), rs.getString("telefone"), rs.getString("cpf"), rs.getString("endereco"));
+                funcionario.setId(rs.getLong("id"));
                 funcionario.setIsResponsavel(rs.getBoolean("is_responsavel"));
-                funcionario.setDataCadastro(rs.getDate("data_cadastro"));
 	    }
 	} catch (SQLException | InvalidInsertException ex) {
 	    Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -143,15 +132,10 @@ public class FuncionarioDAO extends BaseDAOImp<Funcionario> {
 	    ps.execute();
 	    ResultSet rs = ps.executeQuery();
 	    if (rs.next()) {
-                funcionario = new Funcionario();
-		funcionario.setId(rs.getLong("id"));
-		funcionario.setNome(rs.getString("nome"));
-                funcionario.setLogin(rs.getString("login"));
-                funcionario.setSenha(rs.getString("senha"));
-		funcionario.setEndereco(rs.getString("endereco"));
-		funcionario.setTelefone(rs.getString("telefone"));
-                funcionario.setCpf(rs.getString("cpf"));
+                funcionario = new Funcionario(rs.getString("nome"), rs.getString("login"), rs.getString("senha"), rs.getString("telefone"), rs.getString("cpf"), rs.getString("endereco"));
+                funcionario.setId(rs.getLong("id"));
                 funcionario.setIsResponsavel(rs.getBoolean("is_responsavel"));
+                funcionario.setTotalVendas(rs.getDouble("total_vendas"));
                 funcionario.setDataCadastro(rs.getDate("data_cadastro"));
 	    }
 	} catch (SQLException | InvalidInsertException ex) {
@@ -163,7 +147,23 @@ public class FuncionarioDAO extends BaseDAOImp<Funcionario> {
     }
     
     public ArrayList<String> listarNomesResponsavel() {
-        String sql = "SELECT nome FROM funcionario WHERE is_responsavel ORDER BY id";
+        String sql = "SELECT * FROM nomes_responsaveis"; // view
+        ArrayList<String> nomes = new ArrayList<>();
+        try {
+            Connection con = BaseDAOImp.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {                
+                nomes.add(rs.getString("nome"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EquipamentoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return nomes;
+    }
+    
+    public ArrayList<String> listarNomesFuncionario() {
+        String sql = "SELECT nome FROM funcionario ORDER BY nome"; // view
         ArrayList<String> nomes = new ArrayList<>();
         try {
             Connection con = BaseDAOImp.getConnection();
@@ -187,18 +187,13 @@ public class FuncionarioDAO extends BaseDAOImp<Funcionario> {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Funcionario func = new Funcionario(rs.getString("login"), rs.getString("senha"));
-                func.setId(rs.getLong("id"));
-		func.setNome(rs.getString("nome"));
-                func.setLogin(rs.getString("login"));
-                func.setSenha(rs.getString("senha"));
-		func.setEndereco(rs.getString("endereco"));
-		func.setTelefone(rs.getString("telefone"));
-                func.setCpf(rs.getString("cpf"));
-                func.setIsResponsavel(rs.getBoolean("is_responsavel"));
-                func.setDataCadastro(rs.getDate("data_cadastro"));
+                Funcionario funcionario = new Funcionario(rs.getString("nome"), rs.getString("login"), rs.getString("senha"), rs.getString("telefone"), rs.getString("cpf"), rs.getString("endereco"));
+                funcionario.setId(rs.getLong("id"));
+                funcionario.setIsResponsavel(rs.getBoolean("is_responsavel"));
+                funcionario.setTotalVendas(rs.getDouble("total_vendas"));
+                funcionario.setDataCadastro(rs.getDate("data_cadastro"));
                 
-                lista.add(func);
+                lista.add(funcionario);
             }
         } catch (SQLException | InvalidInsertException ex) {
             Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);

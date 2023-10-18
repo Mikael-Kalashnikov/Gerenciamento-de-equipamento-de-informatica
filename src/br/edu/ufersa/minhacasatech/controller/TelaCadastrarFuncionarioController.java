@@ -23,12 +23,7 @@ public class TelaCadastrarFuncionarioController extends TelaPrincipalController 
     @FXML
     private void cadastrarFuncionario() throws InvalidInsertException {
         try {
-            Funcionario func = new Funcionario(login.getText(), senha.getText());
-            func.setNome(nome.getText());
-            func.setCpf(cpf.getText());
-            func.setEndereco(endereco.getText());
-            func.setTelefone(contato.getText());
-            
+            Funcionario func = new Funcionario(nome.getText(), login.getText(), senha.getText(), contato.getText(), cpf.getText(), endereco.getText());
             FuncionarioBO funcbo = new FuncionarioBO();
             funcbo.cadastrar(func);
             Dialog success = FrontController.callDialogPane("Message", "Funcionário cadastrado com sucesso!");

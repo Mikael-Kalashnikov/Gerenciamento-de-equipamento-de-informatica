@@ -109,6 +109,6 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "ID: " + id + " | Nome: " + nome + " | Endereco: " + endereco + " | CPF: " + cpf + " | Telefone: " + telefone;
+        return "Nome: " + nome + " | CPF: " + cpf;
     }
 }

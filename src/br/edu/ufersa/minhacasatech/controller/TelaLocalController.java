@@ -41,7 +41,7 @@ public class TelaLocalController extends TelaPrincipalController implements Init
 
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        compartimentoColumn.setCellValueFactory(new PropertyValueFactory<>("nomeCompartimento"));
+        compartimentoColumn.setCellValueFactory(new PropertyValueFactory<>("compartimento"));
         dataColumn.setCellValueFactory(new PropertyValueFactory<>("dataCadastro"));
 
         tabelaLocais.setItems(locais);
@@ -107,7 +107,7 @@ public class TelaLocalController extends TelaPrincipalController implements Init
             }
             else {
                 atendeNome = local.getNome().toLowerCase().contains(pesquisa);
-                atendeCompartimento = local.getNomeCompartimento().toLowerCase().contains(pesquisa);
+                atendeCompartimento = local.getCompartimento().toLowerCase().contains(pesquisa);
             }
             
             // retorna somente os locais filtrados
@@ -148,17 +148,6 @@ public class TelaLocalController extends TelaPrincipalController implements Init
         Dialog success = FrontController.callDialogPane("Message", "Local excluído");
         success.showAndWait();
         telaLocais();
-    }
-    
-    @FXML
-    private void close() {
-        // fecha o pop-up
-        newStage.close();
-        if (user.getIsResponsavel()) {
-            telaLocais();
-        } else {
-            telaLocaisFunc();
-        }
     }
     
 }

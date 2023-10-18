@@ -26,17 +26,19 @@ public class EquipamentoBO implements BaseBO<Equipamento> {
     @Override
     public void alterar(Equipamento e) throws InvalidInsertException {
         eqdao = new EquipamentoDAO();
+        eqdao.alterar(e);
     }
     
     @Override
     public void remover(Equipamento e) {
         eqdao = new EquipamentoDAO();
+        eqdao.deletar(e);
     }
     
     @Override
     public Equipamento buscarPorId(Equipamento e) throws NotFoundException {
         eqdao = new EquipamentoDAO();
-        return null;
+        return eqdao.buscarPorId(e);
     }
     
     @Override

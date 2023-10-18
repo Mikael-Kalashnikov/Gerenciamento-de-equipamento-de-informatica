@@ -42,12 +42,12 @@ public class TelaFuncionarioController extends TelaPrincipalController implement
         cpfColumn.setCellValueFactory(new PropertyValueFactory<>("cpf"));
         enderecoColumn.setCellValueFactory(new PropertyValueFactory<>("endereco"));
         contatoColumn.setCellValueFactory(new PropertyValueFactory<>("telefone"));
-        totalColumn.setCellValueFactory(new PropertyValueFactory<>("vendas"));
+        totalColumn.setCellValueFactory(new PropertyValueFactory<>("totalVendas"));
         dataColumn.setCellValueFactory(new PropertyValueFactory<>("dataCadastro"));
-
+        
         tabelaFuncionarios.setItems(funcionarios);
         filteredData = new FilteredList<>(tabelaFuncionarios.getItems(), funcionario -> true);
-
+        
         // verificar se selecionou alguma linha
         tabelaFuncionarios.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -106,6 +106,11 @@ public class TelaFuncionarioController extends TelaPrincipalController implement
         
         // define os valores filtrados para a tabela
         tabelaFuncionarios.setItems(filteredData);
+    }
+    
+    @FXML
+    private void gerarRelatorioFuncionarios() {
+        // TODO
     }
     
     public static Funcionario getFuncionario() {

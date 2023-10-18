@@ -4,23 +4,11 @@ import static br.edu.ufersa.minhacasatech.controller.TelaPrincipalController.ico
 import static br.edu.ufersa.minhacasatech.controller.TelaPrincipalController.iconeExcluirView;
 import static br.edu.ufersa.minhacasatech.controller.TelaPrincipalController.user;
 import br.edu.ufersa.minhacasatech.model.bo.VendaBO;
-import br.edu.ufersa.minhacasatech.model.entity.Cliente;
 import br.edu.ufersa.minhacasatech.model.entity.Equipamento;
 import br.edu.ufersa.minhacasatech.model.entity.Funcionario;
 import br.edu.ufersa.minhacasatech.model.entity.Venda;
 import br.edu.ufersa.minhacasatech.view.Telas;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,19 +21,22 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javax.swing.JOptionPane;
 
 public class TelaVendaController extends TelaPrincipalController implements Initializable {
     
     @FXML private TextField dataInicio;
     @FXML private TextField dataFim;
+    @FXML private TextField pesquisarVenda;
     @FXML private TableView<Venda> tabelaVendas;
     @FXML private TableColumn<Venda, Long> idColumn;
-    @FXML private TableColumn<Venda, Cliente> clienteColumn;
-    @FXML private TableColumn<Venda, Equipamento> equipamentoColumn;
-    @FXML private TableColumn<Venda, String> dataColumn;
-    @FXML private TableColumn<Venda, String> statusColumn;
+    @FXML private TableColumn<Venda, String> clienteColumn;
     @FXML private TableColumn<Venda, Funcionario> responsavelColumn;
+    @FXML private TableColumn<Venda, String> statusColumn;
+    @FXML private TableColumn<Venda, Double> totalColumn;
+    @FXML private TableColumn<Venda, String> dataColumn;
+    @FXML private TableColumn<Venda, Equipamento> equipamentoColumn;
+    @FXML private TableColumn<Equipamento, Integer> quantidadeColumn;
+    @FXML private TableColumn<Equipamento, Double> unitarioColumn;
     
     private ObservableList<Venda> vendas;
     private FilteredList<Venda> filteredData;
@@ -60,9 +51,13 @@ public class TelaVendaController extends TelaPrincipalController implements Init
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         clienteColumn.setCellValueFactory(new PropertyValueFactory<>("cliente"));
         responsavelColumn.setCellValueFactory(new PropertyValueFactory<>("funcionario"));
-        equipamentoColumn.setCellValueFactory(new PropertyValueFactory<>("equipamento"));
+        equipamentoColumn.setCellValueFactory(new PropertyValueFactory<>("equipamentos"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+        totalColumn.setCellValueFactory(new PropertyValueFactory<>("valorTotal"));
         dataColumn.setCellValueFactory(new PropertyValueFactory<>("dataVenda"));
+        
+        quantidadeColumn.setCellValueFactory(new PropertyValueFactory<>("qtdCompra"));
+        unitarioColumn.setCellValueFactory(new PropertyValueFactory<>("valorUnitario"));
         
         tabelaVendas.setItems(vendas);
         filteredData = new FilteredList<>(tabelaVendas.getItems(), venda -> true);
@@ -72,23 +67,25 @@ public class TelaVendaController extends TelaPrincipalController implements Init
             tabelaVendas.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue != null) {
                     ContextMenu contextMenu = new ContextMenu();
+                    MenuItem detalhar = new MenuItem("Detalhar Venda");
                     MenuItem editar = new MenuItem("Editar Venda");
-                    MenuItem excluir = new MenuItem("Excluir Venda");
+                    MenuItem aprovar = new MenuItem("Aprovar Venda");
+                    MenuItem cancelar = new MenuItem("Cancelar Venda");
                     
                     editar.setGraphic(iconeEditarView);
-                    excluir.setGraphic(iconeExcluirView);
+                    cancelar.setGraphic(iconeExcluirView);
                     
                     editar.setOnAction(e -> {
                         selected = tabelaVendas.getSelectionModel().getSelectedItem();
                         telaEditarVenda();
                     });
                     
-                    excluir.setOnAction(e -> {
+                    cancelar.setOnAction(e -> {
                         selected = tabelaVendas.getSelectionModel().getSelectedItem();
                         telaExcluirVenda();
                     });
                     
-                    contextMenu.getItems().addAll(editar, excluir);
+                    contextMenu.getItems().addAll(editar, cancelar);
                     
                     tabelaVendas.setContextMenu(contextMenu);
                 }
@@ -98,7 +95,37 @@ public class TelaVendaController extends TelaPrincipalController implements Init
     
     @FXML
     private void buscarVenda() {
+        filteredData.setPredicate((Venda venda) -> {
+            String iniData = dataInicio.getText();
+            String fimData = dataFim.getText();
+            String pesquisa = pesquisarVenda.getText().toLowerCase();
+            boolean atendeCliente, atendeStatus, atendeDataInicio, atendeDataFim;
+            // verifica se o usuario digitou a data inicial
+            if (iniData == null || iniData.isEmpty())
+                atendeDataInicio = true;
+            else
+                atendeDataInicio = venda.getDataVenda().compareTo(iniData) >= 0;
+            //verifica se o usuario digitou a data final
+            if (fimData == null || fimData.isEmpty())
+                atendeDataFim = true;
+            else
+                atendeDataFim = venda.getDataVenda().compareTo(fimData) <= 0;
+            // verifica se o usuario digitou algo no campo de pesquisa
+            if (pesquisa == null || pesquisa.isEmpty()) {
+                atendeCliente = true;
+                atendeStatus = true;
+            }
+            else {
+                atendeCliente = venda.getCliente().getNome().toLowerCase().contains(pesquisa);
+                atendeStatus = venda.getStatus().toLowerCase().contains(pesquisa);
+            }
+            
+            // retorna somente os locais filtrados
+            return atendeDataInicio && atendeDataFim && (atendeCliente || atendeStatus);
+        });
         
+        // define os valores filtrados para a tabela
+        tabelaVendas.setItems(filteredData);
     }
     
     @FXML
@@ -117,44 +144,13 @@ public class TelaVendaController extends TelaPrincipalController implements Init
     }
     
     @FXML
-    private void gerarRelatorio() { 
-        String timestamp = LocalDateTime.now().toString().replace('-', '_').replace('.', ' ').replace(':', '_');
-        String nomeArquivo = "relatorio_vendas_" + timestamp + ".pdf";
-
-        Document document = new Document();
-
-        try {
-            PdfWriter.getInstance(document, new FileOutputStream(nomeArquivo));
-            document.open();
-            String reportName = "Relatório de Vendas";
-            Paragraph title = new Paragraph(reportName);
-            title.setAlignment(Paragraph.ALIGN_CENTER);
-            document.add(title);
-
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            Date dataAtual = new Date();
-            Paragraph dataRelatorio = new Paragraph("Data do Relatório: " + dateFormat.format(dataAtual));
-            document.add(dataRelatorio);
-
-            document.add(new Paragraph("------------------------------------------------"));
-
-            for (Venda venda : vendas) {
-                document.add(new Paragraph("Cliente: " + venda.getCliente().getNome()));
-                document.add(new Paragraph("Equipamento: " + venda.getEquipamento().getNome()));
-                document.add(new Paragraph("Valor unitário: R$" + venda.getEquipamento().getPreco()));
-                document.add(new Paragraph("Quantidade: " + venda.getEquipamento().getQuantidade()));
-                document.add(new Paragraph("Total: R$" + venda.getEquipamento().getPreco() * venda.getEquipamento().getQuantidade()));
-                document.add(new Paragraph("Data: " + venda.getDataVenda()));
-                document.add(new Paragraph("Status: " + venda.getStatus()));
-                document.add(new Paragraph("Funcionário: " + venda.getFuncionario().getNome()));
-                document.add(new Paragraph("------------------------------------------------"));
-            }
-
-            document.close();
-            JOptionPane.showMessageDialog(null, "Relatório de vendas gerado com sucesso!", "Relatório Gerado", JOptionPane.INFORMATION_MESSAGE);
-        } catch (DocumentException | IOException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao gerar o relatório! VERIFIQUE OS DADOS" + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        }
+    private void telaCancelarVenda() {
+        
+    }
+    
+    @FXML
+    private void gerarRelatorioVendas() {
+        
     }
     
     @FXML

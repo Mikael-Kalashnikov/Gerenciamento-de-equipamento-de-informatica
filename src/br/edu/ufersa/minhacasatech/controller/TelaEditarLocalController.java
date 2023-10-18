@@ -21,7 +21,7 @@ public class TelaEditarLocalController extends TelaPrincipalController implement
     public void initialize(URL url, ResourceBundle rb) {
         Local local = TelaLocalController.getLocal();
         nome.setText(local.getNome());
-        compartimento.setText(local.getNomeCompartimento());
+        compartimento.setText(local.getCompartimento());
     }
     
     @FXML
@@ -29,7 +29,7 @@ public class TelaEditarLocalController extends TelaPrincipalController implement
         try {
             Local local = TelaLocalController.getLocal();
             local.setNome(nome.getText());
-            local.setNomeCompartimento(compartimento.getText());
+            local.setCompartimento(compartimento.getText());
             
             LocalBO locbo = new LocalBO();
             locbo.alterar(local);

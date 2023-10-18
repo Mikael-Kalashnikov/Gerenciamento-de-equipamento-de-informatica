@@ -15,14 +15,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 
 public class TelaEditarEquipamentoController extends TelaPrincipalController implements Initializable {
 
     @FXML private ComboBox local;
     @FXML private TextField nome;
-    @FXML private TextField preco;
-    @FXML private TextField quantidade;
+    @FXML private Spinner<Double> preco;
+    @FXML private Spinner<Integer> quantidade;
     @FXML private ComboBox responsavel;
     @FXML private TextField serial;
     
@@ -40,35 +41,24 @@ public class TelaEditarEquipamentoController extends TelaPrincipalController imp
         responsavel.getItems().setAll(eqbo.listarNomesResponsavel());
         responsavel.getSelectionModel().select(eq.getResponsavel().getNome());
         
-        preco.setText(Double.toString(eq.getPreco()));
-        quantidade.setText(Integer.toString(eq.getQuantidade()));
+        preco.getValueFactory().setValue(eq.getPreco());
+        quantidade.getValueFactory().setValue(eq.getEstoque());
     }
     
     @FXML
     private void editarEquipamento() {
         try {
-            Equipamento eq = new Equipamento();
+            Equipamento eq = TelaEquipamentoController.getEquipamento();
                 eq.setNome(nome.getText());
                 eq.setSerial(serial.getText());
-
-                // valida o campo preco
-                if (preco.getText() != null && !preco.getText().isEmpty()) {
-                    eq.setPreco(Double.parseDouble(preco.getText().replace(",", ".")));
-                } else {
-                    throw new InvalidInsertException("Preço inválido!");
-                }
-
-                // valida o campo quantidade
-                if (quantidade.getText() != null && !quantidade.getText().isEmpty()) {
-                    eq.setQuantidade(Integer.parseInt(quantidade.getText()));
-                } else {
-                    throw new InvalidInsertException("Quantidade inválida!");
-                }
-
+                
                 String nomeCompartimento = local.getSelectionModel().getSelectedItem().toString();
                 String n = nomeCompartimento.split(", ")[0];
                 String c = nomeCompartimento.split(", ")[1];
-
+                
+                eq.setPreco(preco.getValue());
+                eq.setEstoque(quantidade.getValue());
+                
                 LocalBO locbo = new LocalBO();
                 Local loc = new Local(n, c);
                 loc = locbo.buscarPorNomeCompartimento(loc);

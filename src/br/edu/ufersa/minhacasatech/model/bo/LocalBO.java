@@ -52,7 +52,7 @@ public class LocalBO implements BaseBO<Local> {
     
     public ArrayList<String> listarNomes() {
         locdao = new LocalDAO();
-        return locdao.listarNomes();
+        return locdao.listarLocais();
     }
     
     @Override

@@ -12,15 +12,19 @@ public class Funcionario {
     private String telefone;
     private String cpf;
     private String endereco;
-    private double vendas;
+    private double totalVendas;
     private boolean isResponsavel;
     private String dataCadastro;
     
     public Funcionario() {}
     
-    public Funcionario(String login, String senha) throws InvalidInsertException {
+    public Funcionario(String nome, String login, String senha, String telefone, String cpf, String endereco) throws InvalidInsertException {
+        setNome(nome);
 	setLogin(login);
 	setSenha(senha);
+        setTelefone(telefone);
+        setCpf(cpf);
+        setEndereco(endereco);
     }
     
     public Long getId() {
@@ -73,7 +77,7 @@ public class Funcionario {
     }
     
     public void setEndereco(String endereco) throws InvalidInsertException {
-        if (endereco != null) {
+        if (endereco != null && !endereco.isEmpty() && enderecoValido(endereco)) {
             this.endereco = endereco;
         }
         else {
@@ -94,7 +98,7 @@ public class Funcionario {
 	if (telefone != null && !telefone.isEmpty() && telefoneValido(telefone))
 	   this.telefone = telefone;
 	else
-	    throw new InvalidInsertException("Telefone inválido");
+	    throw new InvalidInsertException("Telefone inválido!");
     }
 
     public String getTelefone() {
@@ -117,12 +121,15 @@ public class Funcionario {
         return this.cpf;
     }
     
-    public double getVendas() {
-        return this.vendas;
+    public double getTotalVendas() {
+        return this.totalVendas;
     }
     
-    public void setVendas(double vendas) {
-        this.vendas = vendas;
+    public void setTotalVendas(double totalVendas) throws InvalidInsertException {
+        if (totalVendas >= 0.0)
+            this.totalVendas = totalVendas;
+        else
+            throw new InvalidInsertException("Valor total de vendas inválido!");
     }
     
     public void setIsResponsavel(boolean responsavel) {

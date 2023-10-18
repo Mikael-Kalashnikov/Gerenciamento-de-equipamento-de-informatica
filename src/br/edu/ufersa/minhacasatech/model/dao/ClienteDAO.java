@@ -31,7 +31,7 @@ public class ClienteDAO extends BaseDAOImp<Cliente> {
 	}
 	return id;
     }
-
+    
     @Override
     public void deletar(Cliente cli){
         String sql = "DELETE FROM cliente WHERE id = ?";
@@ -75,8 +75,8 @@ public class ClienteDAO extends BaseDAOImp<Cliente> {
             if (rs.next()) {
                 // atribui os dados de cliente
                 cliente = new Cliente(rs.getString("nome"), rs.getString("cpf"), rs.getString("telefone"),  rs.getString("endereco"));
-                cliente.setDataCadastro(rs.getDate("data_cadastro"));
                 cliente.setId(rs.getLong("id"));
+                cliente.setDataCadastro(rs.getDate("data_cadastro"));
             }
         } catch (SQLException | InvalidInsertException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -95,9 +95,9 @@ public class ClienteDAO extends BaseDAOImp<Cliente> {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 // atribui os dados de cliente
-                cliente = new Cliente(rs.getString("nome"), rs.getString("cpf"), rs.getString("telefone"), rs.getString("endereco"));
-                cliente.setDataCadastro(rs.getDate("data_cadastro"));
+                cliente = new Cliente(rs.getString("nome"), rs.getString("cpf"), rs.getString("telefone"),  rs.getString("endereco"));
                 cliente.setId(rs.getLong("id"));
+                cliente.setDataCadastro(rs.getDate("data_cadastro"));
             }
         } catch (SQLException | InvalidInsertException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -116,9 +116,9 @@ public class ClienteDAO extends BaseDAOImp<Cliente> {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 // atribui os dados de cliente
-                cliente = new Cliente(rs.getString("nome"), rs.getString("cpf"), rs.getString("telefone"), rs.getString("endereco"));
-                cliente.setDataCadastro(rs.getDate("data_cadastro"));
+                cliente = new Cliente(rs.getString("nome"), rs.getString("cpf"), rs.getString("telefone"),  rs.getString("endereco"));
                 cliente.setId(rs.getLong("id"));
+                cliente.setDataCadastro(rs.getDate("data_cadastro"));
             }
         } catch (SQLException | InvalidInsertException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -152,12 +152,12 @@ public class ClienteDAO extends BaseDAOImp<Cliente> {
 	    ResultSet rs = ps.executeQuery();
 	    while (rs.next()) {
 		// Instancia um novo objeto cliente com o endereco associado
-		Cliente cli = new Cliente(rs.getString("nome"), rs.getString("cpf"), rs.getString("telefone"), rs.getString("endereco"));
-                cli.setDataCadastro(rs.getDate("data_cadastro"));
-		cli.setId(rs.getLong("id"));
+                Cliente cliente = new Cliente(rs.getString("nome"), rs.getString("cpf"), rs.getString("telefone"),  rs.getString("endereco"));
+                cliente.setId(rs.getLong("id"));
+                cliente.setDataCadastro(rs.getDate("data_cadastro"));
 		
 		// Adiciona o cliente na lista
-		lista.add(cli);
+		lista.add(cliente);
 	    }
         } catch (SQLException | InvalidInsertException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);

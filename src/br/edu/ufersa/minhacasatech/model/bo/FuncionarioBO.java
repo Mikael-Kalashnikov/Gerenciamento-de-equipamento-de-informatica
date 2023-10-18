@@ -72,6 +72,11 @@ public class FuncionarioBO implements BaseBO<Funcionario> {
         return null;
     }
     
+    public ArrayList<String> listarNomesFuncionario() {
+        funcdao = new FuncionarioDAO();
+        return funcdao.listarNomesFuncionario();
+    }
+    
     public ArrayList<String> listarNomesResponsavel() {
         funcdao = new FuncionarioDAO();
         return funcdao.listarNomesResponsavel();

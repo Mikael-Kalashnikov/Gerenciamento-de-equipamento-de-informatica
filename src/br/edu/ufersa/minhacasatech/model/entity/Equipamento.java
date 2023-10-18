@@ -5,11 +5,14 @@ import java.sql.Date;
 import java.time.format.DateTimeFormatter;
 
 public class Equipamento {
+    
     private Long id;
     private String nome;
     private String serial;
     private double preco;
-    private int quantidade;
+    private int estoque;
+    private int qtdCompra;
+    private double valorUnitario;
     private int vendidos;
     private Local local;
     private Funcionario responsavel;
@@ -18,11 +21,13 @@ public class Equipamento {
     public Equipamento() {
     }
     
-    public Equipamento(String nome, String serial, double preco, int quantidade) throws InvalidInsertException {
+    public Equipamento(String nome, String serial, double preco, int estoque, Local local, Funcionario responsavel) throws InvalidInsertException {
 	setNome(nome);
 	setSerial(serial);
 	setPreco(preco);
-	setQuantidade(quantidade);
+	setEstoque(estoque);
+        setLocal(local);
+        setResponsavel(responsavel);
     }
     
     public Long getId() {
@@ -35,7 +40,7 @@ public class Equipamento {
 	else
 	    throw new InvalidInsertException("ID inválido!");
     }
-
+    
     public void setNome(String nome) throws InvalidInsertException {
         if (nome != null && !nome.isEmpty())
             this.nome = nome;
@@ -74,24 +79,59 @@ public class Equipamento {
         return this.preco;
     }
 
-    public void setQuantidade(int quantidade) throws InvalidInsertException {
-        if (quantidade > 0.0)
-            this.quantidade = quantidade;
+    public void setEstoque(int estoque) throws InvalidInsertException {
+        if (estoque > 0)
+            this.estoque = estoque;
         else
-            throw new InvalidInsertException("Quantidade inválida!");
+            throw new InvalidInsertException("Quantidade de equipamentos inválida!");
     }
-
-    public int getQuantidade() {
-        return this.quantidade;
+    
+    public int getEstoque() {
+        return this.estoque;
     }
-
+    
+    public void setQtdCompra(int qtdCompra) throws InvalidInsertException {
+        if (qtdCompra <= estoque) {
+            this.qtdCompra = qtdCompra;
+            estoque -= this.qtdCompra;
+        }
+        else
+            throw new InvalidInsertException("Não há quantidade disponível no estoque!\nEstoque = " + estoque);
+    }
+    
+    public int getQtdCompra() {
+        return this.estoque;
+    }
+    
+    public double getValorUnitario() {
+        return valorUnitario;
+    }
+    
+    public void setValorUnitario(double valorUnitario) throws InvalidInsertException  {
+        if (valorUnitario > 0.0)
+            this.valorUnitario = valorUnitario;
+	 else
+	    throw new InvalidInsertException("Valor unitário inválido!");
+    }
+    
+    public void setVendidos(int vendidos) throws InvalidInsertException {
+        if (vendidos >= 0)
+            this.vendidos = vendidos;
+        else
+            throw new InvalidInsertException("Quantidade de equipamentos vendidos inválida!");
+    }
+    
+    public int getVendidos() {
+        return this.vendidos;
+    }
+    
     public void setLocal(Local local) throws InvalidInsertException {
         if (local != null)
             this.local = local;
         else
             throw new InvalidInsertException("Local inválido!");
     }
-
+    
     public Local getLocal() {
         return this.local;
     }
@@ -122,6 +162,6 @@ public class Equipamento {
     
     @Override
     public String toString() {
-	return "ID: " + id + " | Nome: " + nome + " | Numero de Serie: " + serial + " | preco: R$" + preco + " | quantidade: " + quantidade + " | Local: " + local.toString() + " | Responsavel: " + responsavel.getNome();
+	return "Serial: " + serial + " | Nome: " + nome + " | preço: R$" + preco + " | estoque: " + estoque + " | Local: " + local.toString() + " | Responsável: " + responsavel.getNome();
     }
 }

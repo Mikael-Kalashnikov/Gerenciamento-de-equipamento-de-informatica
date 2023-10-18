@@ -15,7 +15,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="480.0" prefWidth="720.0" style="-fx-background-color: #3a5fcd;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.minhacasatech.controller.FrontController">
+<FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="480.0" prefWidth="720.0" style="-fx-background-color: #3a5fcd;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.minhacasatech.controller.FrontController">
    <children>
        <AnchorPane prefHeight="486.0" prefWidth="719.0" style="-fx-background-color: #ffffff;">
          <children>
@@ -31,14 +31,14 @@
                   <Font size="15.0" />
                </font>
             </TextField>
-            <ImageView disable="true" fitHeight="126.0" fitWidth="148.0" layoutX="346.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView disable="true" fitHeight="253.0" fitWidth="295.0" layoutX="293.0" layoutY="27.0" preserveRatio="true">
                <image>
-                  <Image url="@icon.png" />
+                  <Image url="@logotipo.png" />
                </image>
             </ImageView>
-            <Label contentDisplay="CENTER" layoutX="255.0" layoutY="115.0" prefHeight="81.0" prefWidth="160.0" text="Minha&#10;CasaTech" textOverrun="CLIP" wrapText="true">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="214.0" layoutY="86.0" prefHeight="123.0" prefWidth="180.0" text="Minha&#10;CasaTech" textOverrun="CLIP" wrapText="true">
                <font>
-                  <Font name="Monospaced Regular" size="24.0" />
+                  <Font name="Monospaced Regular" size="30.0" />
                </font>
                <textFill>
                   <LinearGradient endX="1.0" endY="1.0" startX="0.4218009478672986" startY="0.09004739336492891">

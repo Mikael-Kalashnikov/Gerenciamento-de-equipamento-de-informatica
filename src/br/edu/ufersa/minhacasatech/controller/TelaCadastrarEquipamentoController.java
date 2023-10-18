@@ -16,14 +16,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 
 public class TelaCadastrarEquipamentoController extends TelaPrincipalController implements Initializable {
     
     @FXML private TextField nome;
     @FXML private TextField serial;
-    @FXML private TextField quantidade;
-    @FXML private TextField preco;
+    @FXML private Spinner<Integer> quantidade;
+    @FXML private Spinner<Double> preco;
     @FXML private ComboBox local;
     @FXML private ComboBox responsavel;
     
@@ -45,23 +46,12 @@ public class TelaCadastrarEquipamentoController extends TelaPrincipalController 
             eq.setNome(nome.getText());
             eq.setSerial(serial.getText());
             
-            // valida o campo preco
-            if (preco.getText() != null && !preco.getText().isEmpty()) {
-                eq.setPreco(Double.parseDouble(preco.getText().replace(",", ".")));
-            } else {
-                throw new InvalidInsertException("Preço inválido!");
-            }
-            
-            // valida o campo quantidade
-            if (quantidade.getText() != null && !quantidade.getText().isEmpty()) {
-                eq.setQuantidade(Integer.parseInt(quantidade.getText()));
-            } else {
-                throw new InvalidInsertException("Quantidade inválida!");
-            }
-            
             String nomeCompartimento = local.getSelectionModel().getSelectedItem().toString();
             String n = nomeCompartimento.split(", ")[0];
             String c = nomeCompartimento.split(", ")[1];
+            
+            eq.setPreco(preco.getValue());
+            eq.setEstoque(quantidade.getValue());
             
             LocalBO locbo = new LocalBO();
             Local loc = new Local(n, c);

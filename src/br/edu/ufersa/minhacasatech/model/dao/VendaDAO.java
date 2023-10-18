@@ -15,23 +15,35 @@ public class VendaDAO extends BaseDAOImp<Venda> {
     
     @Override
     public Long inserir(Venda venda) {
-	String sql = "INSERT INTO venda (cliente, status, funcionario, equipamento) values (?, ?, ?, ?)";
+	String sql = "INSERT INTO venda (id_cliente, id_funcionario, status) values (?, ?, ?)";
         Long id = null;
 	try {
 	    Connection con = BaseDAOImp.getConnection();
 	    PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 	    ps.setLong(1, venda.getCliente().getId());
-	    ps.setString(2, venda.getStatus());
-            ps.setLong(3, venda.getFuncionario().getId());
-            ps.setLong(4, venda.getEquipamento().getId());
+	    ps.setLong(2, venda.getFuncionario().getId());
+            ps.setString(3, venda.getStatus());
             ps.execute();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 id = rs.getLong("id");
             }
+            
+            String sql_venda_equipamento = "INSERT INTO venda_equipamento (id_venda, id_equipamento, quantidade)"
+                    + "VALUES (?, ?, ?)";
+            List<Equipamento> equipamentos = venda.getEquipamentos();
+            for (Equipamento eq : equipamentos) {
+                ps = con.prepareStatement(sql_venda_equipamento);
+                ps.setLong(1, id);
+                ps.setLong(2, eq.getId());
+                ps.setInt(3, eq.getQtdCompra());
+                ps.execute();
+            }
 	} catch (SQLException e) {
 	    e.printStackTrace();
-	}
+	} finally {
+            BaseDAOImp.closeConnection();
+        }
 	return id;
     }
     
@@ -45,42 +57,40 @@ public class VendaDAO extends BaseDAOImp<Venda> {
 	    ps.execute();
 	} catch (SQLException e) {
 	    e.printStackTrace();
-	}
+	} finally {
+            BaseDAOImp.closeConnection();
+        }
     }
     
     @Override
     public void alterar(Venda venda) {
-	String sql = "UPDATE venda SET cliente = ?, equipamento = ?, funcionario = ?, status = ? WHERE id = ?";
+	String sql = "UPDATE venda SET id_cliente = ?, id_funcionario = ?, status = ? WHERE id = ?";
 	try {
 	    Connection con = BaseDAOImp.getConnection();
 	    PreparedStatement ps = con.prepareStatement(sql);
 	    ps.setLong(1, venda.getCliente().getId());
-	    ps.setLong(2, venda.getEquipamento().getId());
-	    ps.setLong(3, venda.getFuncionario().getId());
-	    ps.setString(4, venda.getStatus());
-	    ps.setLong(5, venda.getCliente().getId());
-	    ps.execute();
+	    ps.setLong(2, venda.getFuncionario().getId());
+            ps.setString(3, venda.getStatus());
+            ps.setLong(4, venda.getId());
+            ps.execute();
 	} catch (SQLException e) {
 	    e.printStackTrace();
-	}
+	} finally {
+            BaseDAOImp.closeConnection();
+        }
     }
     
     @Override
     public Venda buscarPorId(Venda venda) {
-	String sql = "SELECT * FROM venda WHERE id = ?";
+	String sql = "SELECT * FROM vendas_view WHERE id = ?";
 	Venda vendaEncontrada = null;
 	try {
 	    Connection con = BaseDAOImp.getConnection();
 	    PreparedStatement ps = con.prepareStatement(sql);
-	    ps.setLong(1, venda.getCliente().getId());
+	    ps.setLong(1, venda.getId());
 	    ps.execute();
 	    ResultSet rs = ps.executeQuery();
 	    if (rs.next()) {
-                EquipamentoDAO eqdao = new EquipamentoDAO();
-                Equipamento eq = new Equipamento();
-                eq.setId(rs.getLong("equipamento"));
-                eq = eqdao.buscarPorId(eq);
-                
                 FuncionarioDAO funcdao = new FuncionarioDAO();
                 Funcionario func = new Funcionario();
                 func.setId(rs.getLong("funcionario"));
@@ -91,60 +101,87 @@ public class VendaDAO extends BaseDAOImp<Venda> {
                 cli.setId(rs.getLong("cliente"));
                 cli = clidao.buscarPorId(cli);
                 
-		vendaEncontrada = new Venda();
-		vendaEncontrada.setCliente(cli);
-		vendaEncontrada.setEquipamento(eq);
-		vendaEncontrada.setFuncionario(func);
-		vendaEncontrada.setStatus(rs.getString("status"));
-                vendaEncontrada.setDataVenda(rs.getDate("data_cadastro"));
+                List<Equipamento> lista = new ArrayList<>();
+                EquipamentoDAO eqdao = new EquipamentoDAO();
+                Equipamento eq = new Equipamento();
+                eq.setId(rs.getLong("equipamento"));
+                eq = eqdao.buscarPorId(eq);
+                eq.setQtdCompra(rs.getInt("quantidade"));
+                eq.setValorUnitario(rs.getDouble("valor_unitario"));
+                lista.add(eq);
+                
+                vendaEncontrada = new Venda(cli, func);
                 vendaEncontrada.setId(rs.getLong("id"));
+                vendaEncontrada.setStatus(rs.getString("status"));
+                vendaEncontrada.setValorTotal(rs.getDouble("valor_total"));
+                vendaEncontrada.setDataVenda(rs.getDate("data_cadastro"));
+                
+                while (rs.next()) {
+                    eq.setId(rs.getLong("equipamento"));
+                    eq = eqdao.buscarPorId(eq);
+                    eq.setQtdCompra(rs.getInt("quantidade"));
+                    eq.setValorUnitario(rs.getDouble("valor_unitario"));
+                    lista.add(eq);
+                }
+                vendaEncontrada.setEquipamentos(lista);
 	    }
-	} catch (SQLException e) {
-	    e.printStackTrace();
-	} catch (InvalidInsertException ex) {
+	} catch (SQLException | InvalidInsertException ex) {
             Logger.getLogger(VendaDAO.class.getName()).log(Level.SEVERE, null, ex);
+	} finally {
+            BaseDAOImp.closeConnection();
         }
 	return vendaEncontrada;
     }
     
     @Override
     public List<Venda> listar() {
-	String sql = "SELECT * FROM venda ORDER BY id";
+	String sql = "SELECT * FROM vendas_view ORDER BY id";
 	List<Venda> listaVendas = new ArrayList<>();
 	try {
 	    Connection con = BaseDAOImp.getConnection();
 	    PreparedStatement ps = con.prepareStatement(sql);
 	    ResultSet rs = ps.executeQuery();
 	    while (rs.next()) {
-		    EquipamentoDAO eqdao = new EquipamentoDAO();
-                Equipamento eq = new Equipamento();
-                eq.setId(rs.getLong("equipamento"));
-                eq = eqdao.buscarPorId(eq);
-                
                 FuncionarioDAO funcdao = new FuncionarioDAO();
                 Funcionario func = new Funcionario();
-                func.setId(rs.getLong("funcionario"));
+                func.setId(rs.getLong("id_funcionario"));
                 func = funcdao.buscarPorId(func);
                 
                 ClienteDAO clidao = new ClienteDAO();
                 Cliente cli = new Cliente();
-                cli.setId(rs.getLong("cliente"));
+                cli.setId(rs.getLong("id_cliente"));
                 cli = clidao.buscarPorId(cli);
                 
-		Venda vendaEncontrada = new Venda();
-		vendaEncontrada.setCliente(cli);
-		vendaEncontrada.setEquipamento(eq);
-		vendaEncontrada.setFuncionario(func);
-		vendaEncontrada.setStatus(rs.getString("status"));
-                vendaEncontrada.setDataVenda(rs.getDate("data_cadastro"));
+                List<Equipamento> lista = new ArrayList<>();
+                EquipamentoDAO eqdao = new EquipamentoDAO();
+                Equipamento eq = new Equipamento();
+                eq.setId(rs.getLong("id_equipamento"));
+                eq = eqdao.buscarPorId(eq);
+                eq.setQtdCompra(rs.getInt("quantidade"));
+                eq.setValorUnitario(rs.getDouble("valor_unitario"));
+                lista.add(eq);
+                
+                Venda vendaEncontrada = new Venda(cli, func);
                 vendaEncontrada.setId(rs.getLong("id"));
-		listaVendas.add(vendaEncontrada);
+                vendaEncontrada.setStatus(rs.getString("status"));
+                vendaEncontrada.setValorTotal(rs.getDouble("valor_total"));
+                vendaEncontrada.setDataVenda(rs.getDate("data_cadastro"));
+                
+                while (rs.next()) {
+                    eq.setId(rs.getLong("id_equipamento"));
+                    eq = eqdao.buscarPorId(eq);
+                    eq.setQtdCompra(rs.getInt("quantidade"));
+                    eq.setValorUnitario(rs.getDouble("valor_unitario"));
+                    lista.add(eq);
+                }
+                vendaEncontrada.setEquipamentos(lista);
+                listaVendas.add(vendaEncontrada);
 	    }
-	} catch (SQLException e) {
-	    e.printStackTrace();
-	} catch (InvalidInsertException e) {
-	    e.printStackTrace();
-	}
+	} catch (SQLException | InvalidInsertException ex) {
+            Logger.getLogger(VendaDAO.class.getName()).log(Level.SEVERE, null, ex);
+	} finally {
+            BaseDAOImp.closeConnection();
+        }
 	return listaVendas;
     }
 }

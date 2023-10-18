@@ -7,16 +7,16 @@ import java.time.format.DateTimeFormatter;
 public class Local {
     private Long id;
     private String nome;
-    private String nomeCompartimento;
+    private String compartimento;
     private String dataCadastro;
     
     public Local() {}
     
-    public Local(String nome, String nomeCompartimento) throws InvalidInsertException {
+    public Local(String nome, String compartimento) throws InvalidInsertException {
 	setNome(nome);
-	setNomeCompartimento(nomeCompartimento);
+	setCompartimento(compartimento);
     }
-
+    
     public void setNome(String nome) throws InvalidInsertException {
         if (nome != null && !nome.isEmpty())
             this.nome = nome;
@@ -28,15 +28,15 @@ public class Local {
         return this.nome;
     }
 
-    public void setNomeCompartimento(String nomeCompartimento) throws InvalidInsertException {
-        if (nomeCompartimento != null && !nomeCompartimento.isEmpty())
-            this.nomeCompartimento = nomeCompartimento;
+    public void setCompartimento(String compartimento) throws InvalidInsertException {
+        if (compartimento != null && !compartimento.isEmpty())
+            this.compartimento = compartimento;
         else
 	    throw new InvalidInsertException("Compartimento inválido");
     }
 
-    public String getNomeCompartimento() {
-        return this.nomeCompartimento;
+    public String getCompartimento() {
+        return this.compartimento;
     }
 
     public Long getId() {
@@ -65,6 +65,6 @@ public class Local {
 
     @Override
     public String toString() {
-        return nome + ", " + nomeCompartimento;
+        return nome + ", " + compartimento;
     }
 }

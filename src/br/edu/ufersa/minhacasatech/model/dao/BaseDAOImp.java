@@ -7,31 +7,31 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public abstract class BaseDAOImp<Entity> implements BaseDAO<Entity> {
-
+    
     static final String URL = "jdbc:postgresql:projetopoo";
     static final String USER = "postgres";
     static final String PASS = "netodev";
     static Connection conn = null;
-
+    
     public static Connection getConnection() {
-        if (conn == null) {
+	if(conn == null) {
             try {
                 conn = DriverManager.getConnection(URL, USER, PASS);
             } catch (SQLException ex) {
                 Logger.getLogger(BaseDAOImp.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        return conn;
+	}
+	return conn;
     }
-
+    
     public static void closeConnection() {
-        if (conn != null) {
+	if (conn != null) {
             try {
                 conn.close();
             } catch (SQLException ex) {
                 Logger.getLogger(BaseDAOImp.class.getName()).log(Level.SEVERE, null, ex);
             }
             conn = null;
-        }
+	}
     }
 }
