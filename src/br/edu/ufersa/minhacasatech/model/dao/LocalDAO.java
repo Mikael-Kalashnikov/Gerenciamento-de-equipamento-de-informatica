@@ -12,7 +12,7 @@ public class LocalDAO extends BaseDAOImp<Local> {
     
     @Override
     public Long inserir(Local loc) {
-	String sql = "INSERT INTO local (nome, nome_compartimento) values (?, ?)";
+	String sql = "INSERT INTO local (nome, compartimento) values (?, ?)";
 	Long id = null;
 	try {
             Connection con = BaseDAOImp.getConnection();
@@ -49,7 +49,7 @@ public class LocalDAO extends BaseDAOImp<Local> {
     
     @Override
     public void alterar(Local loc){
-	String sql = "UPDATE local SET nome = ?, nome_compartimento = ? WHERE id = ?";
+	String sql = "UPDATE local SET nome = ?, compartimento = ? WHERE id = ?";
 	try {
 	    Connection con = BaseDAOImp.getConnection();
 	    PreparedStatement ps = con.prepareStatement(sql);
@@ -75,7 +75,7 @@ public class LocalDAO extends BaseDAOImp<Local> {
 	    ps.execute();
 	    ResultSet rs = ps.executeQuery();
 	    if (rs.next()) {
-		local = new Local(rs.getString("nome"), rs.getString("nome_compartimento"));
+		local = new Local(rs.getString("nome"), rs.getString("compartimento"));
 		local.setId(rs.getLong("id"));
                 local.setDataCadastro(rs.getDate("data_cadastro"));
 	    }
@@ -98,7 +98,7 @@ public class LocalDAO extends BaseDAOImp<Local> {
 	    ps.execute();
 	    ResultSet rs = ps.executeQuery();
 	    if (rs.next()) {
-		local = new Local(rs.getString("nome"), rs.getString("nome_compartimento"));
+		local = new Local(rs.getString("nome"), rs.getString("compartimento"));
 		local.setId(rs.getLong("id"));
                 local.setDataCadastro(rs.getDate("data_cadastro"));
 	    }
@@ -111,14 +111,14 @@ public class LocalDAO extends BaseDAOImp<Local> {
     }
     
     public ArrayList<String> listarNomes() {
-        String sql = "SELECT nome, nome_compartimento FROM local ORDER BY id";
+        String sql = "SELECT nome, compartimento FROM local ORDER BY id";
 	ArrayList<String> nomes = new ArrayList<>();
 	try {
 	    Connection con = BaseDAOImp.getConnection();
 	    PreparedStatement ps = con.prepareStatement(sql);
 	    ResultSet rs = ps.executeQuery();
 	    while (rs.next()) {
-                nomes.add(rs.getString("nome") + ", " + rs.getString("nome_compartimento"));
+                nomes.add(rs.getString("nome") + ", " + rs.getString("compartimento"));
 	    }
 	} catch (SQLException ex) {
 	    Logger.getLogger(LocalDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -137,7 +137,7 @@ public class LocalDAO extends BaseDAOImp<Local> {
 	    PreparedStatement ps = con.prepareStatement(sql);
 	    ResultSet rs = ps.executeQuery();
 	    while (rs.next()) {
-		Local loc = new Local(rs.getString("nome"), rs.getString("nome_compartimento"));
+		Local loc = new Local(rs.getString("nome"), rs.getString("compartimento"));
 		loc.setId(rs.getLong("id"));
 		loc.setDataCadastro(rs.getDate("data_cadastro"));
 		lista.add(loc);
@@ -151,7 +151,7 @@ public class LocalDAO extends BaseDAOImp<Local> {
     }
     
     public Local existeLocal(Local loc) {
-	String sql = "SELECT * FROM local WHERE nome ILIKE ? AND nome_compartimento ILIKE ?";
+	String sql = "SELECT * FROM local WHERE nome ILIKE ? AND compartimento ILIKE ?";
 	Local local = null;
 	try {
 	    Connection con = BaseDAOImp.getConnection();
@@ -162,7 +162,7 @@ public class LocalDAO extends BaseDAOImp<Local> {
                 ps.execute();
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    local = new Local(rs.getString("nome"), rs.getString("nome_compartimento"));
+                    local = new Local(rs.getString("nome"), rs.getString("compartimento"));
                     local.setId(rs.getLong("id"));
                     local.setDataCadastro(rs.getDate("data_cadastro"));
                 }
