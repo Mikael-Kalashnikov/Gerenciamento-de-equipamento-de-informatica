@@ -91,11 +91,11 @@ public class Equipamento {
     }
     
     public void setQtdCompra(int qtdCompra) throws InvalidInsertException {
-        if (qtdCompra <= estoque) {
+        if (qtdCompra > 0) {
             this.qtdCompra = qtdCompra;
         }
         else
-            throw new InvalidInsertException("Não há quantidade disponível no estoque!\nEstoque = " + estoque);
+            throw new InvalidInsertException("Estoque invalido");
     }
     
     public int getQtdCompra() {

@@ -55,7 +55,7 @@ public class EquipamentoDAO extends BaseDAOImp<Equipamento> {
     
     @Override
     public void alterar(Equipamento eq){
-	String sql = "UPDATE equipamento SET nome = ?, estoque = ?, preco = ?, num_serie = ?, id_local = ?, id_responsavel = ? WHERE id = ?";
+	String sql = "UPDATE equipamento SET nome = ?, estoque = ?, preco = ?, num_serie = ?, id_local = ?, id_responsavel = ?, vendidos = ? WHERE id = ?";
 	try {
 	    Connection con = BaseDAOImp.getConnection();
 	    PreparedStatement ps = con.prepareStatement(sql);
@@ -65,7 +65,8 @@ public class EquipamentoDAO extends BaseDAOImp<Equipamento> {
             ps.setString(4, eq.getSerial());
 	    ps.setLong(5, eq.getLocal().getId());
             ps.setLong(6, eq.getResponsavel().getId());
-            ps.setLong(7, eq.getId());
+            ps.setInt(7, eq.getVendidos());
+            ps.setLong(8, eq.getId());
 	    ps.execute();
 	} catch (SQLException ex) {
 	    Logger.getLogger(EquipamentoDAO.class.getName()).log(Level.SEVERE, null, ex);

@@ -42,7 +42,7 @@ public class TelaCadastrarVendaController extends TelaPrincipalController implem
     private Spinner<Integer> quantidade;
     
     private static final List<Equipamento> selectedEquipamentos = new ArrayList<>();
-    private int total = 0;
+    private double total = 0;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -110,15 +110,23 @@ public class TelaCadastrarVendaController extends TelaPrincipalController implem
             venda.setCliente(cli);
             venda.setFuncionario(func);
             
+            total = 0;
             List<Equipamento> eqs = new ArrayList<>();
             for (Equipamento eq : selectedEquipamentos) {
+                eq.setQtdCompra(quantidade.getValue());
+                int vendidos = eq.getVendidos() + quantidade.getValue();
+                eq.setVendidos(vendidos);
+                total += eq.getQtdCompra() * eq.getPreco();
+                
                 eqs.add(eq);
+                
+                EquipamentoBO atualizarEstoque = new EquipamentoBO();
+                atualizarEstoque.alterar(eq);
             }
             venda.setEquipamentos(eqs);
-            
             venda.setStatus(status.getSelectionModel().getSelectedItem());
             venda.setValorTotal(total);
-            vbo.cadastrar(venda);
+            vbo.cadastrar(venda);            
             Dialog dialog = FrontController.callDialogPane("Message", "Venda cadastrada com sucesso!");
             dialog.showAndWait();
         } catch (InvalidInsertException | AlreadyExistsException ex) {

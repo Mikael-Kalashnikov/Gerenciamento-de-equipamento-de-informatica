@@ -9,7 +9,16 @@ import br.edu.ufersa.minhacasatech.model.entity.Equipamento;
 import br.edu.ufersa.minhacasatech.model.entity.Funcionario;
 import br.edu.ufersa.minhacasatech.model.entity.Venda;
 import br.edu.ufersa.minhacasatech.view.Telas;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +39,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javax.swing.JOptionPane;
 
 public class TelaVendaController extends TelaPrincipalController implements Initializable {
     
@@ -163,9 +173,6 @@ public class TelaVendaController extends TelaPrincipalController implements Init
     private void aprovarVenda() {
         VendaBO vbo = new VendaBO();
         try {
-            List<Equipamento> vendaEquipamentos = TelaCadastrarVendaController.getEquipamentos();
-            
-            
             selected.setStatus("Aprovada");
             vbo.alterar(selected);
         } catch (InvalidInsertException ex) {
@@ -224,7 +231,46 @@ public class TelaVendaController extends TelaPrincipalController implements Init
     
     @FXML
     private void gerarRelatorioVendas() {
-        
+        String timestamp = LocalDateTime.now().toString().replace('-', '_').replace('.', ' ').replace(':', '_');
+                String nomeArquivo = "relatorio_vendas_" + timestamp + ".pdf";
+
+                Document document = new Document();
+
+                try {
+                    PdfWriter.getInstance(document, new FileOutputStream(nomeArquivo));
+                    document.open();
+                    String reportName = "Relatório de Vendas";
+                    Paragraph title = new Paragraph(reportName);
+                    title.setAlignment(Paragraph.ALIGN_CENTER);
+                    document.add(title);
+
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                    Date dataAtual = new Date();
+                    Paragraph dataRelatorio = new Paragraph("Data do Relatório: " + dateFormat.format(dataAtual));
+                    document.add(dataRelatorio);
+
+                    document.add(new Paragraph("------------------------------------------------"));
+
+                    for (Venda venda : filteredData) {
+                        document.add(new Paragraph("Cliente: " + venda.getCliente().getNome()));
+                        
+                        document.add(new Paragraph("Equipamento: " + venda.getEquipamentos().get(0).getNome()));
+                        document.add(new Paragraph("Serial: " + venda.getEquipamentos().get(0).getSerial()));
+                        document.add(new Paragraph("Valor unitário: R$" + venda.getEquipamentos().get(0).getValorUnitario()));
+                        document.add(new Paragraph("Quantidade: " + venda.getEquipamentos().get(0).getVendidos()));
+                        
+                        document.add(new Paragraph("Total: R$" + venda.getValorTotal()));
+                        document.add(new Paragraph("Data: " + venda.getDataVenda()));
+                        document.add(new Paragraph("Status: " + venda.getStatus()));
+                        document.add(new Paragraph("Funcionário: " + venda.getFuncionario().getNome()));
+                        document.add(new Paragraph("------------------------------------------------"));
+                    }
+
+                    document.close();
+                    JOptionPane.showMessageDialog(null, "Relatório de vendas gerado com sucesso!", "Relatório Gerado", JOptionPane.INFORMATION_MESSAGE);
+                } catch (DocumentException | IOException e) {
+                    JOptionPane.showMessageDialog(null, "Erro ao gerar o relatório! VERIFIQUE OS DADOS" + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
     
     @FXML

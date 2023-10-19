@@ -17,7 +17,7 @@ public class VendaDAO extends BaseDAOImp<Venda> {
     
     @Override
     public Long inserir(Venda venda) {
-	String sql = "INSERT INTO venda (id_cliente, id_funcionario, status) values (?, ?, ?)";
+	String sql = "INSERT INTO venda (id_cliente, id_funcionario, status, valor_total) values (?, ?, ?, ?)";
         Long id = null;
 	try {
 	    Connection con = BaseDAOImp.getConnection();
@@ -25,6 +25,7 @@ public class VendaDAO extends BaseDAOImp<Venda> {
 	    ps.setLong(1, venda.getCliente().getId());
 	    ps.setLong(2, venda.getFuncionario().getId());
             ps.setString(3, venda.getStatus());
+            ps.setDouble(4, venda.getValorTotal());
             ps.execute();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -156,6 +157,7 @@ public class VendaDAO extends BaseDAOImp<Venda> {
 	String sql = "SELECT * FROM vendas_view ORDER BY id";
 	Map<Long, Venda> vendas = new HashMap<>();
         List<Venda> listaVendas = new ArrayList<>();
+        List<Equipamento> equipamentos = new ArrayList<>();
 	try {
 	    Connection con = BaseDAOImp.getConnection();
 	    PreparedStatement ps = con.prepareStatement(sql);
@@ -192,9 +194,11 @@ public class VendaDAO extends BaseDAOImp<Venda> {
                 eq = eqdao.buscarPorId(eq);
                 eq.setQtdCompra(rs.getInt("quantidade"));
                 eq.setValorUnitario(rs.getDouble("valor_unitario"));
+                equipamentos.add(eq);
                 
                 Venda vendaAtual = vendas.get(vendaId);
                 vendaAtual.getEquipamentosNome().put(eq.getNome(), eq.getQtdCompra());
+                vendaAtual.setEquipamentos(equipamentos);
             }
             listaVendas = new ArrayList<>(vendas.values());
 	} catch (SQLException | InvalidInsertException ex) {
