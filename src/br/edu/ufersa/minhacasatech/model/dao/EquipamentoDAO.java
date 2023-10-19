@@ -108,6 +108,39 @@ public class EquipamentoDAO extends BaseDAOImp<Equipamento> {
 	return equipamento;
     }
     
+    public Equipamento buscarPorNome(Equipamento eq){
+	String sql = "SELECT * FROM equipamento WHERE nome = ?";
+	Equipamento equipamento = null;
+	try {
+	    Connection con = BaseDAOImp.getConnection();
+	    PreparedStatement ps = con.prepareStatement(sql);
+	    ps.setString(1, eq.getNome());
+	    ps.execute();
+	    ResultSet rs = ps.executeQuery();
+	    if (rs.next()) {
+                Local local = new Local();
+		LocalDAO locdao = new LocalDAO();
+                local.setId(rs.getLong("id_local"));
+                local = locdao.buscarPorId(local);
+		
+                Funcionario responsavel = new Funcionario();
+                FuncionarioDAO funcdao = new FuncionarioDAO();
+                responsavel.setId(rs.getLong("id_responsavel"));
+		responsavel = funcdao.buscarPorId(responsavel);
+		
+		equipamento = new Equipamento(rs.getString("nome"), rs.getString("num_serie"), rs.getDouble("preco"), rs.getInt("estoque"), local, responsavel);
+                equipamento.setId(rs.getLong("id"));
+                equipamento.setVendidos(rs.getInt("vendidos"));
+                equipamento.setDataCadastro(rs.getDate("data_cadastro"));
+	    }
+	} catch (SQLException | InvalidInsertException ex) {
+	    Logger.getLogger(EquipamentoDAO.class.getName()).log(Level.SEVERE, null, ex);
+	} finally {
+            BaseDAOImp.closeConnection();
+        }
+	return equipamento;
+    }
+    
     public Equipamento buscarPorSerial(Equipamento eq){
 	String sql = "SELECT * FROM equipamento WHERE num_serie = ?";
 	Equipamento equipamento = null;

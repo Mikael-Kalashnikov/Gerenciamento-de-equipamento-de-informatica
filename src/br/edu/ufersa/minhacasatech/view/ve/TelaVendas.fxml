@@ -147,10 +147,8 @@
           <TableColumn fx:id="idColumn" prefWidth="40.0" text="Id" />
           <TableColumn fx:id="clienteColumn" prefWidth="113.0" text="Cliente" />
             <TableColumn fx:id="equipamentoColumn" prefWidth="133.0" text="Equipamento" />
-            <TableColumn fx:id="responsavelColumn" prefWidth="119.0" text="Responsável" />
+            <TableColumn fx:id="responsavelColumn" prefWidth="119.0" text="Funcionário" />
             <TableColumn fx:id="statusColumn" prefWidth="111.0" text="Status" />
-            <TableColumn fx:id="quantidadeColumn" prefWidth="74.0" text="Quantidade" />
-            <TableColumn fx:id="unitarioColumn" prefWidth="78.0" text="Valor Unitário" />
             <TableColumn fx:id="totalColumn" prefWidth="56.0" text="Total" />
             <TableColumn fx:id="dataColumn" prefWidth="84.0" text="Data" />
         </columns>

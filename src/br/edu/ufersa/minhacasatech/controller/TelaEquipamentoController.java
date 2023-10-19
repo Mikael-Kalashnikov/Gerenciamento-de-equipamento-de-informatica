@@ -98,7 +98,7 @@ public class TelaEquipamentoController extends TelaPrincipalController implement
             String iniData = dataInicio.getText();
             String fimData = dataFim.getText();
             String pesquisa = pesquisarEquipamento.getText().toLowerCase();
-            boolean atendeNome, atendeDataInicio, atendeDataFim;
+            boolean atendeNome, atendeSerial, atendeLocal, atendeResponsavel, atendeDataInicio, atendeDataFim;
             // verifica se o usuario digitou a data inicial
             if (iniData == null || iniData.isEmpty())
                 atendeDataInicio = true;
@@ -112,13 +112,20 @@ public class TelaEquipamentoController extends TelaPrincipalController implement
             // verifica se o usuario digitou algo no campo de pesquisa
             if (pesquisa == null || pesquisa.isEmpty()) {
                 atendeNome = true;
+                atendeSerial = true;
+                atendeLocal = true;
+                atendeResponsavel = true;
             }
             else {
                 atendeNome = funcionario.getNome().toLowerCase().contains(pesquisa);
+                atendeSerial = funcionario.getSerial().toLowerCase().contains(pesquisa);
+                atendeLocal = funcionario.getLocal().getNome().toLowerCase().contains(pesquisa)
+                        || funcionario.getLocal().getCompartimento().toLowerCase().contains(pesquisa);
+                atendeResponsavel = funcionario.getResponsavel().getNome().toLowerCase().contains(pesquisa);
             }
             
             // retorna somente os locais filtrados
-            return atendeDataInicio && atendeDataFim && atendeNome;
+            return atendeDataInicio && atendeDataFim && (atendeNome || atendeSerial || atendeLocal || atendeResponsavel);
         });
         
         // define os valores filtrados para a tabela
@@ -132,12 +139,6 @@ public class TelaEquipamentoController extends TelaPrincipalController implement
         Dialog success = FrontController.callDialogPane("Message", "Equipamento excluído");
         success.showAndWait();
         telaEquipamentos();
-    }
-    
-    @FXML
-    private void gerarRelatorioEquipamentos() {
-        // TODO
-        
     }
     
     @FXML

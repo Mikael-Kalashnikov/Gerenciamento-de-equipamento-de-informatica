@@ -17,6 +17,32 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: atualiza_valor_unitario(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.atualiza_valor_unitario() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+  SELECT preco
+  INTO NEW.valor_unitario
+  FROM Equipamento
+  WHERE id = NEW.id_equipamento;
+
+  IF NEW.quantidade >= 3 THEN
+    NEW.valor_unitario = 0.9 * (NEW.quantidade * NEW.valor_unitario);
+  ELSE
+    NEW.valor_unitario = NEW.quantidade * NEW.valor_unitario;
+  END IF;
+
+  RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.atualiza_valor_unitario() OWNER TO postgres;
+
+--
 -- Name: calcular_valor_unitario(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -347,12 +373,13 @@ COPY public.cliente (id, nome, cpf, telefone, data_cadastro, endereco) FROM stdi
 --
 
 COPY public.equipamento (id, nome, estoque, preco, num_serie, data_cadastro, id_local, vendidos, id_responsavel) FROM stdin;
-3	Headset	22	90.00	PQRS84PQRS-4745	2023-10-17	2	0	1
 4	Mouse	40	67.80	LIWDJEI12O-8SK2	2023-10-18	3	0	1
 6	Cadeira Gamer	10	500.78	LADAIWJ219-2192	2023-10-18	4	0	2
 10	Monitor	10	585.00	KDJWLI128L-2193	2023-10-18	2	0	1
 11	Geladeira Gamer	1	1000.00	KDJAWLIJKK-9123	2023-10-18	6	0	1
 12	Equipamento	12	120.00	LDJAWIL1S2-319K	2023-10-18	2	0	1
+13	Computador Quântico	1	900000.00	XXXXXXXXXX-XXXX	2023-10-19	7	0	1
+3	Headset	18	90.00	PQRS84PQRS-4745	2023-10-17	3	0	1
 \.
 
 
@@ -364,6 +391,7 @@ COPY public.funcionario (id, is_responsavel, nome, cpf, login, senha, telefone, 
 1	t	Kanalense	017.246.785-71	kanalense	kanalense123	(84)99132-9467	Avenida Rio Branco, 400	2023-10-17	0.00
 2	t	Toinho	489.456.174-94	toinho	toinho123	(84)99176-3320	Avenida Rio Branco, 444	2023-10-17	0.00
 3	f	Marcos	462.761.842-32	marcao	marcao123	(84)99174-3320	Rua dos Lobos, 0	2023-10-17	0.00
+6	f	Afonso	106.159.494-79	afonso	afo123	(84)99802-1287	Rua Seis de Janeiro, 882	2023-10-19	0.00
 \.
 
 
@@ -377,6 +405,7 @@ COPY public.local (id, nome, compartimento, data_cadastro) FROM stdin;
 4	Casa do Toinho	Sala	2023-10-18
 5	Casa do Toinho	Quarto	2023-10-18
 6	Casa do Kanalense	Despensa	2023-10-18
+7	A CASA	Ali	2023-10-19
 \.
 
 
@@ -385,6 +414,7 @@ COPY public.local (id, nome, compartimento, data_cadastro) FROM stdin;
 --
 
 COPY public.venda (id, status, valor_total, data_cadastro, id_cliente, id_funcionario) FROM stdin;
+33	Em Andamento	0.00	2023-10-19	3	6
 \.
 
 
@@ -393,6 +423,7 @@ COPY public.venda (id, status, valor_total, data_cadastro, id_cliente, id_funcio
 --
 
 COPY public.venda_equipamento (id_venda, id_equipamento, quantidade, valor_unitario) FROM stdin;
+33	3	2	180.00
 \.
 
 
@@ -407,28 +438,28 @@ SELECT pg_catalog.setval('public.cliente_id_seq', 3, true);
 -- Name: equipamento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.equipamento_id_seq', 12, true);
+SELECT pg_catalog.setval('public.equipamento_id_seq', 13, true);
 
 
 --
 -- Name: funcionario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.funcionario_id_seq', 5, true);
+SELECT pg_catalog.setval('public.funcionario_id_seq', 6, true);
 
 
 --
 -- Name: local_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.local_id_seq', 6, true);
+SELECT pg_catalog.setval('public.local_id_seq', 7, true);
 
 
 --
 -- Name: venda_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.venda_id_seq', 11, true);
+SELECT pg_catalog.setval('public.venda_id_seq', 33, true);
 
 
 --
@@ -477,6 +508,13 @@ ALTER TABLE ONLY public.venda_equipamento
 
 ALTER TABLE ONLY public.venda
     ADD CONSTRAINT venda_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: venda_equipamento calcular_valor_unitario; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER calcular_valor_unitario BEFORE INSERT OR UPDATE ON public.venda_equipamento FOR EACH ROW EXECUTE FUNCTION public.atualiza_valor_unitario();
 
 
 --

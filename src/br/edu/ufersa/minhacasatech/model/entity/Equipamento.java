@@ -80,7 +80,7 @@ public class Equipamento {
     }
 
     public void setEstoque(int estoque) throws InvalidInsertException {
-        if (estoque > 0)
+        if (estoque >= 0)
             this.estoque = estoque;
         else
             throw new InvalidInsertException("Quantidade de equipamentos inválida!");
@@ -93,14 +93,13 @@ public class Equipamento {
     public void setQtdCompra(int qtdCompra) throws InvalidInsertException {
         if (qtdCompra <= estoque) {
             this.qtdCompra = qtdCompra;
-            estoque -= this.qtdCompra;
         }
         else
             throw new InvalidInsertException("Não há quantidade disponível no estoque!\nEstoque = " + estoque);
     }
     
     public int getQtdCompra() {
-        return this.estoque;
+        return this.qtdCompra;
     }
     
     public double getValorUnitario() {

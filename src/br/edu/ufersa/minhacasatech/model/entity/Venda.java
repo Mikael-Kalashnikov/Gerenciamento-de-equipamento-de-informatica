@@ -3,17 +3,19 @@ package br.edu.ufersa.minhacasatech.model.entity;
 import br.edu.ufersa.minhacasatech.exception.InvalidInsertException;
 import java.sql.Date;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 
 public class Venda {
     
-    private Long id;                        // venda
-    private Funcionario funcionario;        // venda
-    private Cliente cliente;                // venda
-    private List<Equipamento> equipamentos; // venda_equipamento
-    private double valorTotal;              // venda
-    private String status;                  // venda
-    private String dataVenda;               // venda    
+    private Long id;                                // venda
+    private Funcionario funcionario;                // venda
+    private Cliente cliente;                        // venda
+    private HashMap<String, Integer> eqpsNome;      // venda_equipamento
+    private List<Equipamento> equipamentos;         // venda
+    private double valorTotal;                      // venda
+    private String status;                          // venda
+    private String dataVenda;                       // venda    
     
     public Venda() {}
     
@@ -42,6 +44,17 @@ public class Venda {
             this.cliente = cliente;
 	 else
 	    throw new InvalidInsertException("Cliente inválido!");
+    }
+    
+    public HashMap<String, Integer> getEquipamentosNome() {
+        return eqpsNome;
+    }
+    
+    public void setEquipamentosNome(HashMap<String, Integer> eqpsNome) throws InvalidInsertException {
+        if (eqpsNome != null)
+            this.eqpsNome = eqpsNome;
+        else
+	    throw new InvalidInsertException("Equipamento inválido!");
     }
     
     public List<Equipamento> getEquipamentos() {

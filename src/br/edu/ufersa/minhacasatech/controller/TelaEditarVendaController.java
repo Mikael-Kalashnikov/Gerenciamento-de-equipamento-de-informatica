@@ -1,15 +1,12 @@
 package br.edu.ufersa.minhacasatech.controller;
 
-import br.edu.ufersa.minhacasatech.exception.AlreadyExistsException;
+import static br.edu.ufersa.minhacasatech.controller.TelaPrincipalController.user;
 import br.edu.ufersa.minhacasatech.exception.InvalidInsertException;
 import br.edu.ufersa.minhacasatech.model.bo.ClienteBO;
 import br.edu.ufersa.minhacasatech.model.bo.EquipamentoBO;
 import br.edu.ufersa.minhacasatech.model.bo.FuncionarioBO;
 import br.edu.ufersa.minhacasatech.model.bo.VendaBO;
-import br.edu.ufersa.minhacasatech.model.entity.Cliente;
 import br.edu.ufersa.minhacasatech.model.entity.Equipamento;
-import br.edu.ufersa.minhacasatech.model.entity.Funcionario;
-import br.edu.ufersa.minhacasatech.model.entity.Venda;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +23,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
 
-public class TelaCadastrarVendaController extends TelaPrincipalController implements Initializable {
+public class TelaEditarVendaController extends TelaPrincipalController implements Initializable {
 
     @FXML
     private ComboBox<String> cliente;
@@ -41,7 +38,7 @@ public class TelaCadastrarVendaController extends TelaPrincipalController implem
     @FXML
     private Spinner<Integer> quantidade;
     
-    private static final List<Equipamento> selectedEquipamentos = new ArrayList<>();
+    private final List<Equipamento> selectedEquipamentos = new ArrayList<>();
     private int total = 0;
     
     @Override
@@ -69,11 +66,19 @@ public class TelaCadastrarVendaController extends TelaPrincipalController implem
         adicionar.setOnAction(e -> {
             try {
                 int qtd = quantidade.getValue();
-                Equipamento eq = listView.getSelectionModel().getSelectedItem();
-                total += eq.getPreco() * qtd;
-                eq.setQtdCompra(qtd);
-                eq.setEstoque(eq.getEstoque() - qtd);
-                selectedEquipamentos.add(eq);
+                int i = 0;
+                do {
+                    Equipamento eq = listView.getSelectionModel().getSelectedItem();
+                    eq.setQtdCompra(qtd);
+                    eq.setVendidos(i);
+                    total += eq.getValorUnitario();
+                    selectedEquipamentos.add(eq);
+                    i++;
+                } while (i < qtd);
+                for (Equipamento eq : selectedEquipamentos) {
+                    System.out.println(eq);
+                    System.out.print(eq.getQtdCompra());
+                }
             } catch (InvalidInsertException ex) {
                 ex.printStackTrace();
                 Dialog dialog = FrontController.callDialogPane("Error", ex.getMessage());
@@ -83,53 +88,17 @@ public class TelaCadastrarVendaController extends TelaPrincipalController implem
     }
     
     @FXML
-    private void cadastrarVenda() {
+    private void editarVenda() {
         try {
-            if (cliente.getSelectionModel().getSelectedItem() == null) {
-                throw new InvalidInsertException("Cliente inválido!");
-            }
-            if (funcionario.getSelectionModel().getSelectedItem() == null) {
-                throw new InvalidInsertException("Funcionário inválido!");
-            }
-            if (status.getSelectionModel().getSelectedItem() == null) {
-                throw new InvalidInsertException("Status inválido!");
-            }
-            
-            Cliente cli = new Cliente();
-            cli.setNome(cliente.getSelectionModel().getSelectedItem());
-            ClienteBO clibo = new ClienteBO();
-            cli = clibo.buscarPorNome(cli);
-            
-            FuncionarioBO funcbo = new FuncionarioBO();
-            Funcionario func = new Funcionario();
-            func.setNome(funcionario.getSelectionModel().getSelectedItem());
-            func = funcbo.buscarPorNome(func);
-            
             VendaBO vbo = new VendaBO();
-            Venda venda = new Venda();
-            venda.setCliente(cli);
-            venda.setFuncionario(func);
-            
-            List<Equipamento> eqs = new ArrayList<>();
-            for (Equipamento eq : selectedEquipamentos) {
-                eqs.add(eq);
-            }
-            venda.setEquipamentos(eqs);
-            
-            venda.setStatus(status.getSelectionModel().getSelectedItem());
-            venda.setValorTotal(total);
-            vbo.cadastrar(venda);
-            Dialog dialog = FrontController.callDialogPane("Message", "Venda cadastrada com sucesso!");
-            dialog.showAndWait();
-        } catch (InvalidInsertException | AlreadyExistsException ex) {
-            Logger.getLogger(TelaCadastrarVendaController.class.getName()).log(Level.SEVERE, null, ex);
-            Dialog dialog = FrontController.callDialogPane("Error", ex.getMessage());
-            dialog.showAndWait();
+            vbo.alterar(TelaVendaController.getVenda());
+            Dialog success = FrontController.callDialogPane("Message", "Venda editada com sucesso");
+            success.showAndWait();
+        } catch (InvalidInsertException ex) {
+            Logger.getLogger(TelaEditarVendaController.class.getName()).log(Level.SEVERE, null, ex);
+            Dialog error = FrontController.callDialogPane("Error", ex.getMessage());
+            error.showAndWait();
         }
-    }
-    
-    public static List<Equipamento> getEquipamentos() {
-        return selectedEquipamentos;
     }
     
     @FXML
